@@ -22,19 +22,19 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 
 public enum LoginStatus: SwiftProtobuf.Enum, Swift.CaseIterable {
   public typealias RawValue = Int
-  case ___ // = 0
+  case loginStatus_ // = 0
   case `default` // = 1
   case logging // = 2
   case logged // = 3
   case UNRECOGNIZED(Int)
 
   public init() {
-    self = .___
+    self = .loginStatus_
   }
 
   public init?(rawValue: Int) {
     switch rawValue {
-    case 0: self = .___
+    case 0: self = .loginStatus_
     case 1: self = .default
     case 2: self = .logging
     case 3: self = .logged
@@ -44,7 +44,7 @@ public enum LoginStatus: SwiftProtobuf.Enum, Swift.CaseIterable {
 
   public var rawValue: Int {
     switch self {
-    case .___: return 0
+    case .loginStatus_: return 0
     case .default: return 1
     case .logging: return 2
     case .logged: return 3
@@ -54,7 +54,7 @@ public enum LoginStatus: SwiftProtobuf.Enum, Swift.CaseIterable {
 
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static let allCases: [LoginStatus] = [
-    .___,
+    .loginStatus_,
     .default,
     .logging,
     .logged,
@@ -224,7 +224,7 @@ public struct GetLoginStatusResp: Sendable {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var status: LoginStatus = .___
+  public var status: LoginStatus = .loginStatus_
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -259,7 +259,7 @@ fileprivate let _protobuf_package = "openim.init"
 
 extension LoginStatus: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "_"),
+    0: .same(proto: "LoginStatus_"),
     1: .same(proto: "Default"),
     2: .same(proto: "Logging"),
     3: .same(proto: "Logged"),
@@ -636,7 +636,7 @@ extension GetLoginStatusResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.status != .___ {
+    if self.status != .loginStatus_ {
       try visitor.visitSingularEnumField(value: self.status, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)

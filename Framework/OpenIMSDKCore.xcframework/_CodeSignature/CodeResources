@@ -4,41 +4,9 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>._Info.plist</key>
-		<data>
-		A77J1A/seJyB3ZClIIXOusSyibk=
-		</data>
-		<key>._ios-arm64</key>
-		<data>
-		zlY2sVSjsazEj2Js6M1/K7qJV0c=
-		</data>
-		<key>._ios-arm64-simulator</key>
-		<data>
-		mfNdOWIBCYL+GNB7nycjDqkbDBE=
-		</data>
-		<key>ios-arm64-simulator/._OpenIMSDKCore.framework</key>
-		<data>
-		L6OcA/P0Bf2ERiC6jo9t1FzV6X4=
-		</data>
-		<key>ios-arm64-simulator/OpenIMSDKCore.framework/._Headers</key>
-		<data>
-		880R7ZSOZ8gktIO9DkLiABIuafQ=
-		</data>
-		<key>ios-arm64-simulator/OpenIMSDKCore.framework/._Info.plist</key>
-		<data>
-		zLyGn3TPwR7NQwiVIs+GFv2zB14=
-		</data>
-		<key>ios-arm64-simulator/OpenIMSDKCore.framework/._Modules</key>
-		<data>
-		dapQSUOyDX8Dfh63M7Z/s8vEcl0=
-		</data>
-		<key>ios-arm64-simulator/OpenIMSDKCore.framework/._OpenIMSDKCore</key>
-		<data>
-		YIv3+3T6BC37y8LV0oTh4iEbVBs=
-		</data>
 		<key>ios-arm64-simulator/OpenIMSDKCore.framework/Headers/._OpenIMSDKCore.h</key>
 		<data>
-		Gxv1XCluH+fquuuceh69B+b99HM=
+		00irB9C0+AOlQZeokYR0un8szbg=
 		</data>
 		<key>ios-arm64-simulator/OpenIMSDKCore.framework/Headers/OpenIMSDKCore.h</key>
 		<data>
@@ -48,41 +16,17 @@
 		<data>
 		wd1e76Kq7OAwlUPvssr23xMf1yY=
 		</data>
-		<key>ios-arm64-simulator/OpenIMSDKCore.framework/Modules/._module.modulemap</key>
-		<data>
-		nIfUz51z+1CxyLXnGTelDaKwIkI=
-		</data>
 		<key>ios-arm64-simulator/OpenIMSDKCore.framework/Modules/module.modulemap</key>
 		<data>
 		sJlOgTqtuv662Z4h1yJZeK0JQW4=
 		</data>
 		<key>ios-arm64-simulator/OpenIMSDKCore.framework/OpenIMSDKCore</key>
 		<data>
-		1+Caa8QiEJIlJH8nW7e5Bg63mS0=
-		</data>
-		<key>ios-arm64/._OpenIMSDKCore.framework</key>
-		<data>
-		pRk2Iml2yxQpAwss+3oSVZdYQRs=
-		</data>
-		<key>ios-arm64/OpenIMSDKCore.framework/._Headers</key>
-		<data>
-		0YHztFoOi9Z24R/4IOsQ4uLUL5E=
-		</data>
-		<key>ios-arm64/OpenIMSDKCore.framework/._Info.plist</key>
-		<data>
-		JkqTqMFubDRf+QXO9qTWhLtzcvs=
-		</data>
-		<key>ios-arm64/OpenIMSDKCore.framework/._Modules</key>
-		<data>
-		k0y0St5YXTc+2VW2iIAqts117h8=
-		</data>
-		<key>ios-arm64/OpenIMSDKCore.framework/._OpenIMSDKCore</key>
-		<data>
-		IPoz3b4zSQiFhNAo+tcvCXxF09w=
+		icbIKYiqalw+qzmRkTVs7MUJu1Q=
 		</data>
 		<key>ios-arm64/OpenIMSDKCore.framework/Headers/._OpenIMSDKCore.h</key>
 		<data>
-		/il7eSYlPQWLo364e7wESQ3eyQA=
+		SJ5McRaBqVwhP2H5itnev4yXzzM=
 		</data>
 		<key>ios-arm64/OpenIMSDKCore.framework/Headers/OpenIMSDKCore.h</key>
 		<data>
@@ -92,118 +36,26 @@
 		<data>
 		wd1e76Kq7OAwlUPvssr23xMf1yY=
 		</data>
-		<key>ios-arm64/OpenIMSDKCore.framework/Modules/._module.modulemap</key>
-		<data>
-		Vni4V7j5Xr4DcrBPnPV7IhhPC+k=
-		</data>
 		<key>ios-arm64/OpenIMSDKCore.framework/Modules/module.modulemap</key>
 		<data>
 		sJlOgTqtuv662Z4h1yJZeK0JQW4=
 		</data>
 		<key>ios-arm64/OpenIMSDKCore.framework/OpenIMSDKCore</key>
 		<data>
-		Z//Ih96LsRLUVtDJa3PylYwmDKM=
+		e902s6jxNbMUeCZluHlmVKdHm5M=
 		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>._Info.plist</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			A77J1A/seJyB3ZClIIXOusSyibk=
-			</data>
-			<key>hash2</key>
-			<data>
-			KT7Wtott654rBlysL61RaPaSFWaA5hXory67+ipGS7Y=
-			</data>
-		</dict>
-		<key>._ios-arm64</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			zlY2sVSjsazEj2Js6M1/K7qJV0c=
-			</data>
-			<key>hash2</key>
-			<data>
-			qr4aW478NzMiOjdgZ/BGUTj29YSk3bznCtnvSpEqlyU=
-			</data>
-		</dict>
-		<key>._ios-arm64-simulator</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			mfNdOWIBCYL+GNB7nycjDqkbDBE=
-			</data>
-			<key>hash2</key>
-			<data>
-			YE/s6VpSQUCFZso7S62/YJIzm/OYx3RgWwOckoBgMHY=
-			</data>
-		</dict>
-		<key>ios-arm64-simulator/._OpenIMSDKCore.framework</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			L6OcA/P0Bf2ERiC6jo9t1FzV6X4=
-			</data>
-			<key>hash2</key>
-			<data>
-			7kryzvQfu7F4pq5Lovx8001ruO7OUtWV2vPsrE3waSE=
-			</data>
-		</dict>
-		<key>ios-arm64-simulator/OpenIMSDKCore.framework/._Headers</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			880R7ZSOZ8gktIO9DkLiABIuafQ=
-			</data>
-			<key>hash2</key>
-			<data>
-			fp86T8gy0J9L3t++Zg5AjyVvv+ZqJIPZSLiw/r5vc7M=
-			</data>
-		</dict>
-		<key>ios-arm64-simulator/OpenIMSDKCore.framework/._Info.plist</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			zLyGn3TPwR7NQwiVIs+GFv2zB14=
-			</data>
-			<key>hash2</key>
-			<data>
-			9Ss43GZ/fQ5o1RGyXgaJYNtj7VH46dJ5/lpo9h6clNE=
-			</data>
-		</dict>
-		<key>ios-arm64-simulator/OpenIMSDKCore.framework/._Modules</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			dapQSUOyDX8Dfh63M7Z/s8vEcl0=
-			</data>
-			<key>hash2</key>
-			<data>
-			Gi7GMdMSiAuviPlI1rNV/8t8oqztViHz4y6XvBzNYgA=
-			</data>
-		</dict>
-		<key>ios-arm64-simulator/OpenIMSDKCore.framework/._OpenIMSDKCore</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			YIv3+3T6BC37y8LV0oTh4iEbVBs=
-			</data>
-			<key>hash2</key>
-			<data>
-			BsHxc9qjqlfhgu7zwO3Fn+H9tDveHl0G6UQH1GJNOCM=
-			</data>
-		</dict>
 		<key>ios-arm64-simulator/OpenIMSDKCore.framework/Headers/._OpenIMSDKCore.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			Gxv1XCluH+fquuuceh69B+b99HM=
+			00irB9C0+AOlQZeokYR0un8szbg=
 			</data>
 			<key>hash2</key>
 			<data>
-			mVxyGwesYILB2XId95SRdqMtLUP1eLtue3xPJEr9gcM=
+			YrlRINhabgmIDCVgH6t4YmEE438o/6AOI/x2H8kzAoc=
 			</data>
 		</dict>
 		<key>ios-arm64-simulator/OpenIMSDKCore.framework/Headers/OpenIMSDKCore.h</key>
@@ -228,17 +80,6 @@
 			tNBiIZFf648AG875PYBNa6Z1T1QDMX2eU571KnRSU10=
 			</data>
 		</dict>
-		<key>ios-arm64-simulator/OpenIMSDKCore.framework/Modules/._module.modulemap</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			nIfUz51z+1CxyLXnGTelDaKwIkI=
-			</data>
-			<key>hash2</key>
-			<data>
-			bsneQtGSQ7nFG2SgOnAj1jG26923X/g0uTEntlzOG+o=
-			</data>
-		</dict>
 		<key>ios-arm64-simulator/OpenIMSDKCore.framework/Modules/module.modulemap</key>
 		<dict>
 			<key>hash</key>
@@ -254,77 +95,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			1+Caa8QiEJIlJH8nW7e5Bg63mS0=
+			icbIKYiqalw+qzmRkTVs7MUJu1Q=
 			</data>
 			<key>hash2</key>
 			<data>
-			obuIMiyhEy0nzlT/acQDEBY3eW4sAFIjWIn6mbeoVg0=
-			</data>
-		</dict>
-		<key>ios-arm64/._OpenIMSDKCore.framework</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			pRk2Iml2yxQpAwss+3oSVZdYQRs=
-			</data>
-			<key>hash2</key>
-			<data>
-			X7Dry3H03b3I9jRErnNYJRI6JP7acGWhRMNU0yL7Fxw=
-			</data>
-		</dict>
-		<key>ios-arm64/OpenIMSDKCore.framework/._Headers</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			0YHztFoOi9Z24R/4IOsQ4uLUL5E=
-			</data>
-			<key>hash2</key>
-			<data>
-			D8W8Lu0jBD+L7FCM56WaaVB3HVeQLMLknSoEYTJcEvM=
-			</data>
-		</dict>
-		<key>ios-arm64/OpenIMSDKCore.framework/._Info.plist</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			JkqTqMFubDRf+QXO9qTWhLtzcvs=
-			</data>
-			<key>hash2</key>
-			<data>
-			jcbCptLKdVZWjCx6bnMi2fPvD0oESKqVuGDen5YiU0c=
-			</data>
-		</dict>
-		<key>ios-arm64/OpenIMSDKCore.framework/._Modules</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			k0y0St5YXTc+2VW2iIAqts117h8=
-			</data>
-			<key>hash2</key>
-			<data>
-			xsWTVvSpOckqw9bCxpoCyd6TdXO7Bo7iaS1ZE1b7yGE=
-			</data>
-		</dict>
-		<key>ios-arm64/OpenIMSDKCore.framework/._OpenIMSDKCore</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			IPoz3b4zSQiFhNAo+tcvCXxF09w=
-			</data>
-			<key>hash2</key>
-			<data>
-			hA2NSX+aGPGul5giV8fankiic2YZfMSx7bf4EWYiVN0=
+			26xDZA83y1nYMXdRWNW81ib1+/eOwdyjzYTFBph4xYU=
 			</data>
 		</dict>
 		<key>ios-arm64/OpenIMSDKCore.framework/Headers/._OpenIMSDKCore.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			/il7eSYlPQWLo364e7wESQ3eyQA=
+			SJ5McRaBqVwhP2H5itnev4yXzzM=
 			</data>
 			<key>hash2</key>
 			<data>
-			0/kDrj4ulrjht8YRQMcd/yWTrqxUWerRc9q9EYoumHw=
+			yqpdLKxqlzpB+rkTKqIAi69OeHl1x6MRYxiPfv5PEwM=
 			</data>
 		</dict>
 		<key>ios-arm64/OpenIMSDKCore.framework/Headers/OpenIMSDKCore.h</key>
@@ -349,17 +135,6 @@
 			tNBiIZFf648AG875PYBNa6Z1T1QDMX2eU571KnRSU10=
 			</data>
 		</dict>
-		<key>ios-arm64/OpenIMSDKCore.framework/Modules/._module.modulemap</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			Vni4V7j5Xr4DcrBPnPV7IhhPC+k=
-			</data>
-			<key>hash2</key>
-			<data>
-			LYdDroD7friU3Y0Zo2Sbaw5Fp6/AhS+xz9ou6vbr844=
-			</data>
-		</dict>
 		<key>ios-arm64/OpenIMSDKCore.framework/Modules/module.modulemap</key>
 		<dict>
 			<key>hash</key>
@@ -375,11 +150,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Z//Ih96LsRLUVtDJa3PylYwmDKM=
+			e902s6jxNbMUeCZluHlmVKdHm5M=
 			</data>
 			<key>hash2</key>
 			<data>
-			FMMh+iOmgvOImR0qHtSeYZptMMg0I1entH4UHrR6oos=
+			MPrfIax1Qe46bLd2OdRRWH1bWx0IXbAa57Wsm23YuKU=
 			</data>
 		</dict>
 	</dict>

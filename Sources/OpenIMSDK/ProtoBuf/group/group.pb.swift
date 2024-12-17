@@ -20,7 +20,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-public enum GroupFilter: SwiftProtobuf.Enum, Swift.CaseIterable {
+public enum GroupMemberFilter: SwiftProtobuf.Enum, Swift.CaseIterable {
   public typealias RawValue = Int
 
   /// all users
@@ -71,7 +71,7 @@ public enum GroupFilter: SwiftProtobuf.Enum, Swift.CaseIterable {
   }
 
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [GroupFilter] = [
+  public static let allCases: [GroupMemberFilter] = [
     .all,
     .owner,
     .admin,
@@ -87,27 +87,140 @@ public struct CreateGroupReq: Sendable {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// List of invited group members
-  public var memberUserIds: [String] = []
+  /// @opt @group_id
+  public var groupID: String {
+    get {return _groupID ?? String()}
+    set {_groupID = newValue}
+  }
+  /// Returns true if `groupID` has been explicitly set.
+  public var hasGroupID: Bool {return self._groupID != nil}
+  /// Clears the value of `groupID`. Subsequent reads from it will return its default value.
+  public mutating func clearGroupID() {self._groupID = nil}
 
-  /// List of users invited as administrators
+  /// @group_name
+  public var groupName: String = String()
+
+  /// @opt @group_notification
+  public var notification: String {
+    get {return _notification ?? String()}
+    set {_notification = newValue}
+  }
+  /// Returns true if `notification` has been explicitly set.
+  public var hasNotification: Bool {return self._notification != nil}
+  /// Clears the value of `notification`. Subsequent reads from it will return its default value.
+  public mutating func clearNotification() {self._notification = nil}
+
+  /// @opt @group_introduction
+  public var introduction: String {
+    get {return _introduction ?? String()}
+    set {_introduction = newValue}
+  }
+  /// Returns true if `introduction` has been explicitly set.
+  public var hasIntroduction: Bool {return self._introduction != nil}
+  /// Clears the value of `introduction`. Subsequent reads from it will return its default value.
+  public mutating func clearIntroduction() {self._introduction = nil}
+
+  /// @opt @group_face_url
+  public var faceURL: String {
+    get {return _faceURL ?? String()}
+    set {_faceURL = newValue}
+  }
+  /// Returns true if `faceURL` has been explicitly set.
+  public var hasFaceURL: Bool {return self._faceURL != nil}
+  /// Clears the value of `faceURL`. Subsequent reads from it will return its default value.
+  public mutating func clearFaceURL() {self._faceURL = nil}
+
+  /// @opt @group_ex
+  public var ex: String {
+    get {return _ex ?? String()}
+    set {_ex = newValue}
+  }
+  /// Returns true if `ex` has been explicitly set.
+  public var hasEx: Bool {return self._ex != nil}
+  /// Clears the value of `ex`. Subsequent reads from it will return its default value.
+  public mutating func clearEx() {self._ex = nil}
+
+  /// @opt @group_need_verification
+  public var needVerification: GroupNeedVerification {
+    get {return _needVerification ?? .applyNeedVerificationInviteDirectly}
+    set {_needVerification = newValue}
+  }
+  /// Returns true if `needVerification` has been explicitly set.
+  public var hasNeedVerification: Bool {return self._needVerification != nil}
+  /// Clears the value of `needVerification`. Subsequent reads from it will return its default value.
+  public mutating func clearNeedVerification() {self._needVerification = nil}
+
+  /// @opt @group_look_member_info
+  public var lookMemberInfo: GroupLookMemberInfo {
+    get {return _lookMemberInfo ?? .prohibitGroupLookMemberInfo}
+    set {_lookMemberInfo = newValue}
+  }
+  /// Returns true if `lookMemberInfo` has been explicitly set.
+  public var hasLookMemberInfo: Bool {return self._lookMemberInfo != nil}
+  /// Clears the value of `lookMemberInfo`. Subsequent reads from it will return its default value.
+  public mutating func clearLookMemberInfo() {self._lookMemberInfo = nil}
+
+  /// @opt @group_apply_member_friend
+  public var applyMemberFriend: GroupApplyMemberFriend {
+    get {return _applyMemberFriend ?? .prohibitGroupApplyMemberFriend}
+    set {_applyMemberFriend = newValue}
+  }
+  /// Returns true if `applyMemberFriend` has been explicitly set.
+  public var hasApplyMemberFriend: Bool {return self._applyMemberFriend != nil}
+  /// Clears the value of `applyMemberFriend`. Subsequent reads from it will return its default value.
+  public mutating func clearApplyMemberFriend() {self._applyMemberFriend = nil}
+
+  /// @opt @group_notification_update_time
+  public var notificationUpdateTime: Int64 {
+    get {return _notificationUpdateTime ?? 0}
+    set {_notificationUpdateTime = newValue}
+  }
+  /// Returns true if `notificationUpdateTime` has been explicitly set.
+  public var hasNotificationUpdateTime: Bool {return self._notificationUpdateTime != nil}
+  /// Clears the value of `notificationUpdateTime`. Subsequent reads from it will return its default value.
+  public mutating func clearNotificationUpdateTime() {self._notificationUpdateTime = nil}
+
+  /// @opt @group_notification_user_id
+  public var notificationUserID: String {
+    get {return _notificationUserID ?? String()}
+    set {_notificationUserID = newValue}
+  }
+  /// Returns true if `notificationUserID` has been explicitly set.
+  public var hasNotificationUserID: Bool {return self._notificationUserID != nil}
+  /// Clears the value of `notificationUserID`. Subsequent reads from it will return its default value.
+  public mutating func clearNotificationUserID() {self._notificationUserID = nil}
+
+  /// @opt @group_attached_info
+  public var attachedInfo: String {
+    get {return _attachedInfo ?? String()}
+    set {_attachedInfo = newValue}
+  }
+  /// Returns true if `attachedInfo` has been explicitly set.
+  public var hasAttachedInfo: Bool {return self._attachedInfo != nil}
+  /// Clears the value of `attachedInfo`. Subsequent reads from it will return its default value.
+  public mutating func clearAttachedInfo() {self._attachedInfo = nil}
+
+  /// @opt list of users invited as administrators
   public var adminUserIds: [String] = []
 
-  /// Basic group chat information
-  public var groupInfo: IMGroup {
-    get {return _groupInfo ?? IMGroup()}
-    set {_groupInfo = newValue}
-  }
-  /// Returns true if `groupInfo` has been explicitly set.
-  public var hasGroupInfo: Bool {return self._groupInfo != nil}
-  /// Clears the value of `groupInfo`. Subsequent reads from it will return its default value.
-  public mutating func clearGroupInfo() {self._groupInfo = nil}
+  /// @opt list of invited group members
+  public var memberUserIds: [String] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
-  fileprivate var _groupInfo: IMGroup? = nil
+  fileprivate var _groupID: String? = nil
+  fileprivate var _notification: String? = nil
+  fileprivate var _introduction: String? = nil
+  fileprivate var _faceURL: String? = nil
+  fileprivate var _ex: String? = nil
+  fileprivate var _needVerification: GroupNeedVerification? = nil
+  fileprivate var _lookMemberInfo: GroupLookMemberInfo? = nil
+  fileprivate var _applyMemberFriend: GroupApplyMemberFriend? = nil
+  fileprivate var _notificationUpdateTime: Int64? = nil
+  fileprivate var _notificationUserID: String? = nil
+  fileprivate var _attachedInfo: String? = nil
 }
 
 public struct CreateGroupResp: Sendable {
@@ -141,10 +254,10 @@ public struct JoinGroupReq: Sendable {
   public var groupID: String = String()
 
   /// request message
-  public var reqMessage: String = String()
+  public var reqMsg: String = String()
 
   /// join source
-  public var joinSource: GroupJoinSource = .___
+  public var joinSource: GroupJoinSource = .groupJoinSource_
 
   /// extension field
   public var ex: String = String()
@@ -379,8 +492,8 @@ public struct SetGroupInfoReq: Sendable {
   public mutating func clearEx() {self._ex = nil}
 
   /// @opt @group_need_verification
-  public var needVerification: Int32 {
-    get {return _needVerification ?? 0}
+  public var needVerification: GroupNeedVerification {
+    get {return _needVerification ?? .applyNeedVerificationInviteDirectly}
     set {_needVerification = newValue}
   }
   /// Returns true if `needVerification` has been explicitly set.
@@ -389,8 +502,8 @@ public struct SetGroupInfoReq: Sendable {
   public mutating func clearNeedVerification() {self._needVerification = nil}
 
   /// @opt @group_look_member_info
-  public var lookMemberInfo: Int32 {
-    get {return _lookMemberInfo ?? 0}
+  public var lookMemberInfo: GroupLookMemberInfo {
+    get {return _lookMemberInfo ?? .prohibitGroupLookMemberInfo}
     set {_lookMemberInfo = newValue}
   }
   /// Returns true if `lookMemberInfo` has been explicitly set.
@@ -399,8 +512,8 @@ public struct SetGroupInfoReq: Sendable {
   public mutating func clearLookMemberInfo() {self._lookMemberInfo = nil}
 
   /// @opt @group_apply_member_friend
-  public var applyMemberFriend: Int32 {
-    get {return _applyMemberFriend ?? 0}
+  public var applyMemberFriend: GroupApplyMemberFriend {
+    get {return _applyMemberFriend ?? .prohibitGroupApplyMemberFriend}
     set {_applyMemberFriend = newValue}
   }
   /// Returns true if `applyMemberFriend` has been explicitly set.
@@ -417,9 +530,9 @@ public struct SetGroupInfoReq: Sendable {
   fileprivate var _introduction: String? = nil
   fileprivate var _faceURL: String? = nil
   fileprivate var _ex: String? = nil
-  fileprivate var _needVerification: Int32? = nil
-  fileprivate var _lookMemberInfo: Int32? = nil
-  fileprivate var _applyMemberFriend: Int32? = nil
+  fileprivate var _needVerification: GroupNeedVerification? = nil
+  fileprivate var _lookMemberInfo: GroupLookMemberInfo? = nil
+  fileprivate var _applyMemberFriend: GroupApplyMemberFriend? = nil
 }
 
 public struct SetGroupInfoResp: Sendable {
@@ -464,8 +577,8 @@ public struct SetGroupMemberInfoReq: Sendable {
   public mutating func clearFaceURL() {self._faceURL = nil}
 
   /// user role level
-  public var roleLevel: Int32 {
-    get {return _roleLevel ?? 0}
+  public var roleLevel: GroupMemberRoleLevel {
+    get {return _roleLevel ?? .groupRoleLevel_}
     set {_roleLevel = newValue}
   }
   /// Returns true if `roleLevel` has been explicitly set.
@@ -489,7 +602,7 @@ public struct SetGroupMemberInfoReq: Sendable {
 
   fileprivate var _nickname: String? = nil
   fileprivate var _faceURL: String? = nil
-  fileprivate var _roleLevel: Int32? = nil
+  fileprivate var _roleLevel: GroupMemberRoleLevel? = nil
   fileprivate var _ex: String? = nil
 }
 
@@ -727,7 +840,7 @@ public struct GetGroupMembersReq: Sendable {
   public var groupID: String = String()
 
   /// filter
-  public var filter: GroupFilter = .all
+  public var filter: GroupMemberFilter = .all
 
   /// pagination
   public var pagination: RequestPagination {
@@ -759,7 +872,7 @@ public struct GetGroupMembersResp: Sendable {
   public init() {}
 }
 
-public struct GetGroupRequestReq: Sendable {
+public struct GetGroupApplicationReq: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -772,13 +885,13 @@ public struct GetGroupRequestReq: Sendable {
   public init() {}
 }
 
-public struct GetGroupRequestResp: Sendable {
+public struct GetGroupApplicationResp: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// group request information
-  public var requests: [IMGroupApplication] = []
+  public var applications: [IMGroupApplication] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -919,7 +1032,7 @@ public struct InviteUserToGroupResp: Sendable {
   public init() {}
 }
 
-public struct HandlerGroupRequestReq: Sendable {
+public struct HandleGroupApplicationReq: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -945,7 +1058,7 @@ public struct HandlerGroupRequestReq: Sendable {
   public init() {}
 }
 
-public struct HandlerGroupRequestResp: Sendable {
+public struct HandleGroupApplicationResp: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -959,7 +1072,7 @@ public struct HandlerGroupRequestResp: Sendable {
 
 fileprivate let _protobuf_package = "openim.sdk.group"
 
-extension GroupFilter: SwiftProtobuf._ProtoNameProviding {
+extension GroupMemberFilter: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "All"),
     1: .same(proto: "Owner"),
@@ -973,9 +1086,20 @@ extension GroupFilter: SwiftProtobuf._ProtoNameProviding {
 extension CreateGroupReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".CreateGroupReq"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "memberUserIDs"),
-    2: .same(proto: "adminUserIDs"),
-    3: .same(proto: "groupInfo"),
+    1: .same(proto: "groupID"),
+    2: .same(proto: "groupName"),
+    3: .same(proto: "notification"),
+    4: .same(proto: "introduction"),
+    5: .same(proto: "faceURL"),
+    6: .same(proto: "ex"),
+    7: .same(proto: "needVerification"),
+    8: .same(proto: "lookMemberInfo"),
+    9: .same(proto: "applyMemberFriend"),
+    10: .same(proto: "notificationUpdateTime"),
+    11: .same(proto: "notificationUserID"),
+    12: .same(proto: "attachedInfo"),
+    13: .same(proto: "adminUserIDs"),
+    14: .same(proto: "memberUserIDs"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -984,9 +1108,20 @@ extension CreateGroupReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeRepeatedStringField(value: &self.memberUserIds) }()
-      case 2: try { try decoder.decodeRepeatedStringField(value: &self.adminUserIds) }()
-      case 3: try { try decoder.decodeSingularMessageField(value: &self._groupInfo) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self._groupID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.groupName) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self._notification) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self._introduction) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self._faceURL) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self._ex) }()
+      case 7: try { try decoder.decodeSingularEnumField(value: &self._needVerification) }()
+      case 8: try { try decoder.decodeSingularEnumField(value: &self._lookMemberInfo) }()
+      case 9: try { try decoder.decodeSingularEnumField(value: &self._applyMemberFriend) }()
+      case 10: try { try decoder.decodeSingularInt64Field(value: &self._notificationUpdateTime) }()
+      case 11: try { try decoder.decodeSingularStringField(value: &self._notificationUserID) }()
+      case 12: try { try decoder.decodeSingularStringField(value: &self._attachedInfo) }()
+      case 13: try { try decoder.decodeRepeatedStringField(value: &self.adminUserIds) }()
+      case 14: try { try decoder.decodeRepeatedStringField(value: &self.memberUserIds) }()
       default: break
       }
     }
@@ -997,22 +1132,66 @@ extension CreateGroupReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    if !self.memberUserIds.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.memberUserIds, fieldNumber: 1)
-    }
-    if !self.adminUserIds.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.adminUserIds, fieldNumber: 2)
-    }
-    try { if let v = self._groupInfo {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    try { if let v = self._groupID {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 1)
     } }()
+    if !self.groupName.isEmpty {
+      try visitor.visitSingularStringField(value: self.groupName, fieldNumber: 2)
+    }
+    try { if let v = self._notification {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 3)
+    } }()
+    try { if let v = self._introduction {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 4)
+    } }()
+    try { if let v = self._faceURL {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 5)
+    } }()
+    try { if let v = self._ex {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 6)
+    } }()
+    try { if let v = self._needVerification {
+      try visitor.visitSingularEnumField(value: v, fieldNumber: 7)
+    } }()
+    try { if let v = self._lookMemberInfo {
+      try visitor.visitSingularEnumField(value: v, fieldNumber: 8)
+    } }()
+    try { if let v = self._applyMemberFriend {
+      try visitor.visitSingularEnumField(value: v, fieldNumber: 9)
+    } }()
+    try { if let v = self._notificationUpdateTime {
+      try visitor.visitSingularInt64Field(value: v, fieldNumber: 10)
+    } }()
+    try { if let v = self._notificationUserID {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 11)
+    } }()
+    try { if let v = self._attachedInfo {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 12)
+    } }()
+    if !self.adminUserIds.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.adminUserIds, fieldNumber: 13)
+    }
+    if !self.memberUserIds.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.memberUserIds, fieldNumber: 14)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: CreateGroupReq, rhs: CreateGroupReq) -> Bool {
-    if lhs.memberUserIds != rhs.memberUserIds {return false}
+    if lhs._groupID != rhs._groupID {return false}
+    if lhs.groupName != rhs.groupName {return false}
+    if lhs._notification != rhs._notification {return false}
+    if lhs._introduction != rhs._introduction {return false}
+    if lhs._faceURL != rhs._faceURL {return false}
+    if lhs._ex != rhs._ex {return false}
+    if lhs._needVerification != rhs._needVerification {return false}
+    if lhs._lookMemberInfo != rhs._lookMemberInfo {return false}
+    if lhs._applyMemberFriend != rhs._applyMemberFriend {return false}
+    if lhs._notificationUpdateTime != rhs._notificationUpdateTime {return false}
+    if lhs._notificationUserID != rhs._notificationUserID {return false}
+    if lhs._attachedInfo != rhs._attachedInfo {return false}
     if lhs.adminUserIds != rhs.adminUserIds {return false}
-    if lhs._groupInfo != rhs._groupInfo {return false}
+    if lhs.memberUserIds != rhs.memberUserIds {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1058,7 +1237,7 @@ extension JoinGroupReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementat
   public static let protoMessageName: String = _protobuf_package + ".JoinGroupReq"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "groupID"),
-    2: .same(proto: "reqMessage"),
+    2: .same(proto: "reqMsg"),
     3: .same(proto: "joinSource"),
     4: .same(proto: "ex"),
   ]
@@ -1070,7 +1249,7 @@ extension JoinGroupReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementat
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.groupID) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.reqMessage) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.reqMsg) }()
       case 3: try { try decoder.decodeSingularEnumField(value: &self.joinSource) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.ex) }()
       default: break
@@ -1082,10 +1261,10 @@ extension JoinGroupReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementat
     if !self.groupID.isEmpty {
       try visitor.visitSingularStringField(value: self.groupID, fieldNumber: 1)
     }
-    if !self.reqMessage.isEmpty {
-      try visitor.visitSingularStringField(value: self.reqMessage, fieldNumber: 2)
+    if !self.reqMsg.isEmpty {
+      try visitor.visitSingularStringField(value: self.reqMsg, fieldNumber: 2)
     }
-    if self.joinSource != .___ {
+    if self.joinSource != .groupJoinSource_ {
       try visitor.visitSingularEnumField(value: self.joinSource, fieldNumber: 3)
     }
     if !self.ex.isEmpty {
@@ -1096,7 +1275,7 @@ extension JoinGroupReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementat
 
   public static func ==(lhs: JoinGroupReq, rhs: JoinGroupReq) -> Bool {
     if lhs.groupID != rhs.groupID {return false}
-    if lhs.reqMessage != rhs.reqMessage {return false}
+    if lhs.reqMsg != rhs.reqMsg {return false}
     if lhs.joinSource != rhs.joinSource {return false}
     if lhs.ex != rhs.ex {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -1491,9 +1670,9 @@ extension SetGroupInfoReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplemen
       case 4: try { try decoder.decodeSingularStringField(value: &self._introduction) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self._faceURL) }()
       case 6: try { try decoder.decodeSingularStringField(value: &self._ex) }()
-      case 7: try { try decoder.decodeSingularInt32Field(value: &self._needVerification) }()
-      case 8: try { try decoder.decodeSingularInt32Field(value: &self._lookMemberInfo) }()
-      case 9: try { try decoder.decodeSingularInt32Field(value: &self._applyMemberFriend) }()
+      case 7: try { try decoder.decodeSingularEnumField(value: &self._needVerification) }()
+      case 8: try { try decoder.decodeSingularEnumField(value: &self._lookMemberInfo) }()
+      case 9: try { try decoder.decodeSingularEnumField(value: &self._applyMemberFriend) }()
       default: break
       }
     }
@@ -1523,13 +1702,13 @@ extension SetGroupInfoReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplemen
       try visitor.visitSingularStringField(value: v, fieldNumber: 6)
     } }()
     try { if let v = self._needVerification {
-      try visitor.visitSingularInt32Field(value: v, fieldNumber: 7)
+      try visitor.visitSingularEnumField(value: v, fieldNumber: 7)
     } }()
     try { if let v = self._lookMemberInfo {
-      try visitor.visitSingularInt32Field(value: v, fieldNumber: 8)
+      try visitor.visitSingularEnumField(value: v, fieldNumber: 8)
     } }()
     try { if let v = self._applyMemberFriend {
-      try visitor.visitSingularInt32Field(value: v, fieldNumber: 9)
+      try visitor.visitSingularEnumField(value: v, fieldNumber: 9)
     } }()
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -1589,7 +1768,7 @@ extension SetGroupMemberInfoReq: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       case 2: try { try decoder.decodeSingularStringField(value: &self.userID) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self._nickname) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self._faceURL) }()
-      case 5: try { try decoder.decodeSingularInt32Field(value: &self._roleLevel) }()
+      case 5: try { try decoder.decodeSingularEnumField(value: &self._roleLevel) }()
       case 6: try { try decoder.decodeSingularStringField(value: &self._ex) }()
       default: break
       }
@@ -1614,7 +1793,7 @@ extension SetGroupMemberInfoReq: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       try visitor.visitSingularStringField(value: v, fieldNumber: 4)
     } }()
     try { if let v = self._roleLevel {
-      try visitor.visitSingularInt32Field(value: v, fieldNumber: 5)
+      try visitor.visitSingularEnumField(value: v, fieldNumber: 5)
     } }()
     try { if let v = self._ex {
       try visitor.visitSingularStringField(value: v, fieldNumber: 6)
@@ -2212,8 +2391,8 @@ extension GetGroupMembersResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
   }
 }
 
-extension GetGroupRequestReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".GetGroupRequestReq"
+extension GetGroupApplicationReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetGroupApplicationReq"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "send"),
   ]
@@ -2237,17 +2416,17 @@ extension GetGroupRequestReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: GetGroupRequestReq, rhs: GetGroupRequestReq) -> Bool {
+  public static func ==(lhs: GetGroupApplicationReq, rhs: GetGroupApplicationReq) -> Bool {
     if lhs.send != rhs.send {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension GetGroupRequestResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".GetGroupRequestResp"
+extension GetGroupApplicationResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetGroupApplicationResp"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "requests"),
+    1: .same(proto: "applications"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2256,21 +2435,21 @@ extension GetGroupRequestResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.requests) }()
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.applications) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.requests.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.requests, fieldNumber: 1)
+    if !self.applications.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.applications, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: GetGroupRequestResp, rhs: GetGroupRequestResp) -> Bool {
-    if lhs.requests != rhs.requests {return false}
+  public static func ==(lhs: GetGroupApplicationResp, rhs: GetGroupApplicationResp) -> Bool {
+    if lhs.applications != rhs.applications {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -2280,7 +2459,7 @@ extension SearchGroupMembersReq: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
   public static let protoMessageName: String = _protobuf_package + ".SearchGroupMembersReq"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "groupID"),
-    2: .same(proto: "Keyword"),
+    2: .same(proto: "keyword"),
     3: .same(proto: "searchUserID"),
     4: .same(proto: "searchMemberNickname"),
     5: .same(proto: "pagination"),
@@ -2571,8 +2750,8 @@ extension InviteUserToGroupResp: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
   }
 }
 
-extension HandlerGroupRequestReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".HandlerGroupRequestReq"
+extension HandleGroupApplicationReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".HandleGroupApplicationReq"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "groupID"),
     2: .same(proto: "fromUserID"),
@@ -2611,7 +2790,7 @@ extension HandlerGroupRequestReq: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: HandlerGroupRequestReq, rhs: HandlerGroupRequestReq) -> Bool {
+  public static func ==(lhs: HandleGroupApplicationReq, rhs: HandleGroupApplicationReq) -> Bool {
     if lhs.groupID != rhs.groupID {return false}
     if lhs.fromUserID != rhs.fromUserID {return false}
     if lhs.handledMsg != rhs.handledMsg {return false}
@@ -2621,8 +2800,8 @@ extension HandlerGroupRequestReq: SwiftProtobuf.Message, SwiftProtobuf._MessageI
   }
 }
 
-extension HandlerGroupRequestResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".HandlerGroupRequestResp"
+extension HandleGroupApplicationResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".HandleGroupApplicationResp"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2634,7 +2813,7 @@ extension HandlerGroupRequestResp: SwiftProtobuf.Message, SwiftProtobuf._Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: HandlerGroupRequestResp, rhs: HandlerGroupRequestResp) -> Bool {
+  public static func ==(lhs: HandleGroupApplicationResp, rhs: HandleGroupApplicationResp) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

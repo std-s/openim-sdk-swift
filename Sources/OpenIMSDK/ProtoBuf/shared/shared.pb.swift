@@ -25,9 +25,11 @@ public enum GroupStatus: SwiftProtobuf.Enum, Swift.CaseIterable {
 
   /// normal group chat
   case `default` // = 0
+  case banned // = 1
 
   /// the group chat has been disbanded
   case dismissed // = 2
+  case muted // = 3
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -37,7 +39,9 @@ public enum GroupStatus: SwiftProtobuf.Enum, Swift.CaseIterable {
   public init?(rawValue: Int) {
     switch rawValue {
     case 0: self = .default
+    case 1: self = .banned
     case 2: self = .dismissed
+    case 3: self = .muted
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -45,7 +49,9 @@ public enum GroupStatus: SwiftProtobuf.Enum, Swift.CaseIterable {
   public var rawValue: Int {
     switch self {
     case .default: return 0
+    case .banned: return 1
     case .dismissed: return 2
+    case .muted: return 3
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -53,14 +59,16 @@ public enum GroupStatus: SwiftProtobuf.Enum, Swift.CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static let allCases: [GroupStatus] = [
     .default,
+    .banned,
     .dismissed,
+    .muted,
   ]
 
 }
 
 public enum GroupJoinSource: SwiftProtobuf.Enum, Swift.CaseIterable {
   public typealias RawValue = Int
-  case ___ // = 0
+  case groupJoinSource_ // = 0
 
   /// administrator invitation to join
   case admin // = 1
@@ -76,12 +84,12 @@ public enum GroupJoinSource: SwiftProtobuf.Enum, Swift.CaseIterable {
   case UNRECOGNIZED(Int)
 
   public init() {
-    self = .___
+    self = .groupJoinSource_
   }
 
   public init?(rawValue: Int) {
     switch rawValue {
-    case 0: self = .___
+    case 0: self = .groupJoinSource_
     case 1: self = .admin
     case 2: self = .invitation
     case 3: self = .search
@@ -92,7 +100,7 @@ public enum GroupJoinSource: SwiftProtobuf.Enum, Swift.CaseIterable {
 
   public var rawValue: Int {
     switch self {
-    case .___: return 0
+    case .groupJoinSource_: return 0
     case .admin: return 1
     case .invitation: return 2
     case .search: return 3
@@ -103,7 +111,7 @@ public enum GroupJoinSource: SwiftProtobuf.Enum, Swift.CaseIterable {
 
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static let allCases: [GroupJoinSource] = [
-    .___,
+    .groupJoinSource_,
     .admin,
     .invitation,
     .search,
@@ -305,7 +313,7 @@ public struct IMFriend: Sendable {
   public var createTime: Int64 = 0
 
   /// Friend add source
-  public var addSource: Int32 = 0
+  public var addSource: FriendSource = .___
 
   /// Operator user ID
   public var operatorUserID: String = String()
@@ -351,7 +359,7 @@ public struct IMBlack: Sendable {
   public var createTime: Int64 = 0
 
   /// Block source
-  public var addSource: Int32 = 0
+  public var addSource: FriendSource = .___
 
   /// Operator user ID
   public var operatorUserID: String = String()
@@ -391,7 +399,7 @@ public struct IMFriendApplication: Sendable {
   public var toFaceURL: String = String()
 
   /// Request handle result
-  public var handleResult: Int32 = 0
+  public var handleResult: HandleResult = .resultDefault
 
   /// Request message
   public var reqMsg: String = String()
@@ -551,13 +559,13 @@ public struct IMGroupMember: Sendable {
   public var faceURL: String = String()
 
   /// @group_member_role
-  public var roleLevel: Int32 = 0
+  public var roleLevel: GroupMemberRoleLevel = .groupRoleLevel_
 
   /// @group_member_join_time
   public var joinTime: Int64 = 0
 
   /// @group_member_join_source
-  public var joinSource: GroupJoinSource = .___
+  public var joinSource: GroupJoinSource = .groupJoinSource_
 
   /// @group_member_inviter_user_id
   public var inviterUserID: String = String()
@@ -663,7 +671,7 @@ public struct IMGroupApplication: @unchecked Sendable {
   }
 
   /// group application handle result
-  public var handleResult: Int32 {
+  public var handleResult: HandleResult {
     get {return _storage._handleResult}
     set {_uniqueStorage()._handleResult = newValue}
   }
@@ -821,16 +829,6 @@ public struct IMConversation: @unchecked Sendable {
   public var ex: String {
     get {return _storage._ex}
     set {_uniqueStorage()._ex = newValue}
-  }
-
-  public var msgDestructTime: Int64 {
-    get {return _storage._msgDestructTime}
-    set {_uniqueStorage()._msgDestructTime = newValue}
-  }
-
-  public var isMsgDestruct: Bool {
-    get {return _storage._isMsgDestruct}
-    set {_uniqueStorage()._isMsgDestruct = newValue}
   }
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -1014,6 +1012,16 @@ public struct PictureElem: @unchecked Sendable {
     set {_uniqueStorage()._sourcePath = newValue}
   }
 
+  public var bigPath: String {
+    get {return _storage._bigPath}
+    set {_uniqueStorage()._bigPath = newValue}
+  }
+
+  public var snapshotPath: String {
+    get {return _storage._snapshotPath}
+    set {_uniqueStorage()._snapshotPath = newValue}
+  }
+
   public var sourcePicture: PictureBaseInfo {
     get {return _storage._sourcePicture ?? PictureBaseInfo()}
     set {_uniqueStorage()._sourcePicture = newValue}
@@ -1122,6 +1130,20 @@ public struct FileElem: Sendable {
   public var fileSize: Int64 = 0
 
   public var fileType: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct ErrorElem: Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var type: String = String()
+
+  public var data: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1373,6 +1395,89 @@ public struct AttachedInfoElem: Sendable {
   fileprivate var _progress: UploadProgress? = nil
 }
 
+public struct OaTips: @unchecked Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var notificationName: String {
+    get {return _storage._notificationName}
+    set {_uniqueStorage()._notificationName = newValue}
+  }
+
+  public var notificationFaceURL: String {
+    get {return _storage._notificationFaceURL}
+    set {_uniqueStorage()._notificationFaceURL = newValue}
+  }
+
+  public var notificationType: Int32 {
+    get {return _storage._notificationType}
+    set {_uniqueStorage()._notificationType = newValue}
+  }
+
+  public var text: String {
+    get {return _storage._text}
+    set {_uniqueStorage()._text = newValue}
+  }
+
+  public var url: String {
+    get {return _storage._url}
+    set {_uniqueStorage()._url = newValue}
+  }
+
+  public var mixType: Int32 {
+    get {return _storage._mixType}
+    set {_uniqueStorage()._mixType = newValue}
+  }
+
+  public var pictureElem: PictureElem {
+    get {return _storage._pictureElem ?? PictureElem()}
+    set {_uniqueStorage()._pictureElem = newValue}
+  }
+  /// Returns true if `pictureElem` has been explicitly set.
+  public var hasPictureElem: Bool {return _storage._pictureElem != nil}
+  /// Clears the value of `pictureElem`. Subsequent reads from it will return its default value.
+  public mutating func clearPictureElem() {_uniqueStorage()._pictureElem = nil}
+
+  public var soundElem: SoundElem {
+    get {return _storage._soundElem ?? SoundElem()}
+    set {_uniqueStorage()._soundElem = newValue}
+  }
+  /// Returns true if `soundElem` has been explicitly set.
+  public var hasSoundElem: Bool {return _storage._soundElem != nil}
+  /// Clears the value of `soundElem`. Subsequent reads from it will return its default value.
+  public mutating func clearSoundElem() {_uniqueStorage()._soundElem = nil}
+
+  public var videoElem: VideoElem {
+    get {return _storage._videoElem ?? VideoElem()}
+    set {_uniqueStorage()._videoElem = newValue}
+  }
+  /// Returns true if `videoElem` has been explicitly set.
+  public var hasVideoElem: Bool {return _storage._videoElem != nil}
+  /// Clears the value of `videoElem`. Subsequent reads from it will return its default value.
+  public mutating func clearVideoElem() {_uniqueStorage()._videoElem = nil}
+
+  public var fileElem: FileElem {
+    get {return _storage._fileElem ?? FileElem()}
+    set {_uniqueStorage()._fileElem = newValue}
+  }
+  /// Returns true if `fileElem` has been explicitly set.
+  public var hasFileElem: Bool {return _storage._fileElem != nil}
+  /// Clears the value of `fileElem`. Subsequent reads from it will return its default value.
+  public mutating func clearFileElem() {_uniqueStorage()._fileElem = nil}
+
+  public var ex: String {
+    get {return _storage._ex}
+    set {_uniqueStorage()._ex = newValue}
+  }
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
 ///////////////////////group/////////////////////
 ///
 ///	OnGroupCreated()
@@ -1423,6 +1528,74 @@ public struct GroupCreatedTips: @unchecked Sendable {
   public init() {}
 
   fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+public struct GroupInfoSetNameTips: Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  ///who do this
+  public var opUser: IMGroupMember {
+    get {return _opUser ?? IMGroupMember()}
+    set {_opUser = newValue}
+  }
+  /// Returns true if `opUser` has been explicitly set.
+  public var hasOpUser: Bool {return self._opUser != nil}
+  /// Clears the value of `opUser`. Subsequent reads from it will return its default value.
+  public mutating func clearOpUser() {self._opUser = nil}
+
+  public var group: IMGroup {
+    get {return _group ?? IMGroup()}
+    set {_group = newValue}
+  }
+  /// Returns true if `group` has been explicitly set.
+  public var hasGroup: Bool {return self._group != nil}
+  /// Clears the value of `group`. Subsequent reads from it will return its default value.
+  public mutating func clearGroup() {self._group = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _opUser: IMGroupMember? = nil
+  fileprivate var _group: IMGroup? = nil
+}
+
+public struct GroupInfoSetAnnouncementTips: Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  ///who do this
+  public var opUser: IMGroupMember {
+    get {return _opUser ?? IMGroupMember()}
+    set {_opUser = newValue}
+  }
+  /// Returns true if `opUser` has been explicitly set.
+  public var hasOpUser: Bool {return self._opUser != nil}
+  /// Clears the value of `opUser`. Subsequent reads from it will return its default value.
+  public mutating func clearOpUser() {self._opUser = nil}
+
+  public var group: IMGroup {
+    get {return _group ?? IMGroup()}
+    set {_group = newValue}
+  }
+  /// Returns true if `group` has been explicitly set.
+  public var hasGroup: Bool {return self._group != nil}
+  /// Clears the value of `group`. Subsequent reads from it will return its default value.
+  public mutating func clearGroup() {self._group = nil}
+
+  public var groupMemberVersion: UInt64 = 0
+
+  public var groupMemberVersionID: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _opUser: IMGroupMember? = nil
+  fileprivate var _group: IMGroup? = nil
 }
 
 ///
@@ -1888,7 +2061,7 @@ public struct GroupCancelMutedTips: Sendable {
 ///
 ///message FriendApplication {
 ///  int64 addTime = 1;
-///  string addSource = 2;
+///  common.FriendSource addSource = 2;
 ///  string addWording = 3;
 ///}
 public struct FromToUserID: Sendable {
@@ -1940,7 +2113,7 @@ public struct RevokedTips: Sendable {
 
   public var revokerID: String = String()
 
-  public var revokerRole: Int32 = 0
+  public var revokerRole: RevokerRole = .default
 
   public var clientMsgID: String = String()
 
@@ -1954,7 +2127,7 @@ public struct RevokedTips: Sendable {
 
   public var sourceMessageSenderNickname: String = String()
 
-  public var sessionType: Int32 = 0
+  public var sessionType: SessionType = .sessionType_
 
   public var seq: Int64 = 0
 
@@ -2243,12 +2416,36 @@ public struct IMMessage: @unchecked Sendable {
     set {_uniqueStorage()._content = .revokedTips(newValue)}
   }
 
+  public var errorTips: ErrorElem {
+    get {
+      if case .errorTips(let v)? = _storage._content {return v}
+      return ErrorElem()
+    }
+    set {_uniqueStorage()._content = .errorTips(newValue)}
+  }
+
   public var groupCreatedTips: GroupCreatedTips {
     get {
       if case .groupCreatedTips(let v)? = _storage._content {return v}
       return GroupCreatedTips()
     }
     set {_uniqueStorage()._content = .groupCreatedTips(newValue)}
+  }
+
+  public var groupInfoSetNameTips: GroupInfoSetNameTips {
+    get {
+      if case .groupInfoSetNameTips(let v)? = _storage._content {return v}
+      return GroupInfoSetNameTips()
+    }
+    set {_uniqueStorage()._content = .groupInfoSetNameTips(newValue)}
+  }
+
+  public var groupInfoSetAnnouncementTips: GroupInfoSetAnnouncementTips {
+    get {
+      if case .groupInfoSetAnnouncementTips(let v)? = _storage._content {return v}
+      return GroupInfoSetAnnouncementTips()
+    }
+    set {_uniqueStorage()._content = .groupInfoSetAnnouncementTips(newValue)}
   }
 
   ///    GroupInfoSetTips groupInfoSetTips = 39;
@@ -2385,6 +2582,14 @@ public struct IMMessage: @unchecked Sendable {
     set {_uniqueStorage()._content = .businessTips(newValue)}
   }
 
+  public var oaTips: OaTips {
+    get {
+      if case .oaTips(let v)? = _storage._content {return v}
+      return OaTips()
+    }
+    set {_uniqueStorage()._content = .oaTips(newValue)}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public enum OneOf_Content: Equatable, Sendable {
@@ -2404,7 +2609,10 @@ public struct IMMessage: @unchecked Sendable {
     case typingElem(TypingElem)
     case streamElem(StreamElem)
     case revokedTips(RevokedTips)
+    case errorTips(ErrorElem)
     case groupCreatedTips(GroupCreatedTips)
+    case groupInfoSetNameTips(GroupInfoSetNameTips)
+    case groupInfoSetAnnouncementTips(GroupInfoSetAnnouncementTips)
     ///    GroupInfoSetTips groupInfoSetTips = 39;
     ///    GroupInfoSetNameTips groupInfoSetNameTips = 40;
     ///    GroupInfoSetAnnouncementTips groupInfoSetAnnouncementTips = 41;
@@ -2448,6 +2656,7 @@ public struct IMMessage: @unchecked Sendable {
     ///    StreamMsgTips streamMsgTips = 79;
     case conversationPrivateChatTips(ConversationPrivateChatTips)
     case businessTips(BusinessTips)
+    case oaTips(OaTips)
 
   }
 
@@ -2463,13 +2672,15 @@ fileprivate let _protobuf_package = "openim.sdk.shared"
 extension GroupStatus: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "Default"),
+    1: .same(proto: "Banned"),
     2: .same(proto: "Dismissed"),
+    3: .same(proto: "Muted"),
   ]
 }
 
 extension GroupJoinSource: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "_"),
+    0: .same(proto: "GroupJoinSource_"),
     1: .same(proto: "Admin"),
     2: .same(proto: "Invitation"),
     3: .same(proto: "Search"),
@@ -2655,7 +2866,7 @@ extension IMFriend: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationB
       case 2: try { try decoder.decodeSingularStringField(value: &self.friendUserID) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.remark) }()
       case 4: try { try decoder.decodeSingularInt64Field(value: &self.createTime) }()
-      case 5: try { try decoder.decodeSingularInt32Field(value: &self.addSource) }()
+      case 5: try { try decoder.decodeSingularEnumField(value: &self.addSource) }()
       case 6: try { try decoder.decodeSingularStringField(value: &self.operatorUserID) }()
       case 7: try { try decoder.decodeSingularStringField(value: &self.nickname) }()
       case 8: try { try decoder.decodeSingularStringField(value: &self.faceURL) }()
@@ -2680,8 +2891,8 @@ extension IMFriend: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationB
     if self.createTime != 0 {
       try visitor.visitSingularInt64Field(value: self.createTime, fieldNumber: 4)
     }
-    if self.addSource != 0 {
-      try visitor.visitSingularInt32Field(value: self.addSource, fieldNumber: 5)
+    if self.addSource != .___ {
+      try visitor.visitSingularEnumField(value: self.addSource, fieldNumber: 5)
     }
     if !self.operatorUserID.isEmpty {
       try visitor.visitSingularStringField(value: self.operatorUserID, fieldNumber: 6)
@@ -2746,7 +2957,7 @@ extension IMBlack: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBa
       case 3: try { try decoder.decodeSingularStringField(value: &self.nickname) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.faceURL) }()
       case 5: try { try decoder.decodeSingularInt64Field(value: &self.createTime) }()
-      case 6: try { try decoder.decodeSingularInt32Field(value: &self.addSource) }()
+      case 6: try { try decoder.decodeSingularEnumField(value: &self.addSource) }()
       case 7: try { try decoder.decodeSingularStringField(value: &self.operatorUserID) }()
       case 8: try { try decoder.decodeSingularStringField(value: &self.ex) }()
       case 9: try { try decoder.decodeSingularStringField(value: &self.attached) }()
@@ -2771,8 +2982,8 @@ extension IMBlack: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBa
     if self.createTime != 0 {
       try visitor.visitSingularInt64Field(value: self.createTime, fieldNumber: 5)
     }
-    if self.addSource != 0 {
-      try visitor.visitSingularInt32Field(value: self.addSource, fieldNumber: 6)
+    if self.addSource != .___ {
+      try visitor.visitSingularEnumField(value: self.addSource, fieldNumber: 6)
     }
     if !self.operatorUserID.isEmpty {
       try visitor.visitSingularStringField(value: self.operatorUserID, fieldNumber: 7)
@@ -2832,7 +3043,7 @@ extension IMFriendApplication: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
       case 4: try { try decoder.decodeSingularStringField(value: &self.toUserID) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self.toNickname) }()
       case 6: try { try decoder.decodeSingularStringField(value: &self.toFaceURL) }()
-      case 7: try { try decoder.decodeSingularInt32Field(value: &self.handleResult) }()
+      case 7: try { try decoder.decodeSingularEnumField(value: &self.handleResult) }()
       case 8: try { try decoder.decodeSingularStringField(value: &self.reqMsg) }()
       case 9: try { try decoder.decodeSingularInt64Field(value: &self.createTime) }()
       case 10: try { try decoder.decodeSingularStringField(value: &self.handlerUserID) }()
@@ -2864,8 +3075,8 @@ extension IMFriendApplication: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     if !self.toFaceURL.isEmpty {
       try visitor.visitSingularStringField(value: self.toFaceURL, fieldNumber: 6)
     }
-    if self.handleResult != 0 {
-      try visitor.visitSingularInt32Field(value: self.handleResult, fieldNumber: 7)
+    if self.handleResult != .resultDefault {
+      try visitor.visitSingularEnumField(value: self.handleResult, fieldNumber: 7)
     }
     if !self.reqMsg.isEmpty {
       try visitor.visitSingularStringField(value: self.reqMsg, fieldNumber: 8)
@@ -3138,7 +3349,7 @@ extension IMGroupMember: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
       case 2: try { try decoder.decodeSingularStringField(value: &self.userID) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.nickname) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.faceURL) }()
-      case 5: try { try decoder.decodeSingularInt32Field(value: &self.roleLevel) }()
+      case 5: try { try decoder.decodeSingularEnumField(value: &self.roleLevel) }()
       case 6: try { try decoder.decodeSingularInt64Field(value: &self.joinTime) }()
       case 7: try { try decoder.decodeSingularEnumField(value: &self.joinSource) }()
       case 8: try { try decoder.decodeSingularStringField(value: &self.inviterUserID) }()
@@ -3164,13 +3375,13 @@ extension IMGroupMember: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     if !self.faceURL.isEmpty {
       try visitor.visitSingularStringField(value: self.faceURL, fieldNumber: 4)
     }
-    if self.roleLevel != 0 {
-      try visitor.visitSingularInt32Field(value: self.roleLevel, fieldNumber: 5)
+    if self.roleLevel != .groupRoleLevel_ {
+      try visitor.visitSingularEnumField(value: self.roleLevel, fieldNumber: 5)
     }
     if self.joinTime != 0 {
       try visitor.visitSingularInt64Field(value: self.joinTime, fieldNumber: 6)
     }
-    if self.joinSource != .___ {
+    if self.joinSource != .groupJoinSource_ {
       try visitor.visitSingularEnumField(value: self.joinSource, fieldNumber: 7)
     }
     if !self.inviterUserID.isEmpty {
@@ -3251,7 +3462,7 @@ extension IMGroupApplication: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     var _userID: String = String()
     var _nickname: String = String()
     var _userFaceURL: String = String()
-    var _handleResult: Int32 = 0
+    var _handleResult: HandleResult = .resultDefault
     var _reqMsg: String = String()
     var _handledMsg: String = String()
     var _reqTime: Int64 = 0
@@ -3259,7 +3470,7 @@ extension IMGroupApplication: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     var _handledTime: Int64 = 0
     var _ex: String = String()
     var _attachedInfo: String = String()
-    var _joinSource: GroupJoinSource = .___
+    var _joinSource: GroupJoinSource = .groupJoinSource_
     var _inviterUserID: String = String()
 
     #if swift(>=5.10)
@@ -3329,7 +3540,7 @@ extension IMGroupApplication: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
         case 11: try { try decoder.decodeSingularStringField(value: &_storage._userID) }()
         case 12: try { try decoder.decodeSingularStringField(value: &_storage._nickname) }()
         case 13: try { try decoder.decodeSingularStringField(value: &_storage._userFaceURL) }()
-        case 14: try { try decoder.decodeSingularInt32Field(value: &_storage._handleResult) }()
+        case 14: try { try decoder.decodeSingularEnumField(value: &_storage._handleResult) }()
         case 15: try { try decoder.decodeSingularStringField(value: &_storage._reqMsg) }()
         case 16: try { try decoder.decodeSingularStringField(value: &_storage._handledMsg) }()
         case 17: try { try decoder.decodeSingularInt64Field(value: &_storage._reqTime) }()
@@ -3386,8 +3597,8 @@ extension IMGroupApplication: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
       if !_storage._userFaceURL.isEmpty {
         try visitor.visitSingularStringField(value: _storage._userFaceURL, fieldNumber: 13)
       }
-      if _storage._handleResult != 0 {
-        try visitor.visitSingularInt32Field(value: _storage._handleResult, fieldNumber: 14)
+      if _storage._handleResult != .resultDefault {
+        try visitor.visitSingularEnumField(value: _storage._handleResult, fieldNumber: 14)
       }
       if !_storage._reqMsg.isEmpty {
         try visitor.visitSingularStringField(value: _storage._reqMsg, fieldNumber: 15)
@@ -3410,7 +3621,7 @@ extension IMGroupApplication: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
       if !_storage._attachedInfo.isEmpty {
         try visitor.visitSingularStringField(value: _storage._attachedInfo, fieldNumber: 21)
       }
-      if _storage._joinSource != .___ {
+      if _storage._joinSource != .groupJoinSource_ {
         try visitor.visitSingularEnumField(value: _storage._joinSource, fieldNumber: 22)
       }
       if !_storage._inviterUserID.isEmpty {
@@ -3477,8 +3688,6 @@ extension IMConversation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     15: .same(proto: "isPrivateChat"),
     16: .same(proto: "burnDuration"),
     17: .same(proto: "ex"),
-    18: .same(proto: "msgDestructTime"),
-    19: .same(proto: "isMsgDestruct"),
   ]
 
   fileprivate class _StorageClass {
@@ -3499,8 +3708,6 @@ extension IMConversation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     var _isPrivateChat: Bool = false
     var _burnDuration: Int32 = 0
     var _ex: String = String()
-    var _msgDestructTime: Int64 = 0
-    var _isMsgDestruct: Bool = false
 
     #if swift(>=5.10)
       // This property is used as the initial default value for new instances of the type.
@@ -3532,8 +3739,6 @@ extension IMConversation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
       _isPrivateChat = source._isPrivateChat
       _burnDuration = source._burnDuration
       _ex = source._ex
-      _msgDestructTime = source._msgDestructTime
-      _isMsgDestruct = source._isMsgDestruct
     }
   }
 
@@ -3569,8 +3774,6 @@ extension IMConversation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
         case 15: try { try decoder.decodeSingularBoolField(value: &_storage._isPrivateChat) }()
         case 16: try { try decoder.decodeSingularInt32Field(value: &_storage._burnDuration) }()
         case 17: try { try decoder.decodeSingularStringField(value: &_storage._ex) }()
-        case 18: try { try decoder.decodeSingularInt64Field(value: &_storage._msgDestructTime) }()
-        case 19: try { try decoder.decodeSingularBoolField(value: &_storage._isMsgDestruct) }()
         default: break
         }
       }
@@ -3634,12 +3837,6 @@ extension IMConversation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
       if !_storage._ex.isEmpty {
         try visitor.visitSingularStringField(value: _storage._ex, fieldNumber: 17)
       }
-      if _storage._msgDestructTime != 0 {
-        try visitor.visitSingularInt64Field(value: _storage._msgDestructTime, fieldNumber: 18)
-      }
-      if _storage._isMsgDestruct != false {
-        try visitor.visitSingularBoolField(value: _storage._isMsgDestruct, fieldNumber: 19)
-      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -3666,8 +3863,6 @@ extension IMConversation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
         if _storage._isPrivateChat != rhs_storage._isPrivateChat {return false}
         if _storage._burnDuration != rhs_storage._burnDuration {return false}
         if _storage._ex != rhs_storage._ex {return false}
-        if _storage._msgDestructTime != rhs_storage._msgDestructTime {return false}
-        if _storage._isMsgDestruct != rhs_storage._isMsgDestruct {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -4141,13 +4336,17 @@ extension PictureElem: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementati
   public static let protoMessageName: String = _protobuf_package + ".PictureElem"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "sourcePath"),
-    2: .same(proto: "sourcePicture"),
-    3: .same(proto: "bigPicture"),
-    4: .same(proto: "snapshotPicture"),
+    2: .same(proto: "bigPath"),
+    3: .same(proto: "snapshotPath"),
+    4: .same(proto: "sourcePicture"),
+    5: .same(proto: "bigPicture"),
+    6: .same(proto: "snapshotPicture"),
   ]
 
   fileprivate class _StorageClass {
     var _sourcePath: String = String()
+    var _bigPath: String = String()
+    var _snapshotPath: String = String()
     var _sourcePicture: PictureBaseInfo? = nil
     var _bigPicture: PictureBaseInfo? = nil
     var _snapshotPicture: PictureBaseInfo? = nil
@@ -4166,6 +4365,8 @@ extension PictureElem: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementati
 
     init(copying source: _StorageClass) {
       _sourcePath = source._sourcePath
+      _bigPath = source._bigPath
+      _snapshotPath = source._snapshotPath
       _sourcePicture = source._sourcePicture
       _bigPicture = source._bigPicture
       _snapshotPicture = source._snapshotPicture
@@ -4188,9 +4389,11 @@ extension PictureElem: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementati
         // enabled. https://github.com/apple/swift-protobuf/issues/1034
         switch fieldNumber {
         case 1: try { try decoder.decodeSingularStringField(value: &_storage._sourcePath) }()
-        case 2: try { try decoder.decodeSingularMessageField(value: &_storage._sourcePicture) }()
-        case 3: try { try decoder.decodeSingularMessageField(value: &_storage._bigPicture) }()
-        case 4: try { try decoder.decodeSingularMessageField(value: &_storage._snapshotPicture) }()
+        case 2: try { try decoder.decodeSingularStringField(value: &_storage._bigPath) }()
+        case 3: try { try decoder.decodeSingularStringField(value: &_storage._snapshotPath) }()
+        case 4: try { try decoder.decodeSingularMessageField(value: &_storage._sourcePicture) }()
+        case 5: try { try decoder.decodeSingularMessageField(value: &_storage._bigPicture) }()
+        case 6: try { try decoder.decodeSingularMessageField(value: &_storage._snapshotPicture) }()
         default: break
         }
       }
@@ -4206,14 +4409,20 @@ extension PictureElem: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementati
       if !_storage._sourcePath.isEmpty {
         try visitor.visitSingularStringField(value: _storage._sourcePath, fieldNumber: 1)
       }
+      if !_storage._bigPath.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._bigPath, fieldNumber: 2)
+      }
+      if !_storage._snapshotPath.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._snapshotPath, fieldNumber: 3)
+      }
       try { if let v = _storage._sourcePicture {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
       } }()
       try { if let v = _storage._bigPicture {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
       } }()
       try { if let v = _storage._snapshotPicture {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
       } }()
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -4225,6 +4434,8 @@ extension PictureElem: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementati
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._sourcePath != rhs_storage._sourcePath {return false}
+        if _storage._bigPath != rhs_storage._bigPath {return false}
+        if _storage._snapshotPath != rhs_storage._snapshotPath {return false}
         if _storage._sourcePicture != rhs_storage._sourcePicture {return false}
         if _storage._bigPicture != rhs_storage._bigPicture {return false}
         if _storage._snapshotPicture != rhs_storage._snapshotPicture {return false}
@@ -4460,6 +4671,44 @@ extension FileElem: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationB
     if lhs.fileName != rhs.fileName {return false}
     if lhs.fileSize != rhs.fileSize {return false}
     if lhs.fileType != rhs.fileType {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension ErrorElem: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ErrorElem"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "type"),
+    2: .same(proto: "data"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.type) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.data) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.type.isEmpty {
+      try visitor.visitSingularStringField(value: self.type, fieldNumber: 1)
+    }
+    if !self.data.isEmpty {
+      try visitor.visitSingularStringField(value: self.data, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: ErrorElem, rhs: ErrorElem) -> Bool {
+    if lhs.type != rhs.type {return false}
+    if lhs.data != rhs.data {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -5121,6 +5370,162 @@ extension AttachedInfoElem: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
   }
 }
 
+extension OaTips: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".OaTips"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "notificationName"),
+    2: .same(proto: "notificationFaceURL"),
+    3: .same(proto: "notificationType"),
+    4: .same(proto: "text"),
+    5: .same(proto: "url"),
+    6: .same(proto: "mixType"),
+    7: .same(proto: "pictureElem"),
+    8: .same(proto: "soundElem"),
+    9: .same(proto: "videoElem"),
+    10: .same(proto: "fileElem"),
+    11: .same(proto: "ex"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _notificationName: String = String()
+    var _notificationFaceURL: String = String()
+    var _notificationType: Int32 = 0
+    var _text: String = String()
+    var _url: String = String()
+    var _mixType: Int32 = 0
+    var _pictureElem: PictureElem? = nil
+    var _soundElem: SoundElem? = nil
+    var _videoElem: VideoElem? = nil
+    var _fileElem: FileElem? = nil
+    var _ex: String = String()
+
+    #if swift(>=5.10)
+      // This property is used as the initial default value for new instances of the type.
+      // The type itself is protecting the reference to its storage via CoW semantics.
+      // This will force a copy to be made of this reference when the first mutation occurs;
+      // hence, it is safe to mark this as `nonisolated(unsafe)`.
+      static nonisolated(unsafe) let defaultInstance = _StorageClass()
+    #else
+      static let defaultInstance = _StorageClass()
+    #endif
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _notificationName = source._notificationName
+      _notificationFaceURL = source._notificationFaceURL
+      _notificationType = source._notificationType
+      _text = source._text
+      _url = source._url
+      _mixType = source._mixType
+      _pictureElem = source._pictureElem
+      _soundElem = source._soundElem
+      _videoElem = source._videoElem
+      _fileElem = source._fileElem
+      _ex = source._ex
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularStringField(value: &_storage._notificationName) }()
+        case 2: try { try decoder.decodeSingularStringField(value: &_storage._notificationFaceURL) }()
+        case 3: try { try decoder.decodeSingularInt32Field(value: &_storage._notificationType) }()
+        case 4: try { try decoder.decodeSingularStringField(value: &_storage._text) }()
+        case 5: try { try decoder.decodeSingularStringField(value: &_storage._url) }()
+        case 6: try { try decoder.decodeSingularInt32Field(value: &_storage._mixType) }()
+        case 7: try { try decoder.decodeSingularMessageField(value: &_storage._pictureElem) }()
+        case 8: try { try decoder.decodeSingularMessageField(value: &_storage._soundElem) }()
+        case 9: try { try decoder.decodeSingularMessageField(value: &_storage._videoElem) }()
+        case 10: try { try decoder.decodeSingularMessageField(value: &_storage._fileElem) }()
+        case 11: try { try decoder.decodeSingularStringField(value: &_storage._ex) }()
+        default: break
+        }
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every if/case branch local when no optimizations
+      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+      // https://github.com/apple/swift-protobuf/issues/1182
+      if !_storage._notificationName.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._notificationName, fieldNumber: 1)
+      }
+      if !_storage._notificationFaceURL.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._notificationFaceURL, fieldNumber: 2)
+      }
+      if _storage._notificationType != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._notificationType, fieldNumber: 3)
+      }
+      if !_storage._text.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._text, fieldNumber: 4)
+      }
+      if !_storage._url.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._url, fieldNumber: 5)
+      }
+      if _storage._mixType != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._mixType, fieldNumber: 6)
+      }
+      try { if let v = _storage._pictureElem {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
+      } }()
+      try { if let v = _storage._soundElem {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+      } }()
+      try { if let v = _storage._videoElem {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
+      } }()
+      try { if let v = _storage._fileElem {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
+      } }()
+      if !_storage._ex.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._ex, fieldNumber: 11)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: OaTips, rhs: OaTips) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._notificationName != rhs_storage._notificationName {return false}
+        if _storage._notificationFaceURL != rhs_storage._notificationFaceURL {return false}
+        if _storage._notificationType != rhs_storage._notificationType {return false}
+        if _storage._text != rhs_storage._text {return false}
+        if _storage._url != rhs_storage._url {return false}
+        if _storage._mixType != rhs_storage._mixType {return false}
+        if _storage._pictureElem != rhs_storage._pictureElem {return false}
+        if _storage._soundElem != rhs_storage._soundElem {return false}
+        if _storage._videoElem != rhs_storage._videoElem {return false}
+        if _storage._fileElem != rhs_storage._fileElem {return false}
+        if _storage._ex != rhs_storage._ex {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension GroupCreatedTips: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".GroupCreatedTips"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -5224,6 +5629,102 @@ extension GroupCreatedTips: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
       }
       if !storagesAreEqual {return false}
     }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension GroupInfoSetNameTips: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GroupInfoSetNameTips"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "opUser"),
+    2: .same(proto: "group"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._opUser) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._group) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._opUser {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._group {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: GroupInfoSetNameTips, rhs: GroupInfoSetNameTips) -> Bool {
+    if lhs._opUser != rhs._opUser {return false}
+    if lhs._group != rhs._group {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension GroupInfoSetAnnouncementTips: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GroupInfoSetAnnouncementTips"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "opUser"),
+    2: .same(proto: "group"),
+    3: .same(proto: "groupMemberVersion"),
+    4: .same(proto: "groupMemberVersionID"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._opUser) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._group) }()
+      case 3: try { try decoder.decodeSingularUInt64Field(value: &self.groupMemberVersion) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.groupMemberVersionID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._opUser {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._group {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    if self.groupMemberVersion != 0 {
+      try visitor.visitSingularUInt64Field(value: self.groupMemberVersion, fieldNumber: 3)
+    }
+    if !self.groupMemberVersionID.isEmpty {
+      try visitor.visitSingularStringField(value: self.groupMemberVersionID, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: GroupInfoSetAnnouncementTips, rhs: GroupInfoSetAnnouncementTips) -> Bool {
+    if lhs._opUser != rhs._opUser {return false}
+    if lhs._group != rhs._group {return false}
+    if lhs.groupMemberVersion != rhs.groupMemberVersion {return false}
+    if lhs.groupMemberVersionID != rhs.groupMemberVersionID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -6052,14 +6553,14 @@ extension RevokedTips: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementati
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.revokerID) }()
-      case 2: try { try decoder.decodeSingularInt32Field(value: &self.revokerRole) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.revokerRole) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.clientMsgID) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.revokerNickname) }()
       case 5: try { try decoder.decodeSingularInt64Field(value: &self.revokeTime) }()
       case 6: try { try decoder.decodeSingularInt64Field(value: &self.sourceMessageSendTime) }()
       case 7: try { try decoder.decodeSingularStringField(value: &self.sourceMessageSendID) }()
       case 8: try { try decoder.decodeSingularStringField(value: &self.sourceMessageSenderNickname) }()
-      case 10: try { try decoder.decodeSingularInt32Field(value: &self.sessionType) }()
+      case 10: try { try decoder.decodeSingularEnumField(value: &self.sessionType) }()
       case 11: try { try decoder.decodeSingularInt64Field(value: &self.seq) }()
       case 12: try { try decoder.decodeSingularStringField(value: &self.ex) }()
       default: break
@@ -6071,8 +6572,8 @@ extension RevokedTips: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementati
     if !self.revokerID.isEmpty {
       try visitor.visitSingularStringField(value: self.revokerID, fieldNumber: 1)
     }
-    if self.revokerRole != 0 {
-      try visitor.visitSingularInt32Field(value: self.revokerRole, fieldNumber: 2)
+    if self.revokerRole != .default {
+      try visitor.visitSingularEnumField(value: self.revokerRole, fieldNumber: 2)
     }
     if !self.clientMsgID.isEmpty {
       try visitor.visitSingularStringField(value: self.clientMsgID, fieldNumber: 3)
@@ -6092,8 +6593,8 @@ extension RevokedTips: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementati
     if !self.sourceMessageSenderNickname.isEmpty {
       try visitor.visitSingularStringField(value: self.sourceMessageSenderNickname, fieldNumber: 8)
     }
-    if self.sessionType != 0 {
-      try visitor.visitSingularInt32Field(value: self.sessionType, fieldNumber: 10)
+    if self.sessionType != .sessionType_ {
+      try visitor.visitSingularEnumField(value: self.sessionType, fieldNumber: 10)
     }
     if self.seq != 0 {
       try visitor.visitSingularInt64Field(value: self.seq, fieldNumber: 11)
@@ -6248,7 +6749,10 @@ extension IMMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementation
     36: .same(proto: "typingElem"),
     37: .same(proto: "streamElem"),
     38: .same(proto: "revokedTips"),
+    39: .same(proto: "errorTips"),
     311: .same(proto: "groupCreatedTips"),
+    312: .same(proto: "groupInfoSetNameTips"),
+    313: .same(proto: "groupInfoSetAnnouncementTips"),
     43: .same(proto: "memberQuitTips"),
     46: .same(proto: "groupOwnerTransferredTips"),
     47: .same(proto: "memberKickedTips"),
@@ -6262,6 +6766,7 @@ extension IMMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementation
     57: .same(proto: "friendApplicationApprovedTips"),
     79: .same(proto: "conversationPrivateChatTips"),
     80: .same(proto: "businessTips"),
+    81: .same(proto: "oaTips"),
   ]
 
   fileprivate class _StorageClass {
@@ -6567,6 +7072,19 @@ extension IMMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementation
             _storage._content = .revokedTips(v)
           }
         }()
+        case 39: try {
+          var v: ErrorElem?
+          var hadOneofValue = false
+          if let current = _storage._content {
+            hadOneofValue = true
+            if case .errorTips(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._content = .errorTips(v)
+          }
+        }()
         case 43: try {
           var v: MemberQuitTips?
           var hadOneofValue = false
@@ -6736,6 +7254,19 @@ extension IMMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementation
             _storage._content = .businessTips(v)
           }
         }()
+        case 81: try {
+          var v: OaTips?
+          var hadOneofValue = false
+          if let current = _storage._content {
+            hadOneofValue = true
+            if case .oaTips(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._content = .oaTips(v)
+          }
+        }()
         case 311: try {
           var v: GroupCreatedTips?
           var hadOneofValue = false
@@ -6747,6 +7278,32 @@ extension IMMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementation
           if let v = v {
             if hadOneofValue {try decoder.handleConflictingOneOf()}
             _storage._content = .groupCreatedTips(v)
+          }
+        }()
+        case 312: try {
+          var v: GroupInfoSetNameTips?
+          var hadOneofValue = false
+          if let current = _storage._content {
+            hadOneofValue = true
+            if case .groupInfoSetNameTips(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._content = .groupInfoSetNameTips(v)
+          }
+        }()
+        case 313: try {
+          var v: GroupInfoSetAnnouncementTips?
+          var hadOneofValue = false
+          if let current = _storage._content {
+            hadOneofValue = true
+            if case .groupInfoSetAnnouncementTips(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._content = .groupInfoSetAnnouncementTips(v)
           }
         }()
         default: break
@@ -6886,6 +7443,10 @@ extension IMMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementation
         guard case .revokedTips(let v)? = _storage._content else { preconditionFailure() }
         try visitor.visitSingularMessageField(value: v, fieldNumber: 38)
       }()
+      case .errorTips?: try {
+        guard case .errorTips(let v)? = _storage._content else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 39)
+      }()
       case .memberQuitTips?: try {
         guard case .memberQuitTips(let v)? = _storage._content else { preconditionFailure() }
         try visitor.visitSingularMessageField(value: v, fieldNumber: 43)
@@ -6938,9 +7499,21 @@ extension IMMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementation
         guard case .businessTips(let v)? = _storage._content else { preconditionFailure() }
         try visitor.visitSingularMessageField(value: v, fieldNumber: 80)
       }()
+      case .oaTips?: try {
+        guard case .oaTips(let v)? = _storage._content else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 81)
+      }()
       case .groupCreatedTips?: try {
         guard case .groupCreatedTips(let v)? = _storage._content else { preconditionFailure() }
         try visitor.visitSingularMessageField(value: v, fieldNumber: 311)
+      }()
+      case .groupInfoSetNameTips?: try {
+        guard case .groupInfoSetNameTips(let v)? = _storage._content else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 312)
+      }()
+      case .groupInfoSetAnnouncementTips?: try {
+        guard case .groupInfoSetAnnouncementTips(let v)? = _storage._content else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 313)
       }()
       case nil: break
       }

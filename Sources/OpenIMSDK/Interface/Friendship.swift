@@ -1,11 +1,11 @@
 import Foundation
 
-public struct Friendship {
-    public func addListener(listener: OnFriendshipListener) {
+public struct Friendship: Interface {
+    public func addListener(_ listener: OnFriendshipListener) {
         ListenerManager.shared.addListener(listener)
     }
     
-    public func removeListener(listener: OnFriendshipListener) {
+    public func removeListener(_ listener: OnFriendshipListener) {
         ListenerManager.shared.removeListener(listener)
     }
     
@@ -22,15 +22,15 @@ public struct Friendship {
     }
 
     /// Get friend requests
-    public func getFriendRequests(_ req: GetFriendRequestsReq) async throws -> [IMFriendApplication] {
-        let result = try await Utils.callCoreAPI(funcName: .getFriendRequests, req: req) as GetFriendRequestsResp
+    public func getFriendApplication(_ req: GetFriendApplicationReq) async throws -> [IMFriendApplication] {
+        let result = try await Utils.callCoreAPI(funcName: .getFriendApplication, req: req) as GetFriendApplicationResp
         
-        return result.requests
+        return result.applications
     }
 
     /// Handle friend request
-    public func handlerFriendRequest(_ req: HandleFriendRequestReq) async throws {
-        try await Utils.callCoreAPI(funcName: .handlerFriendRequest, req: req) as HandleFriendRequestResp
+    public func handleFriendApplication(_ req: HandleFriendApplicationReq) async throws {
+        try await Utils.callCoreAPI(funcName: .handleFriendApplication, req: req) as HandleFriendApplicationResp
     }
 
     /// Check friendship status
@@ -84,7 +84,7 @@ public struct Friendship {
     }
 
     /// Update friend information
-    public func updateFriends(_ req: UpdatesFriendsReq) async throws {
-        try await Utils.callCoreAPI(funcName: .updateFriends, req: req) as UpdatesFriendsResp
+    public func updateFriends(_ req: UpdateFriendReq) async throws {
+        try await Utils.callCoreAPI(funcName: .updateFriend, req: req) as UpdateFriendResp
     }
 }

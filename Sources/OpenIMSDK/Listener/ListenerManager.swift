@@ -86,7 +86,7 @@ class ListenerManager {
     
     private let userModelMapper: [FuncRequestEventName: (Data) -> Any?] = [
         .eventOnSelfInfoUpdated: { try? EventOnSelfInfoUpdatedData(serializedBytes: $0) },
-        .eventOnUserStatusChanged: { try? EventOnUserStatusChangedData(serializedBytes: $0) }
+        .eventOnUserOnlineStatusChanged: { try? EventOnUserOnlineStatusChangedData(serializedBytes: $0) }
     ]
     
     private let conversationModelMapper: [FuncRequestEventName: (Data) -> Any?] = [
@@ -155,7 +155,7 @@ class ListenerManager {
             handleOnConnectListenerEvent(eventName: funcName, data: data)
             break
         case .eventOnSelfInfoUpdated,
-                .eventOnUserStatusChanged:
+                .eventOnUserOnlineStatusChanged:
             handleOnUserListenerEvent(eventName: funcName, data: data)
             break
         case .eventOnConversationChanged,

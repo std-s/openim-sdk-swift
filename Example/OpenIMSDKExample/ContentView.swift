@@ -50,7 +50,7 @@ struct ContentView: View {
     }
     
     private func addObserves() {
-        IMManager.connection.addListener(listener: OnConnectListener(onConnectFailed: { errCode, errMsg in
+        IMManager.connection.addListener( OnConnectListener(onConnectFailed: { errCode, errMsg in
             print("onConnectFailed: \(errCode), \(errMsg)")
         }, onConnectSuccess: {
             print("onConnectSuccess")

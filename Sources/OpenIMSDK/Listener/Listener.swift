@@ -95,20 +95,20 @@ public class OnConversationListener: Listener {
     let onConversationChanged: (DataCallBack<[IMConversation]>)
     let onNewConversation: (DataCallBack<[IMConversation]>)
     let onTotalUnreadMessageCountChanged: (DataCallBack<Int>)
-    let onSyncServerStart: (DataCallBack<Bool?>)?
+    let onSyncServerStart: (DataCallBack<Bool>)?
     let onSyncServerProgress: (DataCallBack<Int>)?
     let onSyncServerFinish: (DataCallBack<Bool>)?
-    let onSyncServerFailed: (DataCallBack<Bool?>)?
+    let onSyncServerFailed: (DataCallBack<Bool>)?
     let onInputStatusChanged: (DataCallBack<EventOnConversationUserInputStatusChangedData>)?
 
     public init(
         onConversationChanged: @escaping (DataCallBack<[IMConversation]>),
         onNewConversation: @escaping (DataCallBack<[IMConversation]>),
         onTotalUnreadMessageCountChanged: @escaping (DataCallBack<Int>),
-        onSyncServerStart: (DataCallBack<Bool?>)? = nil,
+        onSyncServerStart: (DataCallBack<Bool>)? = nil,
         onSyncServerProgress: (DataCallBack<Int>)? = nil,
-        onSyncServerFinish: (DataCallBack<Bool?>)? = nil,
-        onSyncServerFailed: (DataCallBack<Bool?>)? = nil,
+        onSyncServerFinish: (DataCallBack<Bool>)? = nil,
+        onSyncServerFailed: (DataCallBack<Bool>)? = nil,
         onInputStatusChanged: (DataCallBack<EventOnConversationUserInputStatusChangedData>)? = nil
     ) {
         self.onConversationChanged = onConversationChanged
@@ -226,7 +226,7 @@ public class OnFriendshipListener: Listener {
     let onFriendApplicationDeleted: (DataCallBack<IMFriendApplication>)?
     let onFriendApplicationRejected: (DataCallBack<IMFriendApplication>)?
     let onFriendDeleted: (DataCallBack<IMFriend>)?
-    let onIMFriendInfoChanged: (DataCallBack<IMFriend>)?
+    let onFriendInfoChanged: (DataCallBack<IMFriend>)?
 
     public init(
         onBlackAdded: (DataCallBack<IMBlack>)? = nil,
@@ -237,7 +237,7 @@ public class OnFriendshipListener: Listener {
         onFriendApplicationDeleted: (DataCallBack<IMFriendApplication>)? = nil,
         onFriendApplicationRejected: (DataCallBack<IMFriendApplication>)? = nil,
         onFriendDeleted: (DataCallBack<IMFriend>)? = nil,
-        onIMFriendInfoChanged: (DataCallBack<IMFriend>)? = nil
+        onFriendInfoChanged: (DataCallBack<IMFriend>)? = nil
     ) {
         self.onBlackAdded = onBlackAdded
         self.onBlackDeleted = onBlackDeleted
@@ -247,7 +247,7 @@ public class OnFriendshipListener: Listener {
         self.onFriendApplicationDeleted = onFriendApplicationDeleted
         self.onFriendApplicationRejected = onFriendApplicationRejected
         self.onFriendDeleted = onFriendDeleted
-        self.onIMFriendInfoChanged = onIMFriendInfoChanged
+        self.onFriendInfoChanged = onFriendInfoChanged
     }
 
     func handleListenerEvent(eventName: FuncRequestEventName, data: Any? = nil) {
@@ -286,7 +286,7 @@ public class OnFriendshipListener: Listener {
 
         case .eventOnFriendInfoChanged:
             guard let data = data as? EventOnFriendInfoChangedData else { return }
-            onIMFriendInfoChanged?(data.friend)
+            onFriendInfoChanged?(data.friend)
 
         default:
             break

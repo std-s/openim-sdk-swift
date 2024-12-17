@@ -53,20 +53,19 @@ class ResponseManager {
     private let messageTypeMap: [FuncRequestEventName: SwiftProtobuf.Message.Type] = [
         .sendMessage: SendMessageResp.self,
         .findMessageList: FindMessageListResp.self,
-        .getAdvancedHistoryMessageList: GetAdvancedHistoryMessageListResp.self,
-        .getAdvancedHistoryMessageListReverse: GetAdvancedHistoryMessageListReverseResp.self,
+        .getHistoryMessageList: GetHistoryMessageListResp.self,
         .revokeMessage: RevokeMessageResp.self,
         .typingStatusUpdate: TypingStatusUpdateResp.self,
         .markConversationMessageAsRead: MarkConversationMessageAsReadResp.self,
         .markAllConversationMessageAsRead: MarkAllConversationMessageAsReadResp.self,
-        .deleteMessageFromLocalStorage: DeleteMessageFromLocalStorageResp.self,
+        .deleteMessageFromLocal: DeleteMessageFromLocalResp.self,
         .deleteMessage: DeleteMessageResp.self,
         .deleteAllMsgFromLocalAndServer: DeleteAllMsgFromLocalAndServerResp.self,
-        .deleteAllMessageFromLocalStorage: DeleteAllMessageFromLocalStorageResp.self,
+        .deleteAllMessageFromLocal: DeleteAllMessageFromLocalResp.self,
         .clearConversationAndDeleteAllMsg: ClearConversationAndDeleteAllMsgResp.self,
         .deleteConversationAndDeleteAllMsg: DeleteConversationAndDeleteAllMsgResp.self,
-        .insertSingleMessageToLocalStorage: InsertSingleMessageToLocalStorageResp.self,
-        .insertGroupMessageToLocalStorage: InsertGroupMessageToLocalStorageResp.self,
+        .insertSingleMessageToLocal: InsertSingleMessageToLocalResp.self,
+        .insertGroupMessageToLocal: InsertGroupMessageToLocalResp.self,
         .searchLocalMessages: SearchLocalMessagesResp.self,
         .setMessageLocalEx: SetMessageLocalExResp.self,
         .searchConversation: SearchConversationResp.self,
@@ -90,8 +89,8 @@ class ResponseManager {
     private let friendshipTypeMap: [FuncRequestEventName: SwiftProtobuf.Message.Type] = [
         .getSpecifiedFriends: GetSpecifiedFriendsResp.self,
         .addFriend: AddFriendResp.self,
-        .getFriendRequests: GetFriendRequestsResp.self,
-        .handlerFriendRequest: HandleFriendRequestResp.self,
+        .getFriendApplication: GetFriendApplicationResp.self,
+        .handleFriendApplication: HandleFriendApplicationResp.self,
         .checkFriend: CheckFriendResp.self,
         .deleteFriend: DeleteFriendResp.self,
         .getFriends: GetFriendsResp.self,
@@ -100,7 +99,7 @@ class ResponseManager {
         .addBlack: AddBlackResp.self,
         .deleteBlack: DeleteBlackResp.self,
         .getBlacks: GetBlacksResp.self,
-        .updateFriends: UpdatesFriendsResp.self
+        .updateFriend: UpdateFriendResp.self
     ]
     
     private let groupTypeMap: [FuncRequestEventName: SwiftProtobuf.Message.Type] = [
@@ -122,12 +121,12 @@ class ResponseManager {
         .getGroupMembersByJoinTimeFilter: GetGroupMembersByJoinTimeFilterResp.self,
         .getSpecifiedGroupMembersInfo: GetSpecifiedGroupMembersInfoResp.self,
         .getGroupMembers: GetGroupMembersResp.self,
-        .getGroupRequest: GetGroupRequestResp.self,
+        .getGroupApplication: GetGroupApplicationResp.self,
         .searchGroupMembers: SearchGroupMembersResp.self,
         .isJoinGroup: IsJoinGroupResp.self,
         .getUsersInGroup: GetUsersInGroupResp.self,
         .inviteUserToGroup: InviteUserToGroupResp.self,
-        .handlerGroupRequest: HandlerGroupRequestResp.self
+        .handleGroupApplication: HandleGroupApplicationResp.self
     ]
     
     private func onResponse(dataPtr: UnsafeMutableRawPointer?, len: Int32) {
@@ -179,20 +178,19 @@ class ResponseManager {
             break
         case .sendMessage,
                 .findMessageList,
-                .getAdvancedHistoryMessageList,
-                .getAdvancedHistoryMessageListReverse,
+                .getHistoryMessageList,
                 .revokeMessage,
                 .typingStatusUpdate,
                 .markConversationMessageAsRead,
                 .markAllConversationMessageAsRead,
-                .deleteMessageFromLocalStorage,
+                .deleteMessageFromLocal,
                 .deleteMessage,
                 .deleteAllMsgFromLocalAndServer,
-                .deleteAllMessageFromLocalStorage,
+                .deleteAllMessageFromLocal,
                 .clearConversationAndDeleteAllMsg,
                 .deleteConversationAndDeleteAllMsg,
-                .insertSingleMessageToLocalStorage,
-                .insertGroupMessageToLocalStorage,
+                .insertSingleMessageToLocal,
+                .insertGroupMessageToLocal,
                 .searchLocalMessages,
                 .setMessageLocalEx,
                 .searchConversation,
@@ -215,8 +213,8 @@ class ResponseManager {
             break
         case .getSpecifiedFriends,
                 .addFriend,
-                .getFriendRequests,
-                .handlerFriendRequest,
+                .getFriendApplication,
+                .handleFriendApplication,
                 .checkFriend,
                 .deleteFriend,
                 .getFriends,
@@ -225,7 +223,7 @@ class ResponseManager {
                 .addBlack,
                 .deleteBlack,
                 .getBlacks,
-                .updateFriends:
+                .updateFriend:
             handleFunc(ffiResult: result,  typeMap: friendshipTypeMap)
             break
         case .createGroup,
@@ -246,12 +244,12 @@ class ResponseManager {
                 .getGroupMembersByJoinTimeFilter,
                 .getSpecifiedGroupMembersInfo,
                 .getGroupMembers,
-                .getGroupRequest,
+                .getGroupApplication,
                 .searchGroupMembers,
                 .isJoinGroup,
                 .getUsersInGroup,
                 .inviteUserToGroup,
-                .handlerGroupRequest:
+                .handleGroupApplication:
             handleFunc(ffiResult: result, typeMap: groupTypeMap)
             break
         default:

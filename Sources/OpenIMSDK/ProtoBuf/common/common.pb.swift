@@ -361,13 +361,14 @@ public enum ContentType: SwiftProtobuf.Enum, Swift.CaseIterable {
   case advancedText // = 117
   case customMsgNotTriggerConversation // = 119
   case customMsgOnlineOnly // = 120
+  case friendApplicationApprovedNotification // = 1201
 
   ///  FriendApplicationRejectedNotification = 1202;
   ///  FriendApplicationNotification = 1203;
   ///  FriendAddedNotification = 1204;
   ///  FriendDeletedNotification = 1205;
   ///  FriendRemarkSetNotification = 1206;
-  case friendApplicationApprovedNotification // = 1201
+  case oanotification // = 1400
 
   ///  BlackAddedNotification = 1207;
   ///  BlackDeletedNotification = 1208;
@@ -395,14 +396,16 @@ public enum ContentType: SwiftProtobuf.Enum, Swift.CaseIterable {
   case groupMemberMutedNotification // = 1512
   case groupMemberCancelMutedNotification // = 1513
   case groupMutedNotification // = 1514
+  case groupCancelMutedNotification // = 1515
 
   ///  GroupMemberInfoSetNotification = 1516;
   ///  GroupMemberSetToAdminNotification = 1517;
   ///  GroupMemberSetToOrdinaryUserNotification = 1518;
   ///  GroupInfoSetAnnouncementNotification = 1519;
-  ///  GroupInfoSetNameNotification = 1520;
+  case groupInfoSetAnnouncementNotification // = 1519
+
   ///  GroupNotificationEnd                     = 1599;
-  case groupCancelMutedNotification // = 1515
+  case groupInfoSetNameNotification // = 1520
 
   ///  ClearConversationNotification = 1703;
   case conversationPrivateChatNotification // = 1701
@@ -435,6 +438,7 @@ public enum ContentType: SwiftProtobuf.Enum, Swift.CaseIterable {
     case 119: self = .customMsgNotTriggerConversation
     case 120: self = .customMsgOnlineOnly
     case 1201: self = .friendApplicationApprovedNotification
+    case 1400: self = .oanotification
     case 1501: self = .groupCreatedNotification
     case 1504: self = .memberQuitNotification
     case 1507: self = .groupOwnerTransferredNotification
@@ -446,6 +450,8 @@ public enum ContentType: SwiftProtobuf.Enum, Swift.CaseIterable {
     case 1513: self = .groupMemberCancelMutedNotification
     case 1514: self = .groupMutedNotification
     case 1515: self = .groupCancelMutedNotification
+    case 1519: self = .groupInfoSetAnnouncementNotification
+    case 1520: self = .groupInfoSetNameNotification
     case 1701: self = .conversationPrivateChatNotification
     case 2001: self = .businessNotification
     case 2101: self = .revokedNotification
@@ -474,6 +480,7 @@ public enum ContentType: SwiftProtobuf.Enum, Swift.CaseIterable {
     case .customMsgNotTriggerConversation: return 119
     case .customMsgOnlineOnly: return 120
     case .friendApplicationApprovedNotification: return 1201
+    case .oanotification: return 1400
     case .groupCreatedNotification: return 1501
     case .memberQuitNotification: return 1504
     case .groupOwnerTransferredNotification: return 1507
@@ -485,6 +492,8 @@ public enum ContentType: SwiftProtobuf.Enum, Swift.CaseIterable {
     case .groupMemberCancelMutedNotification: return 1513
     case .groupMutedNotification: return 1514
     case .groupCancelMutedNotification: return 1515
+    case .groupInfoSetAnnouncementNotification: return 1519
+    case .groupInfoSetNameNotification: return 1520
     case .conversationPrivateChatNotification: return 1701
     case .businessNotification: return 2001
     case .revokedNotification: return 2101
@@ -513,6 +522,7 @@ public enum ContentType: SwiftProtobuf.Enum, Swift.CaseIterable {
     .customMsgNotTriggerConversation,
     .customMsgOnlineOnly,
     .friendApplicationApprovedNotification,
+    .oanotification,
     .groupCreatedNotification,
     .memberQuitNotification,
     .groupOwnerTransferredNotification,
@@ -524,6 +534,8 @@ public enum ContentType: SwiftProtobuf.Enum, Swift.CaseIterable {
     .groupMemberCancelMutedNotification,
     .groupMutedNotification,
     .groupCancelMutedNotification,
+    .groupInfoSetAnnouncementNotification,
+    .groupInfoSetNameNotification,
     .conversationPrivateChatNotification,
     .businessNotification,
     .revokedNotification,
@@ -613,6 +625,7 @@ public enum ConvGroupAtType: SwiftProtobuf.Enum, Swift.CaseIterable {
   case atMe // = 1
   case atAll // = 2
   case atAllAtMe // = 3
+  case groupNotification // = 4
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -625,6 +638,7 @@ public enum ConvGroupAtType: SwiftProtobuf.Enum, Swift.CaseIterable {
     case 1: self = .atMe
     case 2: self = .atAll
     case 3: self = .atAllAtMe
+    case 4: self = .groupNotification
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -635,6 +649,7 @@ public enum ConvGroupAtType: SwiftProtobuf.Enum, Swift.CaseIterable {
     case .atMe: return 1
     case .atAll: return 2
     case .atAllAtMe: return 3
+    case .groupNotification: return 4
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -645,6 +660,7 @@ public enum ConvGroupAtType: SwiftProtobuf.Enum, Swift.CaseIterable {
     .atMe,
     .atAll,
     .atAllAtMe,
+    .groupNotification,
   ]
 
 }
@@ -822,6 +838,166 @@ public enum UploadSDKDataMode: SwiftProtobuf.Enum, Swift.CaseIterable {
 
 }
 
+public enum RevokerRole: SwiftProtobuf.Enum, Swift.CaseIterable {
+  public typealias RawValue = Int
+  case `default` // = 0
+  case owner // = 100
+  case admin // = 60
+  case member // = 20
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .default
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .default
+    case 20: self = .member
+    case 60: self = .admin
+    case 100: self = .owner
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .default: return 0
+    case .member: return 20
+    case .admin: return 60
+    case .owner: return 100
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [RevokerRole] = [
+    .default,
+    .owner,
+    .admin,
+    .member,
+  ]
+
+}
+
+public enum FriendSource: SwiftProtobuf.Enum, Swift.CaseIterable {
+  public typealias RawValue = Int
+  case ___ // = 0
+  case search // = 3
+  case qrcode // = 4
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .___
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .___
+    case 3: self = .search
+    case 4: self = .qrcode
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .___: return 0
+    case .search: return 3
+    case .qrcode: return 4
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [FriendSource] = [
+    .___,
+    .search,
+    .qrcode,
+  ]
+
+}
+
+public enum HandleResult: SwiftProtobuf.Enum, Swift.CaseIterable {
+  public typealias RawValue = Int
+  case resultDefault // = 0
+  case resultDecline // = -1
+  case resultAccept // = 1
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .resultDefault
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case -1: self = .resultDecline
+    case 0: self = .resultDefault
+    case 1: self = .resultAccept
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .resultDecline: return -1
+    case .resultDefault: return 0
+    case .resultAccept: return 1
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [HandleResult] = [
+    .resultDefault,
+    .resultDecline,
+    .resultAccept,
+  ]
+
+}
+
+public enum GroupMemberRoleLevel: SwiftProtobuf.Enum, Swift.CaseIterable {
+  public typealias RawValue = Int
+  case groupRoleLevel_ // = 0
+  case groupOwner // = 100
+  case groupAdmin // = 60
+  case groupOrdinaryUsers // = 20
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .groupRoleLevel_
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .groupRoleLevel_
+    case 20: self = .groupOrdinaryUsers
+    case 60: self = .groupAdmin
+    case 100: self = .groupOwner
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .groupRoleLevel_: return 0
+    case .groupOrdinaryUsers: return 20
+    case .groupAdmin: return 60
+    case .groupOwner: return 100
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [GroupMemberRoleLevel] = [
+    .groupRoleLevel_,
+    .groupOwner,
+    .groupAdmin,
+    .groupOrdinaryUsers,
+  ]
+
+}
+
 public struct OfflinePushInfo: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -947,6 +1123,7 @@ extension ContentType: SwiftProtobuf._ProtoNameProviding {
     119: .same(proto: "CustomMsgNotTriggerConversation"),
     120: .same(proto: "CustomMsgOnlineOnly"),
     1201: .same(proto: "FriendApplicationApprovedNotification"),
+    1400: .same(proto: "OANotification"),
     1501: .same(proto: "GroupCreatedNotification"),
     1504: .same(proto: "MemberQuitNotification"),
     1507: .same(proto: "GroupOwnerTransferredNotification"),
@@ -958,6 +1135,8 @@ extension ContentType: SwiftProtobuf._ProtoNameProviding {
     1513: .same(proto: "GroupMemberCancelMutedNotification"),
     1514: .same(proto: "GroupMutedNotification"),
     1515: .same(proto: "GroupCancelMutedNotification"),
+    1519: .same(proto: "GroupInfoSetAnnouncementNotification"),
+    1520: .same(proto: "GroupInfoSetNameNotification"),
     1701: .same(proto: "ConversationPrivateChatNotification"),
     2001: .same(proto: "BusinessNotification"),
     2101: .same(proto: "RevokedNotification"),
@@ -986,6 +1165,7 @@ extension ConvGroupAtType: SwiftProtobuf._ProtoNameProviding {
     1: .same(proto: "AtMe"),
     2: .same(proto: "AtAll"),
     3: .same(proto: "AtAllAtMe"),
+    4: .same(proto: "GroupNotification"),
   ]
 }
 
@@ -1015,6 +1195,40 @@ extension UploadSDKDataMode: SwiftProtobuf._ProtoNameProviding {
     1: .same(proto: "UploadLogs"),
     2: .same(proto: "UploadDB"),
     3: .same(proto: "UploadLogsAndDB"),
+  ]
+}
+
+extension RevokerRole: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "RevokerRoleDefault"),
+    20: .same(proto: "RevokerRoleMember"),
+    60: .same(proto: "RevokerRoleAdmin"),
+    100: .same(proto: "RevokerRoleOwner"),
+  ]
+}
+
+extension FriendSource: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "_"),
+    3: .same(proto: "Search"),
+    4: .same(proto: "QRCode"),
+  ]
+}
+
+extension HandleResult: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    -1: .same(proto: "ResultDecline"),
+    0: .same(proto: "ResultDefault"),
+    1: .same(proto: "ResultAccept"),
+  ]
+}
+
+extension GroupMemberRoleLevel: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "GroupRoleLevel_"),
+    20: .same(proto: "GroupOrdinaryUsers"),
+    60: .same(proto: "GroupAdmin"),
+    100: .same(proto: "GroupOwner"),
   ]
 }
 

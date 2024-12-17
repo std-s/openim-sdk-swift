@@ -3,27 +3,31 @@ import Foundation
 import SwiftProtobuf
 
 public struct Connection {
-    public func addListener(listener: OnConnectListener) {
+    public func addListener(_ listener: OnConnectListener) {
         ListenerManager.shared.addListener(listener)
     }
     
-    public func removeListener(listener: OnConnectListener) {
+    public func removeListener(_ listener: OnConnectListener) {
         ListenerManager.shared.removeListener(listener)
     }
     
     /// Initialize SDK
     public func initSdk(_ req: IMConfig) async throws -> Bool {
-        var config = req
-        config.platform = req.platform == .platform_ ? .iOs : req.platform
-        config.appFramework = req.appFramework == .appFramework_ ? .native : req.appFramework
-        config.logFilePath = req.logFilePath.isEmpty ? NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/" : req.logFilePath
+        let task = Task {
+            var config = req
+            config.platform = req.platform == .platform_ ? .iOs : req.platform
+            config.appFramework = req.appFramework == .appFramework_ ? .native : req.appFramework
+            config.logFilePath = req.logFilePath.isEmpty ? NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/" : req.logFilePath
+            
+            var initSDKReq = InitSDKReq()
+            initSDKReq.config = req
+            
+            let result: InitSDKResp = try await Utils.callCoreAPI(funcName: .initSdk, req: initSDKReq)
+            
+            return result.suc
+        }
         
-        var initSDKReq = InitSDKReq()
-        initSDKReq.config = req
-
-        let result: InitSDKResp = try await Utils.callCoreAPI(funcName: .initSdk, req: initSDKReq)
-        
-        return result.suc
+        return try await task.value
     }
 
     /// User login

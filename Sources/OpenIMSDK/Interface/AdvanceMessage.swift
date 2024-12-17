@@ -2,12 +2,12 @@
 import Foundation
 import SwiftProtobuf
 
-public struct AdvanceMessage {
-    public func addListener(listener: OnMessageListener) {
+public struct AdvanceMessage: Interface {
+    public func addListener(_ listener: OnMessageListener) {
         ListenerManager.shared.addListener(listener)
     }
     
-    public func removeListener(listener: OnMessageListener) {
+    public func removeListener(_ listener: OnMessageListener) {
         ListenerManager.shared.removeListener(listener)
     }
     
@@ -37,21 +37,8 @@ public struct AdvanceMessage {
     }
 
     /// Get the advanced history message list
-    public func getAdvancedHistoryMessageList(_ req: GetAdvancedHistoryMessageListReq) async throws -> GetAdvancedHistoryMessageListCallback {
-        let task = Task.detached {
-            let result = try await Utils.callCoreAPI(funcName: .getAdvancedHistoryMessageList, req: req) as GetAdvancedHistoryMessageListResp
-            
-            return result.getAdvancedHistoryMessageListCallback
-        }
-        
-        return try await task.value
-    }
-
-    /// Get the advanced history message list in reverse order
-    public func getAdvancedHistoryMessageListReverse(_ req: GetAdvancedHistoryMessageListReverseReq) async throws -> GetAdvancedHistoryMessageListCallback {
-        let result = try await Utils.callCoreAPI(funcName: .getAdvancedHistoryMessageListReverse, req: req) as GetAdvancedHistoryMessageListReverseResp
-        
-        return result.getAdvancedHistoryMessageListCallback
+    public func getAdvancedHistoryMessageList(_ req: GetHistoryMessageListReq) async throws -> GetHistoryMessageListResp {
+       try await Utils.callCoreAPI(funcName: .getHistoryMessageList, req: req)
     }
 
     /// Revoke a message
@@ -75,8 +62,8 @@ public struct AdvanceMessage {
     }
 
     /// Delete a message from local storage
-    public func deleteMessageFromLocalStorage(_ req: DeleteMessageFromLocalStorageReq) async throws {
-        try await Utils.callCoreAPI(funcName: .deleteMessageFromLocalStorage, req: req) as DeleteMessageFromLocalStorageResp
+    public func deleteMessageFromLocalStorage(_ req: DeleteMessageFromLocalReq) async throws {
+        try await Utils.callCoreAPI(funcName: .deleteMessageFromLocal, req: req) as DeleteMessageFromLocalResp
     }
 
     /// Delete a message
@@ -88,14 +75,14 @@ public struct AdvanceMessage {
     public func deleteAllMsgFromLocalAndServer() async throws {
         let req = DeleteAllMsgFromLocalAndServerReq()
         
-        try await Utils.callCoreAPI(funcName: .deleteAllMsgFromLocalAndServer, req: req) as DeleteAllMessageFromLocalStorageResp
+        try await Utils.callCoreAPI(funcName: .deleteAllMsgFromLocalAndServer, req: req) as DeleteAllMsgFromLocalAndServerResp
     }
 
     /// Delete all messages from local storage
-    public func deleteAllMessageFromLocalStorage() async throws {
-        let req = DeleteAllMessageFromLocalStorageReq()
+    public func deleteAllMessageFromLocal() async throws {
+        let req = DeleteAllMessageFromLocalReq()
         
-        try await Utils.callCoreAPI(funcName: .deleteAllMessageFromLocalStorage, req: req) as DeleteAllMessageFromLocalStorageResp
+        try await Utils.callCoreAPI(funcName: .deleteAllMessageFromLocal, req: req) as DeleteAllMessageFromLocalResp
     }
 
     /// Clear conversation and delete all messages
@@ -109,24 +96,24 @@ public struct AdvanceMessage {
     }
 
     /// Insert a single message to local storage
-    public func insertSingleMessageToLocalStorage(_ req: InsertSingleMessageToLocalStorageReq) async throws -> IMMessage {
-        let result = try await Utils.callCoreAPI(funcName: .insertSingleMessageToLocalStorage, req: req) as InsertSingleMessageToLocalStorageResp
+    public func insertSingleMessageToLocal(_ req: InsertSingleMessageToLocalReq) async throws -> IMMessage {
+        let result = try await Utils.callCoreAPI(funcName: .insertSingleMessageToLocal, req: req) as InsertSingleMessageToLocalResp
         
         return result.msg
     }
 
     /// Insert a group message to local storage
-    public func insertGroupMessageToLocalStorage(_ req: InsertGroupMessageToLocalStorageReq) async throws -> IMMessage {
-        let result = try await Utils.callCoreAPI(funcName: .insertGroupMessageToLocalStorage, req: req) as InsertGroupMessageToLocalStorageResp
+    public func insertGroupMessageToLocal(_ req: InsertGroupMessageToLocalReq) async throws -> IMMessage {
+        let result = try await Utils.callCoreAPI(funcName: .insertGroupMessageToLocal, req: req) as InsertGroupMessageToLocalResp
         
         return result.msg
     }
 
     /// Search local messages
-    public func searchLocalMessages(_ req: SearchLocalMessagesReq) async throws -> SearchLocalMessagesCallback {
+    public func searchLocalMessages(_ req: SearchLocalMessagesReq) async throws -> [SearchByConversationResult] {
         let result = try await Utils.callCoreAPI(funcName: .searchLocalMessages, req: req) as SearchLocalMessagesResp
         
-        return result.searchResult
+        return result.searchResultItems
     }
 
     /// Set message local extensions

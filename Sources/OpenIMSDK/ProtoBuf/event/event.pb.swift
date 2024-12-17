@@ -90,7 +90,7 @@ public enum FuncRequestEventName: SwiftProtobuf.Enum, Swift.CaseIterable {
 
   /// UserCallback Events
   case eventOnSelfInfoUpdated // = 57
-  case eventOnUserStatusChanged // = 58
+  case eventOnUserOnlineStatusChanged // = 58
   case eventOnUserCommandAdd // = 59
   case eventOnUserCommandDelete // = 60
   case eventOnUserCommandUpdate // = 61
@@ -112,16 +112,16 @@ public enum FuncRequestEventName: SwiftProtobuf.Enum, Swift.CaseIterable {
   case getGroupMembersByJoinTimeFilter // = 1015
   case getSpecifiedGroupMembersInfo // = 1016
   case getGroupMembers // = 1017
-  case getGroupRequest // = 1018
+  case getGroupApplication // = 1018
   case searchGroupMembers // = 1019
   case isJoinGroup // = 1020
   case getUsersInGroup // = 1021
   case inviteUserToGroup // = 1022
-  case handlerGroupRequest // = 1023
+  case handleGroupApplication // = 1023
   case getSpecifiedFriends // = 1100
   case addFriend // = 1101
-  case getFriendRequests // = 1102
-  case handlerFriendRequest // = 1103
+  case getFriendApplication // = 1102
+  case handleFriendApplication // = 1103
   case checkFriend // = 1104
   case deleteFriend // = 1105
   case getFriends // = 1106
@@ -130,7 +130,7 @@ public enum FuncRequestEventName: SwiftProtobuf.Enum, Swift.CaseIterable {
   case addBlack // = 1109
   case deleteBlack // = 1110
   case getBlacks // = 1111
-  case updateFriends // = 1112
+  case updateFriend // = 1112
 
   /// conversation_msg
   case getAllConversationList // = 2000
@@ -145,20 +145,19 @@ public enum FuncRequestEventName: SwiftProtobuf.Enum, Swift.CaseIterable {
   case getTotalUnreadMsgCount // = 2009
   case getConversationIdbySessionType // = 2010
   case findMessageList // = 2011
-  case getAdvancedHistoryMessageList // = 2012
-  case getAdvancedHistoryMessageListReverse // = 2013
+  case getHistoryMessageList // = 2012
   case revokeMessage // = 2014
   case typingStatusUpdate // = 2015
   case markConversationMessageAsRead // = 2016
   case markAllConversationMessageAsRead // = 2017
-  case deleteMessageFromLocalStorage // = 2018
+  case deleteMessageFromLocal // = 2018
   case deleteMessage // = 2019
   case deleteAllMsgFromLocalAndServer // = 2020
-  case deleteAllMessageFromLocalStorage // = 2021
+  case deleteAllMessageFromLocal // = 2021
   case clearConversationAndDeleteAllMsg // = 2022
   case deleteConversationAndDeleteAllMsg // = 2023
-  case insertSingleMessageToLocalStorage // = 2024
-  case insertGroupMessageToLocalStorage // = 2025
+  case insertSingleMessageToLocal // = 2024
+  case insertGroupMessageToLocal // = 2025
   case searchLocalMessages // = 2026
   case setMessageLocalEx // = 2027
   case searchConversation // = 2028
@@ -186,6 +185,8 @@ public enum FuncRequestEventName: SwiftProtobuf.Enum, Swift.CaseIterable {
   case getUsersInfo // = 2106
   case subscribeUsersOnlineStatus // = 2229
   case unsubscribeUsersOnlineStatus // = 2230
+  case changeInputStates // = 2231
+  case getInputStates // = 2232
 
   /// The following functions are only used for Go and JS interaction and can be ignored by other platforms.
   case jsFileOpen // = 2110
@@ -259,7 +260,7 @@ public enum FuncRequestEventName: SwiftProtobuf.Enum, Swift.CaseIterable {
     case 55: self = .eventOnGroupApplicationRejected
     case 56: self = .eventOnRecvCustomBusinessMessage
     case 57: self = .eventOnSelfInfoUpdated
-    case 58: self = .eventOnUserStatusChanged
+    case 58: self = .eventOnUserOnlineStatusChanged
     case 59: self = .eventOnUserCommandAdd
     case 60: self = .eventOnUserCommandDelete
     case 61: self = .eventOnUserCommandUpdate
@@ -285,16 +286,16 @@ public enum FuncRequestEventName: SwiftProtobuf.Enum, Swift.CaseIterable {
     case 1015: self = .getGroupMembersByJoinTimeFilter
     case 1016: self = .getSpecifiedGroupMembersInfo
     case 1017: self = .getGroupMembers
-    case 1018: self = .getGroupRequest
+    case 1018: self = .getGroupApplication
     case 1019: self = .searchGroupMembers
     case 1020: self = .isJoinGroup
     case 1021: self = .getUsersInGroup
     case 1022: self = .inviteUserToGroup
-    case 1023: self = .handlerGroupRequest
+    case 1023: self = .handleGroupApplication
     case 1100: self = .getSpecifiedFriends
     case 1101: self = .addFriend
-    case 1102: self = .getFriendRequests
-    case 1103: self = .handlerFriendRequest
+    case 1102: self = .getFriendApplication
+    case 1103: self = .handleFriendApplication
     case 1104: self = .checkFriend
     case 1105: self = .deleteFriend
     case 1106: self = .getFriends
@@ -303,7 +304,7 @@ public enum FuncRequestEventName: SwiftProtobuf.Enum, Swift.CaseIterable {
     case 1109: self = .addBlack
     case 1110: self = .deleteBlack
     case 1111: self = .getBlacks
-    case 1112: self = .updateFriends
+    case 1112: self = .updateFriend
     case 2000: self = .getAllConversationList
     case 2001: self = .getConversationListSplit
     case 2002: self = .hideConversation
@@ -316,20 +317,19 @@ public enum FuncRequestEventName: SwiftProtobuf.Enum, Swift.CaseIterable {
     case 2009: self = .getTotalUnreadMsgCount
     case 2010: self = .getConversationIdbySessionType
     case 2011: self = .findMessageList
-    case 2012: self = .getAdvancedHistoryMessageList
-    case 2013: self = .getAdvancedHistoryMessageListReverse
+    case 2012: self = .getHistoryMessageList
     case 2014: self = .revokeMessage
     case 2015: self = .typingStatusUpdate
     case 2016: self = .markConversationMessageAsRead
     case 2017: self = .markAllConversationMessageAsRead
-    case 2018: self = .deleteMessageFromLocalStorage
+    case 2018: self = .deleteMessageFromLocal
     case 2019: self = .deleteMessage
     case 2020: self = .deleteAllMsgFromLocalAndServer
-    case 2021: self = .deleteAllMessageFromLocalStorage
+    case 2021: self = .deleteAllMessageFromLocal
     case 2022: self = .clearConversationAndDeleteAllMsg
     case 2023: self = .deleteConversationAndDeleteAllMsg
-    case 2024: self = .insertSingleMessageToLocalStorage
-    case 2025: self = .insertGroupMessageToLocalStorage
+    case 2024: self = .insertSingleMessageToLocal
+    case 2025: self = .insertGroupMessageToLocal
     case 2026: self = .searchLocalMessages
     case 2027: self = .setMessageLocalEx
     case 2028: self = .searchConversation
@@ -364,6 +364,8 @@ public enum FuncRequestEventName: SwiftProtobuf.Enum, Swift.CaseIterable {
     case 2116: self = .jsSqliteClose
     case 2229: self = .subscribeUsersOnlineStatus
     case 2230: self = .unsubscribeUsersOnlineStatus
+    case 2231: self = .changeInputStates
+    case 2232: self = .getInputStates
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -426,7 +428,7 @@ public enum FuncRequestEventName: SwiftProtobuf.Enum, Swift.CaseIterable {
     case .eventOnGroupApplicationRejected: return 55
     case .eventOnRecvCustomBusinessMessage: return 56
     case .eventOnSelfInfoUpdated: return 57
-    case .eventOnUserStatusChanged: return 58
+    case .eventOnUserOnlineStatusChanged: return 58
     case .eventOnUserCommandAdd: return 59
     case .eventOnUserCommandDelete: return 60
     case .eventOnUserCommandUpdate: return 61
@@ -452,16 +454,16 @@ public enum FuncRequestEventName: SwiftProtobuf.Enum, Swift.CaseIterable {
     case .getGroupMembersByJoinTimeFilter: return 1015
     case .getSpecifiedGroupMembersInfo: return 1016
     case .getGroupMembers: return 1017
-    case .getGroupRequest: return 1018
+    case .getGroupApplication: return 1018
     case .searchGroupMembers: return 1019
     case .isJoinGroup: return 1020
     case .getUsersInGroup: return 1021
     case .inviteUserToGroup: return 1022
-    case .handlerGroupRequest: return 1023
+    case .handleGroupApplication: return 1023
     case .getSpecifiedFriends: return 1100
     case .addFriend: return 1101
-    case .getFriendRequests: return 1102
-    case .handlerFriendRequest: return 1103
+    case .getFriendApplication: return 1102
+    case .handleFriendApplication: return 1103
     case .checkFriend: return 1104
     case .deleteFriend: return 1105
     case .getFriends: return 1106
@@ -470,7 +472,7 @@ public enum FuncRequestEventName: SwiftProtobuf.Enum, Swift.CaseIterable {
     case .addBlack: return 1109
     case .deleteBlack: return 1110
     case .getBlacks: return 1111
-    case .updateFriends: return 1112
+    case .updateFriend: return 1112
     case .getAllConversationList: return 2000
     case .getConversationListSplit: return 2001
     case .hideConversation: return 2002
@@ -483,20 +485,19 @@ public enum FuncRequestEventName: SwiftProtobuf.Enum, Swift.CaseIterable {
     case .getTotalUnreadMsgCount: return 2009
     case .getConversationIdbySessionType: return 2010
     case .findMessageList: return 2011
-    case .getAdvancedHistoryMessageList: return 2012
-    case .getAdvancedHistoryMessageListReverse: return 2013
+    case .getHistoryMessageList: return 2012
     case .revokeMessage: return 2014
     case .typingStatusUpdate: return 2015
     case .markConversationMessageAsRead: return 2016
     case .markAllConversationMessageAsRead: return 2017
-    case .deleteMessageFromLocalStorage: return 2018
+    case .deleteMessageFromLocal: return 2018
     case .deleteMessage: return 2019
     case .deleteAllMsgFromLocalAndServer: return 2020
-    case .deleteAllMessageFromLocalStorage: return 2021
+    case .deleteAllMessageFromLocal: return 2021
     case .clearConversationAndDeleteAllMsg: return 2022
     case .deleteConversationAndDeleteAllMsg: return 2023
-    case .insertSingleMessageToLocalStorage: return 2024
-    case .insertGroupMessageToLocalStorage: return 2025
+    case .insertSingleMessageToLocal: return 2024
+    case .insertGroupMessageToLocal: return 2025
     case .searchLocalMessages: return 2026
     case .setMessageLocalEx: return 2027
     case .searchConversation: return 2028
@@ -531,6 +532,8 @@ public enum FuncRequestEventName: SwiftProtobuf.Enum, Swift.CaseIterable {
     case .jsSqliteClose: return 2116
     case .subscribeUsersOnlineStatus: return 2229
     case .unsubscribeUsersOnlineStatus: return 2230
+    case .changeInputStates: return 2231
+    case .getInputStates: return 2232
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -597,7 +600,7 @@ public enum FuncRequestEventName: SwiftProtobuf.Enum, Swift.CaseIterable {
     .eventOnGroupApplicationRejected,
     .eventOnRecvCustomBusinessMessage,
     .eventOnSelfInfoUpdated,
-    .eventOnUserStatusChanged,
+    .eventOnUserOnlineStatusChanged,
     .eventOnUserCommandAdd,
     .eventOnUserCommandDelete,
     .eventOnUserCommandUpdate,
@@ -619,16 +622,16 @@ public enum FuncRequestEventName: SwiftProtobuf.Enum, Swift.CaseIterable {
     .getGroupMembersByJoinTimeFilter,
     .getSpecifiedGroupMembersInfo,
     .getGroupMembers,
-    .getGroupRequest,
+    .getGroupApplication,
     .searchGroupMembers,
     .isJoinGroup,
     .getUsersInGroup,
     .inviteUserToGroup,
-    .handlerGroupRequest,
+    .handleGroupApplication,
     .getSpecifiedFriends,
     .addFriend,
-    .getFriendRequests,
-    .handlerFriendRequest,
+    .getFriendApplication,
+    .handleFriendApplication,
     .checkFriend,
     .deleteFriend,
     .getFriends,
@@ -637,7 +640,7 @@ public enum FuncRequestEventName: SwiftProtobuf.Enum, Swift.CaseIterable {
     .addBlack,
     .deleteBlack,
     .getBlacks,
-    .updateFriends,
+    .updateFriend,
     .getAllConversationList,
     .getConversationListSplit,
     .hideConversation,
@@ -650,20 +653,19 @@ public enum FuncRequestEventName: SwiftProtobuf.Enum, Swift.CaseIterable {
     .getTotalUnreadMsgCount,
     .getConversationIdbySessionType,
     .findMessageList,
-    .getAdvancedHistoryMessageList,
-    .getAdvancedHistoryMessageListReverse,
+    .getHistoryMessageList,
     .revokeMessage,
     .typingStatusUpdate,
     .markConversationMessageAsRead,
     .markAllConversationMessageAsRead,
-    .deleteMessageFromLocalStorage,
+    .deleteMessageFromLocal,
     .deleteMessage,
     .deleteAllMsgFromLocalAndServer,
-    .deleteAllMessageFromLocalStorage,
+    .deleteAllMessageFromLocal,
     .clearConversationAndDeleteAllMsg,
     .deleteConversationAndDeleteAllMsg,
-    .insertSingleMessageToLocalStorage,
-    .insertGroupMessageToLocalStorage,
+    .insertSingleMessageToLocal,
+    .insertGroupMessageToLocal,
     .searchLocalMessages,
     .setMessageLocalEx,
     .searchConversation,
@@ -691,6 +693,8 @@ public enum FuncRequestEventName: SwiftProtobuf.Enum, Swift.CaseIterable {
     .getUsersInfo,
     .subscribeUsersOnlineStatus,
     .unsubscribeUsersOnlineStatus,
+    .changeInputStates,
+    .getInputStates,
     .jsFileOpen,
     .jsFileRead,
     .jsFileClose,
@@ -706,6 +710,8 @@ public struct EventOnSendMsgProgressData: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
+
+  public var clientMsgID: String = String()
 
   public var progress: Int32 = 0
 
@@ -897,7 +903,7 @@ public struct EventOnConversationUserInputStatusChangedData: Sendable {
 
   public var userID: String = String()
 
-  public var platformIds: [Int32] = []
+  public var platforms: [Platform] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1072,20 +1078,20 @@ public struct EventOnFriendApplicationAddedData: Sendable {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var request: IMFriendApplication {
-    get {return _request ?? IMFriendApplication()}
-    set {_request = newValue}
+  public var application: IMFriendApplication {
+    get {return _application ?? IMFriendApplication()}
+    set {_application = newValue}
   }
-  /// Returns true if `request` has been explicitly set.
-  public var hasRequest: Bool {return self._request != nil}
-  /// Clears the value of `request`. Subsequent reads from it will return its default value.
-  public mutating func clearRequest() {self._request = nil}
+  /// Returns true if `application` has been explicitly set.
+  public var hasApplication: Bool {return self._application != nil}
+  /// Clears the value of `application`. Subsequent reads from it will return its default value.
+  public mutating func clearApplication() {self._application = nil}
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
-  fileprivate var _request: IMFriendApplication? = nil
+  fileprivate var _application: IMFriendApplication? = nil
 }
 
 public struct EventOnFriendApplicationDeletedData: Sendable {
@@ -1093,20 +1099,20 @@ public struct EventOnFriendApplicationDeletedData: Sendable {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var request: IMFriendApplication {
-    get {return _request ?? IMFriendApplication()}
-    set {_request = newValue}
+  public var application: IMFriendApplication {
+    get {return _application ?? IMFriendApplication()}
+    set {_application = newValue}
   }
-  /// Returns true if `request` has been explicitly set.
-  public var hasRequest: Bool {return self._request != nil}
-  /// Clears the value of `request`. Subsequent reads from it will return its default value.
-  public mutating func clearRequest() {self._request = nil}
+  /// Returns true if `application` has been explicitly set.
+  public var hasApplication: Bool {return self._application != nil}
+  /// Clears the value of `application`. Subsequent reads from it will return its default value.
+  public mutating func clearApplication() {self._application = nil}
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
-  fileprivate var _request: IMFriendApplication? = nil
+  fileprivate var _application: IMFriendApplication? = nil
 }
 
 public struct EventOnFriendApplicationAcceptedData: Sendable {
@@ -1114,20 +1120,20 @@ public struct EventOnFriendApplicationAcceptedData: Sendable {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var request: IMFriendApplication {
-    get {return _request ?? IMFriendApplication()}
-    set {_request = newValue}
+  public var application: IMFriendApplication {
+    get {return _application ?? IMFriendApplication()}
+    set {_application = newValue}
   }
-  /// Returns true if `request` has been explicitly set.
-  public var hasRequest: Bool {return self._request != nil}
-  /// Clears the value of `request`. Subsequent reads from it will return its default value.
-  public mutating func clearRequest() {self._request = nil}
+  /// Returns true if `application` has been explicitly set.
+  public var hasApplication: Bool {return self._application != nil}
+  /// Clears the value of `application`. Subsequent reads from it will return its default value.
+  public mutating func clearApplication() {self._application = nil}
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
-  fileprivate var _request: IMFriendApplication? = nil
+  fileprivate var _application: IMFriendApplication? = nil
 }
 
 public struct EventOnFriendApplicationRejectedData: Sendable {
@@ -1135,20 +1141,20 @@ public struct EventOnFriendApplicationRejectedData: Sendable {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var request: IMFriendApplication {
-    get {return _request ?? IMFriendApplication()}
-    set {_request = newValue}
+  public var application: IMFriendApplication {
+    get {return _application ?? IMFriendApplication()}
+    set {_application = newValue}
   }
-  /// Returns true if `request` has been explicitly set.
-  public var hasRequest: Bool {return self._request != nil}
-  /// Clears the value of `request`. Subsequent reads from it will return its default value.
-  public mutating func clearRequest() {self._request = nil}
+  /// Returns true if `application` has been explicitly set.
+  public var hasApplication: Bool {return self._application != nil}
+  /// Clears the value of `application`. Subsequent reads from it will return its default value.
+  public mutating func clearApplication() {self._application = nil}
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
-  fileprivate var _request: IMFriendApplication? = nil
+  fileprivate var _application: IMFriendApplication? = nil
 }
 
 public struct EventOnFriendAddedData: Sendable {
@@ -1346,20 +1352,20 @@ public struct EventOnGroupApplicationAddedData: Sendable {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var request: IMGroupApplication {
-    get {return _request ?? IMGroupApplication()}
-    set {_request = newValue}
+  public var application: IMGroupApplication {
+    get {return _application ?? IMGroupApplication()}
+    set {_application = newValue}
   }
-  /// Returns true if `request` has been explicitly set.
-  public var hasRequest: Bool {return self._request != nil}
-  /// Clears the value of `request`. Subsequent reads from it will return its default value.
-  public mutating func clearRequest() {self._request = nil}
+  /// Returns true if `application` has been explicitly set.
+  public var hasApplication: Bool {return self._application != nil}
+  /// Clears the value of `application`. Subsequent reads from it will return its default value.
+  public mutating func clearApplication() {self._application = nil}
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
-  fileprivate var _request: IMGroupApplication? = nil
+  fileprivate var _application: IMGroupApplication? = nil
 }
 
 public struct EventOnGroupApplicationDeletedData: Sendable {
@@ -1367,20 +1373,20 @@ public struct EventOnGroupApplicationDeletedData: Sendable {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var request: IMGroupApplication {
-    get {return _request ?? IMGroupApplication()}
-    set {_request = newValue}
+  public var application: IMGroupApplication {
+    get {return _application ?? IMGroupApplication()}
+    set {_application = newValue}
   }
-  /// Returns true if `request` has been explicitly set.
-  public var hasRequest: Bool {return self._request != nil}
-  /// Clears the value of `request`. Subsequent reads from it will return its default value.
-  public mutating func clearRequest() {self._request = nil}
+  /// Returns true if `application` has been explicitly set.
+  public var hasApplication: Bool {return self._application != nil}
+  /// Clears the value of `application`. Subsequent reads from it will return its default value.
+  public mutating func clearApplication() {self._application = nil}
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
-  fileprivate var _request: IMGroupApplication? = nil
+  fileprivate var _application: IMGroupApplication? = nil
 }
 
 public struct EventOnGroupInfoChangedData: Sendable {
@@ -1451,20 +1457,20 @@ public struct EventOnGroupApplicationAcceptedData: Sendable {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var request: IMGroupApplication {
-    get {return _request ?? IMGroupApplication()}
-    set {_request = newValue}
+  public var application: IMGroupApplication {
+    get {return _application ?? IMGroupApplication()}
+    set {_application = newValue}
   }
-  /// Returns true if `request` has been explicitly set.
-  public var hasRequest: Bool {return self._request != nil}
-  /// Clears the value of `request`. Subsequent reads from it will return its default value.
-  public mutating func clearRequest() {self._request = nil}
+  /// Returns true if `application` has been explicitly set.
+  public var hasApplication: Bool {return self._application != nil}
+  /// Clears the value of `application`. Subsequent reads from it will return its default value.
+  public mutating func clearApplication() {self._application = nil}
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
-  fileprivate var _request: IMGroupApplication? = nil
+  fileprivate var _application: IMGroupApplication? = nil
 }
 
 public struct EventOnGroupApplicationRejectedData: Sendable {
@@ -1472,20 +1478,20 @@ public struct EventOnGroupApplicationRejectedData: Sendable {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var request: IMGroupApplication {
-    get {return _request ?? IMGroupApplication()}
-    set {_request = newValue}
+  public var application: IMGroupApplication {
+    get {return _application ?? IMGroupApplication()}
+    set {_application = newValue}
   }
-  /// Returns true if `request` has been explicitly set.
-  public var hasRequest: Bool {return self._request != nil}
-  /// Clears the value of `request`. Subsequent reads from it will return its default value.
-  public mutating func clearRequest() {self._request = nil}
+  /// Returns true if `application` has been explicitly set.
+  public var hasApplication: Bool {return self._application != nil}
+  /// Clears the value of `application`. Subsequent reads from it will return its default value.
+  public mutating func clearApplication() {self._application = nil}
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
-  fileprivate var _request: IMGroupApplication? = nil
+  fileprivate var _application: IMGroupApplication? = nil
 }
 
 /// CustomBusinessCallback Data Type
@@ -1523,14 +1529,14 @@ public struct EventOnSelfInfoUpdatedData: Sendable {
   fileprivate var _user: IMUser? = nil
 }
 
-public struct EventOnUserStatusChangedData: Sendable {
+public struct EventOnUserOnlineStatusChangedData: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   public var userID: String = String()
 
-  public var platformIds: [Int32] = []
+  public var platforms: [Platform] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1662,7 +1668,7 @@ extension FuncRequestEventName: SwiftProtobuf._ProtoNameProviding {
     55: .same(proto: "EventOnGroupApplicationRejected"),
     56: .same(proto: "EventOnRecvCustomBusinessMessage"),
     57: .same(proto: "EventOnSelfInfoUpdated"),
-    58: .same(proto: "EventOnUserStatusChanged"),
+    58: .same(proto: "EventOnUserOnlineStatusChanged"),
     59: .same(proto: "EventOnUserCommandAdd"),
     60: .same(proto: "EventOnUserCommandDelete"),
     61: .same(proto: "EventOnUserCommandUpdate"),
@@ -1688,16 +1694,16 @@ extension FuncRequestEventName: SwiftProtobuf._ProtoNameProviding {
     1015: .same(proto: "GetGroupMembersByJoinTimeFilter"),
     1016: .same(proto: "GetSpecifiedGroupMembersInfo"),
     1017: .same(proto: "GetGroupMembers"),
-    1018: .same(proto: "GetGroupRequest"),
+    1018: .same(proto: "GetGroupApplication"),
     1019: .same(proto: "SearchGroupMembers"),
     1020: .same(proto: "IsJoinGroup"),
     1021: .same(proto: "GetUsersInGroup"),
     1022: .same(proto: "InviteUserToGroup"),
-    1023: .same(proto: "HandlerGroupRequest"),
+    1023: .same(proto: "HandleGroupApplication"),
     1100: .same(proto: "GetSpecifiedFriends"),
     1101: .same(proto: "AddFriend"),
-    1102: .same(proto: "GetFriendRequests"),
-    1103: .same(proto: "HandlerFriendRequest"),
+    1102: .same(proto: "GetFriendApplication"),
+    1103: .same(proto: "HandleFriendApplication"),
     1104: .same(proto: "CheckFriend"),
     1105: .same(proto: "DeleteFriend"),
     1106: .same(proto: "GetFriends"),
@@ -1706,7 +1712,7 @@ extension FuncRequestEventName: SwiftProtobuf._ProtoNameProviding {
     1109: .same(proto: "AddBlack"),
     1110: .same(proto: "DeleteBlack"),
     1111: .same(proto: "GetBlacks"),
-    1112: .same(proto: "UpdateFriends"),
+    1112: .same(proto: "UpdateFriend"),
     2000: .same(proto: "GetAllConversationList"),
     2001: .same(proto: "GetConversationListSplit"),
     2002: .same(proto: "HideConversation"),
@@ -1719,20 +1725,19 @@ extension FuncRequestEventName: SwiftProtobuf._ProtoNameProviding {
     2009: .same(proto: "GetTotalUnreadMsgCount"),
     2010: .same(proto: "GetConversationIDBySessionType"),
     2011: .same(proto: "FindMessageList"),
-    2012: .same(proto: "GetAdvancedHistoryMessageList"),
-    2013: .same(proto: "GetAdvancedHistoryMessageListReverse"),
+    2012: .same(proto: "GetHistoryMessageList"),
     2014: .same(proto: "RevokeMessage"),
     2015: .same(proto: "TypingStatusUpdate"),
     2016: .same(proto: "MarkConversationMessageAsRead"),
     2017: .same(proto: "MarkAllConversationMessageAsRead"),
-    2018: .same(proto: "DeleteMessageFromLocalStorage"),
+    2018: .same(proto: "DeleteMessageFromLocal"),
     2019: .same(proto: "DeleteMessage"),
     2020: .same(proto: "DeleteAllMsgFromLocalAndServer"),
-    2021: .same(proto: "DeleteAllMessageFromLocalStorage"),
+    2021: .same(proto: "DeleteAllMessageFromLocal"),
     2022: .same(proto: "ClearConversationAndDeleteAllMsg"),
     2023: .same(proto: "DeleteConversationAndDeleteAllMsg"),
-    2024: .same(proto: "InsertSingleMessageToLocalStorage"),
-    2025: .same(proto: "InsertGroupMessageToLocalStorage"),
+    2024: .same(proto: "InsertSingleMessageToLocal"),
+    2025: .same(proto: "InsertGroupMessageToLocal"),
     2026: .same(proto: "SearchLocalMessages"),
     2027: .same(proto: "SetMessageLocalEx"),
     2028: .same(proto: "SearchConversation"),
@@ -1767,13 +1772,16 @@ extension FuncRequestEventName: SwiftProtobuf._ProtoNameProviding {
     2116: .same(proto: "JsSqliteClose"),
     2229: .same(proto: "SubscribeUsersOnlineStatus"),
     2230: .same(proto: "UnsubscribeUsersOnlineStatus"),
+    2231: .same(proto: "ChangeInputStates"),
+    2232: .same(proto: "GetInputStates"),
   ]
 }
 
 extension EventOnSendMsgProgressData: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".EventOnSendMsgProgressData"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "progress"),
+    1: .same(proto: "clientMsgID"),
+    2: .same(proto: "progress"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1782,20 +1790,25 @@ extension EventOnSendMsgProgressData: SwiftProtobuf.Message, SwiftProtobuf._Mess
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularInt32Field(value: &self.progress) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.clientMsgID) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.progress) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.clientMsgID.isEmpty {
+      try visitor.visitSingularStringField(value: self.clientMsgID, fieldNumber: 1)
+    }
     if self.progress != 0 {
-      try visitor.visitSingularInt32Field(value: self.progress, fieldNumber: 1)
+      try visitor.visitSingularInt32Field(value: self.progress, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: EventOnSendMsgProgressData, rhs: EventOnSendMsgProgressData) -> Bool {
+    if lhs.clientMsgID != rhs.clientMsgID {return false}
     if lhs.progress != rhs.progress {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -2241,7 +2254,7 @@ extension EventOnConversationUserInputStatusChangedData: SwiftProtobuf.Message, 
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "conversationID"),
     2: .same(proto: "userID"),
-    3: .same(proto: "platformIDs"),
+    3: .same(proto: "platforms"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2252,7 +2265,7 @@ extension EventOnConversationUserInputStatusChangedData: SwiftProtobuf.Message, 
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.conversationID) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.userID) }()
-      case 3: try { try decoder.decodeRepeatedInt32Field(value: &self.platformIds) }()
+      case 3: try { try decoder.decodeRepeatedEnumField(value: &self.platforms) }()
       default: break
       }
     }
@@ -2265,8 +2278,8 @@ extension EventOnConversationUserInputStatusChangedData: SwiftProtobuf.Message, 
     if !self.userID.isEmpty {
       try visitor.visitSingularStringField(value: self.userID, fieldNumber: 2)
     }
-    if !self.platformIds.isEmpty {
-      try visitor.visitPackedInt32Field(value: self.platformIds, fieldNumber: 3)
+    if !self.platforms.isEmpty {
+      try visitor.visitPackedEnumField(value: self.platforms, fieldNumber: 3)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -2274,7 +2287,7 @@ extension EventOnConversationUserInputStatusChangedData: SwiftProtobuf.Message, 
   public static func ==(lhs: EventOnConversationUserInputStatusChangedData, rhs: EventOnConversationUserInputStatusChangedData) -> Bool {
     if lhs.conversationID != rhs.conversationID {return false}
     if lhs.userID != rhs.userID {return false}
-    if lhs.platformIds != rhs.platformIds {return false}
+    if lhs.platforms != rhs.platforms {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -2599,7 +2612,7 @@ extension EventOnMessageEditedData: SwiftProtobuf.Message, SwiftProtobuf._Messag
 extension EventOnFriendApplicationAddedData: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".EventOnFriendApplicationAddedData"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "request"),
+    1: .same(proto: "application"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2608,7 +2621,7 @@ extension EventOnFriendApplicationAddedData: SwiftProtobuf.Message, SwiftProtobu
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._request) }()
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._application) }()
       default: break
       }
     }
@@ -2619,14 +2632,14 @@ extension EventOnFriendApplicationAddedData: SwiftProtobuf.Message, SwiftProtobu
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._request {
+    try { if let v = self._application {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: EventOnFriendApplicationAddedData, rhs: EventOnFriendApplicationAddedData) -> Bool {
-    if lhs._request != rhs._request {return false}
+    if lhs._application != rhs._application {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -2635,7 +2648,7 @@ extension EventOnFriendApplicationAddedData: SwiftProtobuf.Message, SwiftProtobu
 extension EventOnFriendApplicationDeletedData: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".EventOnFriendApplicationDeletedData"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "request"),
+    1: .same(proto: "application"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2644,7 +2657,7 @@ extension EventOnFriendApplicationDeletedData: SwiftProtobuf.Message, SwiftProto
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._request) }()
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._application) }()
       default: break
       }
     }
@@ -2655,14 +2668,14 @@ extension EventOnFriendApplicationDeletedData: SwiftProtobuf.Message, SwiftProto
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._request {
+    try { if let v = self._application {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: EventOnFriendApplicationDeletedData, rhs: EventOnFriendApplicationDeletedData) -> Bool {
-    if lhs._request != rhs._request {return false}
+    if lhs._application != rhs._application {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -2671,7 +2684,7 @@ extension EventOnFriendApplicationDeletedData: SwiftProtobuf.Message, SwiftProto
 extension EventOnFriendApplicationAcceptedData: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".EventOnFriendApplicationAcceptedData"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "request"),
+    1: .same(proto: "application"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2680,7 +2693,7 @@ extension EventOnFriendApplicationAcceptedData: SwiftProtobuf.Message, SwiftProt
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._request) }()
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._application) }()
       default: break
       }
     }
@@ -2691,14 +2704,14 @@ extension EventOnFriendApplicationAcceptedData: SwiftProtobuf.Message, SwiftProt
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._request {
+    try { if let v = self._application {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: EventOnFriendApplicationAcceptedData, rhs: EventOnFriendApplicationAcceptedData) -> Bool {
-    if lhs._request != rhs._request {return false}
+    if lhs._application != rhs._application {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -2707,7 +2720,7 @@ extension EventOnFriendApplicationAcceptedData: SwiftProtobuf.Message, SwiftProt
 extension EventOnFriendApplicationRejectedData: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".EventOnFriendApplicationRejectedData"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "request"),
+    1: .same(proto: "application"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2716,7 +2729,7 @@ extension EventOnFriendApplicationRejectedData: SwiftProtobuf.Message, SwiftProt
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._request) }()
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._application) }()
       default: break
       }
     }
@@ -2727,14 +2740,14 @@ extension EventOnFriendApplicationRejectedData: SwiftProtobuf.Message, SwiftProt
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._request {
+    try { if let v = self._application {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: EventOnFriendApplicationRejectedData, rhs: EventOnFriendApplicationRejectedData) -> Bool {
-    if lhs._request != rhs._request {return false}
+    if lhs._application != rhs._application {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -3067,7 +3080,7 @@ extension EventOnGroupMemberDeletedData: SwiftProtobuf.Message, SwiftProtobuf._M
 extension EventOnGroupApplicationAddedData: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".EventOnGroupApplicationAddedData"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "request"),
+    1: .same(proto: "application"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -3076,7 +3089,7 @@ extension EventOnGroupApplicationAddedData: SwiftProtobuf.Message, SwiftProtobuf
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._request) }()
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._application) }()
       default: break
       }
     }
@@ -3087,14 +3100,14 @@ extension EventOnGroupApplicationAddedData: SwiftProtobuf.Message, SwiftProtobuf
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._request {
+    try { if let v = self._application {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: EventOnGroupApplicationAddedData, rhs: EventOnGroupApplicationAddedData) -> Bool {
-    if lhs._request != rhs._request {return false}
+    if lhs._application != rhs._application {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -3103,7 +3116,7 @@ extension EventOnGroupApplicationAddedData: SwiftProtobuf.Message, SwiftProtobuf
 extension EventOnGroupApplicationDeletedData: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".EventOnGroupApplicationDeletedData"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "request"),
+    1: .same(proto: "application"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -3112,7 +3125,7 @@ extension EventOnGroupApplicationDeletedData: SwiftProtobuf.Message, SwiftProtob
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._request) }()
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._application) }()
       default: break
       }
     }
@@ -3123,14 +3136,14 @@ extension EventOnGroupApplicationDeletedData: SwiftProtobuf.Message, SwiftProtob
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._request {
+    try { if let v = self._application {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: EventOnGroupApplicationDeletedData, rhs: EventOnGroupApplicationDeletedData) -> Bool {
-    if lhs._request != rhs._request {return false}
+    if lhs._application != rhs._application {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -3247,7 +3260,7 @@ extension EventOnGroupMemberInfoChangedData: SwiftProtobuf.Message, SwiftProtobu
 extension EventOnGroupApplicationAcceptedData: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".EventOnGroupApplicationAcceptedData"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "request"),
+    1: .same(proto: "application"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -3256,7 +3269,7 @@ extension EventOnGroupApplicationAcceptedData: SwiftProtobuf.Message, SwiftProto
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._request) }()
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._application) }()
       default: break
       }
     }
@@ -3267,14 +3280,14 @@ extension EventOnGroupApplicationAcceptedData: SwiftProtobuf.Message, SwiftProto
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._request {
+    try { if let v = self._application {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: EventOnGroupApplicationAcceptedData, rhs: EventOnGroupApplicationAcceptedData) -> Bool {
-    if lhs._request != rhs._request {return false}
+    if lhs._application != rhs._application {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -3283,7 +3296,7 @@ extension EventOnGroupApplicationAcceptedData: SwiftProtobuf.Message, SwiftProto
 extension EventOnGroupApplicationRejectedData: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".EventOnGroupApplicationRejectedData"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "request"),
+    1: .same(proto: "application"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -3292,7 +3305,7 @@ extension EventOnGroupApplicationRejectedData: SwiftProtobuf.Message, SwiftProto
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._request) }()
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._application) }()
       default: break
       }
     }
@@ -3303,14 +3316,14 @@ extension EventOnGroupApplicationRejectedData: SwiftProtobuf.Message, SwiftProto
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._request {
+    try { if let v = self._application {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: EventOnGroupApplicationRejectedData, rhs: EventOnGroupApplicationRejectedData) -> Bool {
-    if lhs._request != rhs._request {return false}
+    if lhs._application != rhs._application {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -3384,11 +3397,11 @@ extension EventOnSelfInfoUpdatedData: SwiftProtobuf.Message, SwiftProtobuf._Mess
   }
 }
 
-extension EventOnUserStatusChangedData: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".EventOnUserStatusChangedData"
+extension EventOnUserOnlineStatusChangedData: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".EventOnUserOnlineStatusChangedData"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "userID"),
-    2: .same(proto: "platformIDs"),
+    2: .same(proto: "platforms"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -3398,7 +3411,7 @@ extension EventOnUserStatusChangedData: SwiftProtobuf.Message, SwiftProtobuf._Me
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.userID) }()
-      case 2: try { try decoder.decodeRepeatedInt32Field(value: &self.platformIds) }()
+      case 2: try { try decoder.decodeRepeatedEnumField(value: &self.platforms) }()
       default: break
       }
     }
@@ -3408,15 +3421,15 @@ extension EventOnUserStatusChangedData: SwiftProtobuf.Message, SwiftProtobuf._Me
     if !self.userID.isEmpty {
       try visitor.visitSingularStringField(value: self.userID, fieldNumber: 1)
     }
-    if !self.platformIds.isEmpty {
-      try visitor.visitPackedInt32Field(value: self.platformIds, fieldNumber: 2)
+    if !self.platforms.isEmpty {
+      try visitor.visitPackedEnumField(value: self.platforms, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: EventOnUserStatusChangedData, rhs: EventOnUserStatusChangedData) -> Bool {
+  public static func ==(lhs: EventOnUserOnlineStatusChangedData, rhs: EventOnUserOnlineStatusChangedData) -> Bool {
     if lhs.userID != rhs.userID {return false}
-    if lhs.platformIds != rhs.platformIds {return false}
+    if lhs.platforms != rhs.platforms {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

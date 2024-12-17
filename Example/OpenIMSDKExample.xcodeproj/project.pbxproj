@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		17C782532D06D80900A1F1A1 /* OpenIMSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 17C782522D06D80900A1F1A1 /* OpenIMSDK */; };
 		17E55C8A2CF476110093B8CC /* OpenIMSDKExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E55C892CF476110093B8CC /* OpenIMSDKExampleApp.swift */; };
 		17E55C8C2CF476110093B8CC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E55C8B2CF476110093B8CC /* ContentView.swift */; };
 		17E55C8E2CF476120093B8CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17E55C8D2CF476120093B8CC /* Assets.xcassets */; };
@@ -26,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17C782532D06D80900A1F1A1 /* OpenIMSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +94,7 @@
 			);
 			name = OpenIMSDKExample;
 			packageProductDependencies = (
+				17C782522D06D80900A1F1A1 /* OpenIMSDK */,
 			);
 			productName = OpenIMSDKExample;
 			productReference = 17E55C862CF476110093B8CC /* OpenIMSDKExample.app */;
@@ -122,6 +125,7 @@
 			);
 			mainGroup = 17E55C7D2CF476110093B8CC;
 			packageReferences = (
+				17C782512D06D80900A1F1A1 /* XCLocalSwiftPackageReference ".." */,
 			);
 			productRefGroup = 17E55C872CF476110093B8CC /* Products */;
 			projectDirPath = "";
@@ -358,6 +362,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		17C782512D06D80900A1F1A1 /* XCLocalSwiftPackageReference ".." */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ..;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		17C782522D06D80900A1F1A1 /* OpenIMSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = OpenIMSDK;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 17E55C7E2CF476110093B8CC /* Project object */;
 }

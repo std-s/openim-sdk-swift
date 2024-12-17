@@ -154,7 +154,7 @@ public struct AddFriendResp: Sendable {
   public init() {}
 }
 
-public struct GetFriendRequestsReq: Sendable {
+public struct GetFriendApplicationReq: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -168,20 +168,20 @@ public struct GetFriendRequestsReq: Sendable {
   public init() {}
 }
 
-public struct GetFriendRequestsResp: Sendable {
+public struct GetFriendApplicationResp: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// corresponding friend request list
-  public var requests: [IMFriendApplication] = []
+  public var applications: [IMFriendApplication] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 }
 
-public struct HandleFriendRequestReq: Sendable {
+public struct HandleFriendApplicationReq: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -200,7 +200,7 @@ public struct HandleFriendRequestReq: Sendable {
   public init() {}
 }
 
-public struct HandleFriendRequestResp: Sendable {
+public struct HandleFriendApplicationResp: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -471,7 +471,7 @@ public struct GetBlacksResp: Sendable {
   public init() {}
 }
 
-public struct UpdatesFriendsReq: Sendable {
+public struct UpdateFriendReq: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -518,7 +518,7 @@ public struct UpdatesFriendsReq: Sendable {
   fileprivate var _ex: String? = nil
 }
 
-public struct UpdatesFriendsResp: Sendable {
+public struct UpdateFriendResp: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -679,8 +679,8 @@ extension AddFriendResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
   }
 }
 
-extension GetFriendRequestsReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".GetFriendRequestsReq"
+extension GetFriendApplicationReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetFriendApplicationReq"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "send"),
   ]
@@ -704,17 +704,17 @@ extension GetFriendRequestsReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: GetFriendRequestsReq, rhs: GetFriendRequestsReq) -> Bool {
+  public static func ==(lhs: GetFriendApplicationReq, rhs: GetFriendApplicationReq) -> Bool {
     if lhs.send != rhs.send {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension GetFriendRequestsResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".GetFriendRequestsResp"
+extension GetFriendApplicationResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetFriendApplicationResp"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "requests"),
+    1: .same(proto: "applications"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -723,28 +723,28 @@ extension GetFriendRequestsResp: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.requests) }()
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.applications) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.requests.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.requests, fieldNumber: 1)
+    if !self.applications.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.applications, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: GetFriendRequestsResp, rhs: GetFriendRequestsResp) -> Bool {
-    if lhs.requests != rhs.requests {return false}
+  public static func ==(lhs: GetFriendApplicationResp, rhs: GetFriendApplicationResp) -> Bool {
+    if lhs.applications != rhs.applications {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension HandleFriendRequestReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".HandleFriendRequestReq"
+extension HandleFriendApplicationReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".HandleFriendApplicationReq"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "userID"),
     2: .same(proto: "handleMsg"),
@@ -778,7 +778,7 @@ extension HandleFriendRequestReq: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: HandleFriendRequestReq, rhs: HandleFriendRequestReq) -> Bool {
+  public static func ==(lhs: HandleFriendApplicationReq, rhs: HandleFriendApplicationReq) -> Bool {
     if lhs.userID != rhs.userID {return false}
     if lhs.handleMsg != rhs.handleMsg {return false}
     if lhs.status != rhs.status {return false}
@@ -787,8 +787,8 @@ extension HandleFriendRequestReq: SwiftProtobuf.Message, SwiftProtobuf._MessageI
   }
 }
 
-extension HandleFriendRequestResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".HandleFriendRequestResp"
+extension HandleFriendApplicationResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".HandleFriendApplicationResp"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -800,7 +800,7 @@ extension HandleFriendRequestResp: SwiftProtobuf.Message, SwiftProtobuf._Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: HandleFriendRequestResp, rhs: HandleFriendRequestResp) -> Bool {
+  public static func ==(lhs: HandleFriendApplicationResp, rhs: HandleFriendApplicationResp) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1380,12 +1380,12 @@ extension GetBlacksResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
   }
 }
 
-extension UpdatesFriendsReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".UpdatesFriendsReq"
+extension UpdateFriendReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".UpdateFriendReq"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "userID"),
     2: .same(proto: "pinned"),
-    3: .same(proto: "Remark"),
+    3: .same(proto: "remark"),
     4: .same(proto: "ex"),
   ]
 
@@ -1424,7 +1424,7 @@ extension UpdatesFriendsReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: UpdatesFriendsReq, rhs: UpdatesFriendsReq) -> Bool {
+  public static func ==(lhs: UpdateFriendReq, rhs: UpdateFriendReq) -> Bool {
     if lhs.userID != rhs.userID {return false}
     if lhs._pinned != rhs._pinned {return false}
     if lhs._remark != rhs._remark {return false}
@@ -1434,8 +1434,8 @@ extension UpdatesFriendsReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
   }
 }
 
-extension UpdatesFriendsResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".UpdatesFriendsResp"
+extension UpdateFriendResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".UpdateFriendResp"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1447,7 +1447,7 @@ extension UpdatesFriendsResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: UpdatesFriendsResp, rhs: UpdatesFriendsResp) -> Bool {
+  public static func ==(lhs: UpdateFriendResp, rhs: UpdateFriendResp) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

@@ -20,40 +20,6 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-public struct GetAdvancedHistoryMessageListParams: Sendable {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var conversationID: String = String()
-
-  public var startClientMsgID: String = String()
-
-  public var count: Int32 = 0
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct GetAdvancedHistoryMessageListCallback: Sendable {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var messageList: [IMMessage] = []
-
-  public var isEnd: Bool = false
-
-  public var errCode: Int32 = 0
-
-  public var errMsg: String = String()
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
 /// ------------------------------------------------------------------------------------------------------
 public struct SendMessageReq: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -103,92 +69,40 @@ public struct SendMessageResp: Sendable {
   fileprivate var _message: IMMessage? = nil
 }
 
-public struct GetAdvancedHistoryMessageListReq: Sendable {
+public struct GetHistoryMessageListReq: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   public var conversationID: String = String()
 
-  public var getAdvancedHistoryMessageListParams: GetAdvancedHistoryMessageListParams {
-    get {return _getAdvancedHistoryMessageListParams ?? GetAdvancedHistoryMessageListParams()}
-    set {_getAdvancedHistoryMessageListParams = newValue}
-  }
-  /// Returns true if `getAdvancedHistoryMessageListParams` has been explicitly set.
-  public var hasGetAdvancedHistoryMessageListParams: Bool {return self._getAdvancedHistoryMessageListParams != nil}
-  /// Clears the value of `getAdvancedHistoryMessageListParams`. Subsequent reads from it will return its default value.
-  public mutating func clearGetAdvancedHistoryMessageListParams() {self._getAdvancedHistoryMessageListParams = nil}
+  public var startClientMsgID: String = String()
+
+  public var count: Int32 = 0
+
+  public var isReverse: Bool = false
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  fileprivate var _getAdvancedHistoryMessageListParams: GetAdvancedHistoryMessageListParams? = nil
 }
 
-public struct GetAdvancedHistoryMessageListResp: Sendable {
+public struct GetHistoryMessageListResp: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var getAdvancedHistoryMessageListCallback: GetAdvancedHistoryMessageListCallback {
-    get {return _getAdvancedHistoryMessageListCallback ?? GetAdvancedHistoryMessageListCallback()}
-    set {_getAdvancedHistoryMessageListCallback = newValue}
-  }
-  /// Returns true if `getAdvancedHistoryMessageListCallback` has been explicitly set.
-  public var hasGetAdvancedHistoryMessageListCallback: Bool {return self._getAdvancedHistoryMessageListCallback != nil}
-  /// Clears the value of `getAdvancedHistoryMessageListCallback`. Subsequent reads from it will return its default value.
-  public mutating func clearGetAdvancedHistoryMessageListCallback() {self._getAdvancedHistoryMessageListCallback = nil}
+  public var messageList: [IMMessage] = []
+
+  public var isEnd: Bool = false
+
+  public var errCode: Int32 = 0
+
+  public var errMsg: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  fileprivate var _getAdvancedHistoryMessageListCallback: GetAdvancedHistoryMessageListCallback? = nil
-}
-
-public struct GetAdvancedHistoryMessageListReverseReq: Sendable {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var conversationID: String = String()
-
-  public var getAdvancedHistoryMessageListParams: GetAdvancedHistoryMessageListParams {
-    get {return _getAdvancedHistoryMessageListParams ?? GetAdvancedHistoryMessageListParams()}
-    set {_getAdvancedHistoryMessageListParams = newValue}
-  }
-  /// Returns true if `getAdvancedHistoryMessageListParams` has been explicitly set.
-  public var hasGetAdvancedHistoryMessageListParams: Bool {return self._getAdvancedHistoryMessageListParams != nil}
-  /// Clears the value of `getAdvancedHistoryMessageListParams`. Subsequent reads from it will return its default value.
-  public mutating func clearGetAdvancedHistoryMessageListParams() {self._getAdvancedHistoryMessageListParams = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  fileprivate var _getAdvancedHistoryMessageListParams: GetAdvancedHistoryMessageListParams? = nil
-}
-
-public struct GetAdvancedHistoryMessageListReverseResp: Sendable {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var getAdvancedHistoryMessageListCallback: GetAdvancedHistoryMessageListCallback {
-    get {return _getAdvancedHistoryMessageListCallback ?? GetAdvancedHistoryMessageListCallback()}
-    set {_getAdvancedHistoryMessageListCallback = newValue}
-  }
-  /// Returns true if `getAdvancedHistoryMessageListCallback` has been explicitly set.
-  public var hasGetAdvancedHistoryMessageListCallback: Bool {return self._getAdvancedHistoryMessageListCallback != nil}
-  /// Clears the value of `getAdvancedHistoryMessageListCallback`. Subsequent reads from it will return its default value.
-  public mutating func clearGetAdvancedHistoryMessageListCallback() {self._getAdvancedHistoryMessageListCallback = nil}
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  fileprivate var _getAdvancedHistoryMessageListCallback: GetAdvancedHistoryMessageListCallback? = nil
 }
 
 public struct RevokeMessageReq: Sendable {
@@ -283,7 +197,7 @@ public struct DeleteAllMsgFromLocalAndServerResp: Sendable {
   public init() {}
 }
 
-public struct DeleteAllMessageFromLocalStorageReq: Sendable {
+public struct DeleteAllMessageFromLocalReq: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -293,7 +207,7 @@ public struct DeleteAllMessageFromLocalStorageReq: Sendable {
   public init() {}
 }
 
-public struct DeleteAllMessageFromLocalStorageResp: Sendable {
+public struct DeleteAllMessageFromLocalResp: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -303,7 +217,7 @@ public struct DeleteAllMessageFromLocalStorageResp: Sendable {
   public init() {}
 }
 
-public struct InsertSingleMessageToLocalStorageReq: Sendable {
+public struct InsertSingleMessageToLocalReq: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -328,7 +242,7 @@ public struct InsertSingleMessageToLocalStorageReq: Sendable {
   fileprivate var _msg: IMMessage? = nil
 }
 
-public struct InsertSingleMessageToLocalStorageResp: Sendable {
+public struct InsertSingleMessageToLocalResp: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -349,7 +263,7 @@ public struct InsertSingleMessageToLocalStorageResp: Sendable {
   fileprivate var _msg: IMMessage? = nil
 }
 
-public struct InsertGroupMessageToLocalStorageReq: Sendable {
+public struct InsertGroupMessageToLocalReq: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -374,7 +288,7 @@ public struct InsertGroupMessageToLocalStorageReq: Sendable {
   fileprivate var _msg: IMMessage? = nil
 }
 
-public struct InsertGroupMessageToLocalStorageResp: Sendable {
+public struct InsertGroupMessageToLocalResp: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -680,20 +594,17 @@ public struct CreateCardMessageReq: Sendable {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var card: CardElem {
-    get {return _card ?? CardElem()}
-    set {_card = newValue}
-  }
-  /// Returns true if `card` has been explicitly set.
-  public var hasCard: Bool {return self._card != nil}
-  /// Clears the value of `card`. Subsequent reads from it will return its default value.
-  public mutating func clearCard() {self._card = nil}
+  public var userID: String = String()
+
+  public var nickname: String = String()
+
+  public var faceURL: String = String()
+
+  public var ex: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  fileprivate var _card: CardElem? = nil
 }
 
 public struct CreateCardMessageResp: Sendable {
@@ -722,10 +633,28 @@ public struct CreateImageMessageReq: @unchecked Sendable {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var imageSourcePath: String {
-    get {return _storage._imageSourcePath}
-    set {_uniqueStorage()._imageSourcePath = newValue}
+  public var sourcePath: String {
+    get {return _storage._sourcePath}
+    set {_uniqueStorage()._sourcePath = newValue}
   }
+
+  public var bigPath: String {
+    get {return _storage._bigPath ?? String()}
+    set {_uniqueStorage()._bigPath = newValue}
+  }
+  /// Returns true if `bigPath` has been explicitly set.
+  public var hasBigPath: Bool {return _storage._bigPath != nil}
+  /// Clears the value of `bigPath`. Subsequent reads from it will return its default value.
+  public mutating func clearBigPath() {_uniqueStorage()._bigPath = nil}
+
+  public var snapshotPath: String {
+    get {return _storage._snapshotPath ?? String()}
+    set {_uniqueStorage()._snapshotPath = newValue}
+  }
+  /// Returns true if `snapshotPath` has been explicitly set.
+  public var hasSnapshotPath: Bool {return _storage._snapshotPath != nil}
+  /// Clears the value of `snapshotPath`. Subsequent reads from it will return its default value.
+  public mutating func clearSnapshotPath() {_uniqueStorage()._snapshotPath = nil}
 
   public var sourcePicture: PictureBaseInfo {
     get {return _storage._sourcePicture ?? PictureBaseInfo()}
@@ -1054,100 +983,6 @@ public struct CreateForwardMessageResp: Sendable {
 
 fileprivate let _protobuf_package = "openim.sdk.message"
 
-extension GetAdvancedHistoryMessageListParams: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".GetAdvancedHistoryMessageListParams"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "conversationID"),
-    2: .same(proto: "startClientMsgID"),
-    3: .same(proto: "count"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.conversationID) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.startClientMsgID) }()
-      case 3: try { try decoder.decodeSingularInt32Field(value: &self.count) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.conversationID.isEmpty {
-      try visitor.visitSingularStringField(value: self.conversationID, fieldNumber: 1)
-    }
-    if !self.startClientMsgID.isEmpty {
-      try visitor.visitSingularStringField(value: self.startClientMsgID, fieldNumber: 2)
-    }
-    if self.count != 0 {
-      try visitor.visitSingularInt32Field(value: self.count, fieldNumber: 3)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: GetAdvancedHistoryMessageListParams, rhs: GetAdvancedHistoryMessageListParams) -> Bool {
-    if lhs.conversationID != rhs.conversationID {return false}
-    if lhs.startClientMsgID != rhs.startClientMsgID {return false}
-    if lhs.count != rhs.count {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension GetAdvancedHistoryMessageListCallback: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".GetAdvancedHistoryMessageListCallback"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "messageList"),
-    2: .same(proto: "isEnd"),
-    3: .same(proto: "errCode"),
-    4: .same(proto: "errMsg"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.messageList) }()
-      case 2: try { try decoder.decodeSingularBoolField(value: &self.isEnd) }()
-      case 3: try { try decoder.decodeSingularInt32Field(value: &self.errCode) }()
-      case 4: try { try decoder.decodeSingularStringField(value: &self.errMsg) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.messageList.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.messageList, fieldNumber: 1)
-    }
-    if self.isEnd != false {
-      try visitor.visitSingularBoolField(value: self.isEnd, fieldNumber: 2)
-    }
-    if self.errCode != 0 {
-      try visitor.visitSingularInt32Field(value: self.errCode, fieldNumber: 3)
-    }
-    if !self.errMsg.isEmpty {
-      try visitor.visitSingularStringField(value: self.errMsg, fieldNumber: 4)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: GetAdvancedHistoryMessageListCallback, rhs: GetAdvancedHistoryMessageListCallback) -> Bool {
-    if lhs.messageList != rhs.messageList {return false}
-    if lhs.isEnd != rhs.isEnd {return false}
-    if lhs.errCode != rhs.errCode {return false}
-    if lhs.errMsg != rhs.errMsg {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
 extension SendMessageReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".SendMessageReq"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -1238,11 +1073,13 @@ extension SendMessageResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplemen
   }
 }
 
-extension GetAdvancedHistoryMessageListReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".GetAdvancedHistoryMessageListReq"
+extension GetHistoryMessageListReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetHistoryMessageListReq"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "conversationID"),
-    2: .same(proto: "getAdvancedHistoryMessageListParams"),
+    2: .same(proto: "startClientMsgID"),
+    3: .same(proto: "count"),
+    4: .same(proto: "isReverse"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1252,38 +1089,47 @@ extension GetAdvancedHistoryMessageListReq: SwiftProtobuf.Message, SwiftProtobuf
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.conversationID) }()
-      case 2: try { try decoder.decodeSingularMessageField(value: &self._getAdvancedHistoryMessageListParams) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.startClientMsgID) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.count) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.isReverse) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
     if !self.conversationID.isEmpty {
       try visitor.visitSingularStringField(value: self.conversationID, fieldNumber: 1)
     }
-    try { if let v = self._getAdvancedHistoryMessageListParams {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    } }()
+    if !self.startClientMsgID.isEmpty {
+      try visitor.visitSingularStringField(value: self.startClientMsgID, fieldNumber: 2)
+    }
+    if self.count != 0 {
+      try visitor.visitSingularInt32Field(value: self.count, fieldNumber: 3)
+    }
+    if self.isReverse != false {
+      try visitor.visitSingularBoolField(value: self.isReverse, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: GetAdvancedHistoryMessageListReq, rhs: GetAdvancedHistoryMessageListReq) -> Bool {
+  public static func ==(lhs: GetHistoryMessageListReq, rhs: GetHistoryMessageListReq) -> Bool {
     if lhs.conversationID != rhs.conversationID {return false}
-    if lhs._getAdvancedHistoryMessageListParams != rhs._getAdvancedHistoryMessageListParams {return false}
+    if lhs.startClientMsgID != rhs.startClientMsgID {return false}
+    if lhs.count != rhs.count {return false}
+    if lhs.isReverse != rhs.isReverse {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension GetAdvancedHistoryMessageListResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".GetAdvancedHistoryMessageListResp"
+extension GetHistoryMessageListResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetHistoryMessageListResp"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "getAdvancedHistoryMessageListCallback"),
+    1: .same(proto: "messageList"),
+    2: .same(proto: "isEnd"),
+    3: .same(proto: "errCode"),
+    4: .same(proto: "errMsg"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1292,103 +1138,36 @@ extension GetAdvancedHistoryMessageListResp: SwiftProtobuf.Message, SwiftProtobu
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._getAdvancedHistoryMessageListCallback) }()
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.messageList) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.isEnd) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.errCode) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.errMsg) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._getAdvancedHistoryMessageListCallback {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    } }()
+    if !self.messageList.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.messageList, fieldNumber: 1)
+    }
+    if self.isEnd != false {
+      try visitor.visitSingularBoolField(value: self.isEnd, fieldNumber: 2)
+    }
+    if self.errCode != 0 {
+      try visitor.visitSingularInt32Field(value: self.errCode, fieldNumber: 3)
+    }
+    if !self.errMsg.isEmpty {
+      try visitor.visitSingularStringField(value: self.errMsg, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: GetAdvancedHistoryMessageListResp, rhs: GetAdvancedHistoryMessageListResp) -> Bool {
-    if lhs._getAdvancedHistoryMessageListCallback != rhs._getAdvancedHistoryMessageListCallback {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension GetAdvancedHistoryMessageListReverseReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".GetAdvancedHistoryMessageListReverseReq"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "conversationID"),
-    2: .same(proto: "getAdvancedHistoryMessageListParams"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.conversationID) }()
-      case 2: try { try decoder.decodeSingularMessageField(value: &self._getAdvancedHistoryMessageListParams) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    if !self.conversationID.isEmpty {
-      try visitor.visitSingularStringField(value: self.conversationID, fieldNumber: 1)
-    }
-    try { if let v = self._getAdvancedHistoryMessageListParams {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    } }()
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: GetAdvancedHistoryMessageListReverseReq, rhs: GetAdvancedHistoryMessageListReverseReq) -> Bool {
-    if lhs.conversationID != rhs.conversationID {return false}
-    if lhs._getAdvancedHistoryMessageListParams != rhs._getAdvancedHistoryMessageListParams {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension GetAdvancedHistoryMessageListReverseResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".GetAdvancedHistoryMessageListReverseResp"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "getAdvancedHistoryMessageListCallback"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._getAdvancedHistoryMessageListCallback) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._getAdvancedHistoryMessageListCallback {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    } }()
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: GetAdvancedHistoryMessageListReverseResp, rhs: GetAdvancedHistoryMessageListReverseResp) -> Bool {
-    if lhs._getAdvancedHistoryMessageListCallback != rhs._getAdvancedHistoryMessageListCallback {return false}
+  public static func ==(lhs: GetHistoryMessageListResp, rhs: GetHistoryMessageListResp) -> Bool {
+    if lhs.messageList != rhs.messageList {return false}
+    if lhs.isEnd != rhs.isEnd {return false}
+    if lhs.errCode != rhs.errCode {return false}
+    if lhs.errMsg != rhs.errMsg {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1603,8 +1382,8 @@ extension DeleteAllMsgFromLocalAndServerResp: SwiftProtobuf.Message, SwiftProtob
   }
 }
 
-extension DeleteAllMessageFromLocalStorageReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".DeleteAllMessageFromLocalStorageReq"
+extension DeleteAllMessageFromLocalReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DeleteAllMessageFromLocalReq"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1616,14 +1395,14 @@ extension DeleteAllMessageFromLocalStorageReq: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: DeleteAllMessageFromLocalStorageReq, rhs: DeleteAllMessageFromLocalStorageReq) -> Bool {
+  public static func ==(lhs: DeleteAllMessageFromLocalReq, rhs: DeleteAllMessageFromLocalReq) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DeleteAllMessageFromLocalStorageResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".DeleteAllMessageFromLocalStorageResp"
+extension DeleteAllMessageFromLocalResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DeleteAllMessageFromLocalResp"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1635,14 +1414,14 @@ extension DeleteAllMessageFromLocalStorageResp: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: DeleteAllMessageFromLocalStorageResp, rhs: DeleteAllMessageFromLocalStorageResp) -> Bool {
+  public static func ==(lhs: DeleteAllMessageFromLocalResp, rhs: DeleteAllMessageFromLocalResp) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension InsertSingleMessageToLocalStorageReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".InsertSingleMessageToLocalStorageReq"
+extension InsertSingleMessageToLocalReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".InsertSingleMessageToLocalReq"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "msg"),
     2: .same(proto: "recvID"),
@@ -1680,7 +1459,7 @@ extension InsertSingleMessageToLocalStorageReq: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: InsertSingleMessageToLocalStorageReq, rhs: InsertSingleMessageToLocalStorageReq) -> Bool {
+  public static func ==(lhs: InsertSingleMessageToLocalReq, rhs: InsertSingleMessageToLocalReq) -> Bool {
     if lhs._msg != rhs._msg {return false}
     if lhs.recvID != rhs.recvID {return false}
     if lhs.sendID != rhs.sendID {return false}
@@ -1689,8 +1468,8 @@ extension InsertSingleMessageToLocalStorageReq: SwiftProtobuf.Message, SwiftProt
   }
 }
 
-extension InsertSingleMessageToLocalStorageResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".InsertSingleMessageToLocalStorageResp"
+extension InsertSingleMessageToLocalResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".InsertSingleMessageToLocalResp"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "msg"),
   ]
@@ -1718,15 +1497,15 @@ extension InsertSingleMessageToLocalStorageResp: SwiftProtobuf.Message, SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: InsertSingleMessageToLocalStorageResp, rhs: InsertSingleMessageToLocalStorageResp) -> Bool {
+  public static func ==(lhs: InsertSingleMessageToLocalResp, rhs: InsertSingleMessageToLocalResp) -> Bool {
     if lhs._msg != rhs._msg {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension InsertGroupMessageToLocalStorageReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".InsertGroupMessageToLocalStorageReq"
+extension InsertGroupMessageToLocalReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".InsertGroupMessageToLocalReq"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "msg"),
     2: .same(proto: "groupID"),
@@ -1764,7 +1543,7 @@ extension InsertGroupMessageToLocalStorageReq: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: InsertGroupMessageToLocalStorageReq, rhs: InsertGroupMessageToLocalStorageReq) -> Bool {
+  public static func ==(lhs: InsertGroupMessageToLocalReq, rhs: InsertGroupMessageToLocalReq) -> Bool {
     if lhs._msg != rhs._msg {return false}
     if lhs.groupID != rhs.groupID {return false}
     if lhs.sendID != rhs.sendID {return false}
@@ -1773,8 +1552,8 @@ extension InsertGroupMessageToLocalStorageReq: SwiftProtobuf.Message, SwiftProto
   }
 }
 
-extension InsertGroupMessageToLocalStorageResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".InsertGroupMessageToLocalStorageResp"
+extension InsertGroupMessageToLocalResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".InsertGroupMessageToLocalResp"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "msg"),
   ]
@@ -1802,7 +1581,7 @@ extension InsertGroupMessageToLocalStorageResp: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: InsertGroupMessageToLocalStorageResp, rhs: InsertGroupMessageToLocalStorageResp) -> Bool {
+  public static func ==(lhs: InsertGroupMessageToLocalResp, rhs: InsertGroupMessageToLocalResp) -> Bool {
     if lhs._msg != rhs._msg {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -2366,7 +2145,10 @@ extension CreateAdvancedQuoteMessageResp: SwiftProtobuf.Message, SwiftProtobuf._
 extension CreateCardMessageReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".CreateCardMessageReq"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "card"),
+    1: .same(proto: "userID"),
+    2: .same(proto: "nickname"),
+    3: .same(proto: "faceURL"),
+    4: .same(proto: "ex"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2375,25 +2157,36 @@ extension CreateCardMessageReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._card) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.userID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.nickname) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.faceURL) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.ex) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._card {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    } }()
+    if !self.userID.isEmpty {
+      try visitor.visitSingularStringField(value: self.userID, fieldNumber: 1)
+    }
+    if !self.nickname.isEmpty {
+      try visitor.visitSingularStringField(value: self.nickname, fieldNumber: 2)
+    }
+    if !self.faceURL.isEmpty {
+      try visitor.visitSingularStringField(value: self.faceURL, fieldNumber: 3)
+    }
+    if !self.ex.isEmpty {
+      try visitor.visitSingularStringField(value: self.ex, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: CreateCardMessageReq, rhs: CreateCardMessageReq) -> Bool {
-    if lhs._card != rhs._card {return false}
+    if lhs.userID != rhs.userID {return false}
+    if lhs.nickname != rhs.nickname {return false}
+    if lhs.faceURL != rhs.faceURL {return false}
+    if lhs.ex != rhs.ex {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -2438,14 +2231,18 @@ extension CreateCardMessageResp: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
 extension CreateImageMessageReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".CreateImageMessageReq"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "imageSourcePath"),
-    2: .same(proto: "sourcePicture"),
-    3: .same(proto: "bigPicture"),
-    4: .same(proto: "snapshotPicture"),
+    1: .same(proto: "sourcePath"),
+    2: .same(proto: "bigPath"),
+    3: .same(proto: "snapshotPath"),
+    4: .same(proto: "sourcePicture"),
+    5: .same(proto: "bigPicture"),
+    6: .same(proto: "snapshotPicture"),
   ]
 
   fileprivate class _StorageClass {
-    var _imageSourcePath: String = String()
+    var _sourcePath: String = String()
+    var _bigPath: String? = nil
+    var _snapshotPath: String? = nil
     var _sourcePicture: PictureBaseInfo? = nil
     var _bigPicture: PictureBaseInfo? = nil
     var _snapshotPicture: PictureBaseInfo? = nil
@@ -2463,7 +2260,9 @@ extension CreateImageMessageReq: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     private init() {}
 
     init(copying source: _StorageClass) {
-      _imageSourcePath = source._imageSourcePath
+      _sourcePath = source._sourcePath
+      _bigPath = source._bigPath
+      _snapshotPath = source._snapshotPath
       _sourcePicture = source._sourcePicture
       _bigPicture = source._bigPicture
       _snapshotPicture = source._snapshotPicture
@@ -2485,10 +2284,12 @@ extension CreateImageMessageReq: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
         // allocates stack space for every case branch when no optimizations are
         // enabled. https://github.com/apple/swift-protobuf/issues/1034
         switch fieldNumber {
-        case 1: try { try decoder.decodeSingularStringField(value: &_storage._imageSourcePath) }()
-        case 2: try { try decoder.decodeSingularMessageField(value: &_storage._sourcePicture) }()
-        case 3: try { try decoder.decodeSingularMessageField(value: &_storage._bigPicture) }()
-        case 4: try { try decoder.decodeSingularMessageField(value: &_storage._snapshotPicture) }()
+        case 1: try { try decoder.decodeSingularStringField(value: &_storage._sourcePath) }()
+        case 2: try { try decoder.decodeSingularStringField(value: &_storage._bigPath) }()
+        case 3: try { try decoder.decodeSingularStringField(value: &_storage._snapshotPath) }()
+        case 4: try { try decoder.decodeSingularMessageField(value: &_storage._sourcePicture) }()
+        case 5: try { try decoder.decodeSingularMessageField(value: &_storage._bigPicture) }()
+        case 6: try { try decoder.decodeSingularMessageField(value: &_storage._snapshotPicture) }()
         default: break
         }
       }
@@ -2501,17 +2302,23 @@ extension CreateImageMessageReq: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       // allocates stack space for every if/case branch local when no optimizations
       // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
       // https://github.com/apple/swift-protobuf/issues/1182
-      if !_storage._imageSourcePath.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._imageSourcePath, fieldNumber: 1)
+      if !_storage._sourcePath.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._sourcePath, fieldNumber: 1)
       }
+      try { if let v = _storage._bigPath {
+        try visitor.visitSingularStringField(value: v, fieldNumber: 2)
+      } }()
+      try { if let v = _storage._snapshotPath {
+        try visitor.visitSingularStringField(value: v, fieldNumber: 3)
+      } }()
       try { if let v = _storage._sourcePicture {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
       } }()
       try { if let v = _storage._bigPicture {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
       } }()
       try { if let v = _storage._snapshotPicture {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
       } }()
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -2522,7 +2329,9 @@ extension CreateImageMessageReq: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
         let rhs_storage = _args.1
-        if _storage._imageSourcePath != rhs_storage._imageSourcePath {return false}
+        if _storage._sourcePath != rhs_storage._sourcePath {return false}
+        if _storage._bigPath != rhs_storage._bigPath {return false}
+        if _storage._snapshotPath != rhs_storage._snapshotPath {return false}
         if _storage._sourcePicture != rhs_storage._sourcePicture {return false}
         if _storage._bigPicture != rhs_storage._bigPicture {return false}
         if _storage._snapshotPicture != rhs_storage._snapshotPicture {return false}

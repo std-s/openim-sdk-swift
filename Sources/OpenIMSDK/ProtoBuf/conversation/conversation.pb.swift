@@ -20,6 +20,40 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+public enum KeywordListMatchType: SwiftProtobuf.Enum, Swift.CaseIterable {
+  public typealias RawValue = Int
+  case keywordMatchOr // = 0
+  case keywordMatchAnd // = 1
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .keywordMatchOr
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .keywordMatchOr
+    case 1: self = .keywordMatchAnd
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .keywordMatchOr: return 0
+    case .keywordMatchAnd: return 1
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [KeywordListMatchType] = [
+    .keywordMatchOr,
+    .keywordMatchAnd,
+  ]
+
+}
+
 public struct ConversationArgs: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -42,48 +76,6 @@ public struct FindMessageListCallback: Sendable {
   public var totalCount: Int32 = 0
 
   public var findResultItems: [SearchByConversationResult] = []
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct SearchLocalMessagesParams: Sendable {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var conversationID: String = String()
-
-  public var keywordList: [String] = []
-
-  public var keywordListMatchType: Int32 = 0
-
-  public var senderUserIdlist: [String] = []
-
-  public var messageTypeList: [Int32] = []
-
-  public var searchTimePosition: Int64 = 0
-
-  public var searchTimePeriod: Int64 = 0
-
-  public var pageIndex: Int32 = 0
-
-  public var count: Int32 = 0
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct SearchLocalMessagesCallback: Sendable {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var totalCount: Int32 = 0
-
-  public var searchResultItems: [SearchByConversationResult] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -142,13 +134,20 @@ public struct GetConversationListSplitReq: Sendable {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var offset: Int32 = 0
-
-  public var count: Int32 = 0
+  public var pagination: RequestPagination {
+    get {return _pagination ?? RequestPagination()}
+    set {_pagination = newValue}
+  }
+  /// Returns true if `pagination` has been explicitly set.
+  public var hasPagination: Bool {return self._pagination != nil}
+  /// Clears the value of `pagination`. Subsequent reads from it will return its default value.
+  public mutating func clearPagination() {self._pagination = nil}
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
+
+  fileprivate var _pagination: RequestPagination? = nil
 }
 
 public struct GetConversationListSplitResp: Sendable {
@@ -212,7 +211,7 @@ public struct GetOneConversationReq: Sendable {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var sessionType: Int32 = 0
+  public var sessionType: SessionType = .sessionType_
 
   public var sourceID: String = String()
 
@@ -371,24 +370,6 @@ public struct SetConversationReq: Sendable {
   /// Clears the value of `ex`. Subsequent reads from it will return its default value.
   public mutating func clearEx() {self._ex = nil}
 
-  public var msgDestructTime: Int64 {
-    get {return _msgDestructTime ?? 0}
-    set {_msgDestructTime = newValue}
-  }
-  /// Returns true if `msgDestructTime` has been explicitly set.
-  public var hasMsgDestructTime: Bool {return self._msgDestructTime != nil}
-  /// Clears the value of `msgDestructTime`. Subsequent reads from it will return its default value.
-  public mutating func clearMsgDestructTime() {self._msgDestructTime = nil}
-
-  public var isMsgDestruct: Bool {
-    get {return _isMsgDestruct ?? false}
-    set {_isMsgDestruct = newValue}
-  }
-  /// Returns true if `isMsgDestruct` has been explicitly set.
-  public var hasIsMsgDestruct: Bool {return self._isMsgDestruct != nil}
-  /// Clears the value of `isMsgDestruct`. Subsequent reads from it will return its default value.
-  public mutating func clearIsMsgDestruct() {self._isMsgDestruct = nil}
-
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -399,8 +380,6 @@ public struct SetConversationReq: Sendable {
   fileprivate var _isPrivateChat: Bool? = nil
   fileprivate var _burnDuration: Int32? = nil
   fileprivate var _ex: String? = nil
-  fileprivate var _msgDestructTime: Int64? = nil
-  fileprivate var _isMsgDestruct: Bool? = nil
 }
 
 public struct SetConversationResp: Sendable {
@@ -442,7 +421,7 @@ public struct GetConversationIDBySessionTypeReq: Sendable {
 
   public var sourceID: String = String()
 
-  public var sessionType: Int32 = 0
+  public var sessionType: SessionType = .sessionType_
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -529,7 +508,7 @@ public struct MarkAllConversationMessageAsReadResp: Sendable {
   public init() {}
 }
 
-public struct DeleteMessageFromLocalStorageReq: Sendable {
+public struct DeleteMessageFromLocalReq: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -543,7 +522,7 @@ public struct DeleteMessageFromLocalStorageReq: Sendable {
   public init() {}
 }
 
-public struct DeleteMessageFromLocalStorageResp: Sendable {
+public struct DeleteMessageFromLocalResp: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -602,20 +581,34 @@ public struct SearchLocalMessagesReq: Sendable {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var searchParam: SearchLocalMessagesParams {
-    get {return _searchParam ?? SearchLocalMessagesParams()}
-    set {_searchParam = newValue}
+  public var conversationID: String = String()
+
+  public var keywords: [String] = []
+
+  public var keywordMatchType: KeywordListMatchType = .keywordMatchOr
+
+  public var senderUserIds: [String] = []
+
+  public var messageTypes: [ContentType] = []
+
+  public var searchTimePosition: Int64 = 0
+
+  public var searchTimePeriod: Int64 = 0
+
+  public var pagination: RequestPagination {
+    get {return _pagination ?? RequestPagination()}
+    set {_pagination = newValue}
   }
-  /// Returns true if `searchParam` has been explicitly set.
-  public var hasSearchParam: Bool {return self._searchParam != nil}
-  /// Clears the value of `searchParam`. Subsequent reads from it will return its default value.
-  public mutating func clearSearchParam() {self._searchParam = nil}
+  /// Returns true if `pagination` has been explicitly set.
+  public var hasPagination: Bool {return self._pagination != nil}
+  /// Clears the value of `pagination`. Subsequent reads from it will return its default value.
+  public mutating func clearPagination() {self._pagination = nil}
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
-  fileprivate var _searchParam: SearchLocalMessagesParams? = nil
+  fileprivate var _pagination: RequestPagination? = nil
 }
 
 public struct SearchLocalMessagesResp: Sendable {
@@ -623,20 +616,13 @@ public struct SearchLocalMessagesResp: Sendable {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var searchResult: SearchLocalMessagesCallback {
-    get {return _searchResult ?? SearchLocalMessagesCallback()}
-    set {_searchResult = newValue}
-  }
-  /// Returns true if `searchResult` has been explicitly set.
-  public var hasSearchResult: Bool {return self._searchResult != nil}
-  /// Clears the value of `searchResult`. Subsequent reads from it will return its default value.
-  public mutating func clearSearchResult() {self._searchResult = nil}
+  public var count: Int64 = 0
+
+  public var searchResultItems: [SearchByConversationResult] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  fileprivate var _searchResult: SearchLocalMessagesCallback? = nil
 }
 
 public struct SetMessageLocalExReq: Sendable {
@@ -752,9 +738,66 @@ public struct UnsubscribeUsersOnlineStatusResp: Sendable {
   public init() {}
 }
 
+public struct ChangeInputStatesReq: Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var conversationID: String = String()
+
+  public var focus: Bool = false
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct ChangeInputStatesResp: Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct GetInputStatesReq: Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var conversationID: String = String()
+
+  public var userID: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct GetInputStatesResp: Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var platforms: [Platform] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "openim.sdk.conversation"
+
+extension KeywordListMatchType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "KeywordMatchOr"),
+    1: .same(proto: "KeywordMatchAnd"),
+  ]
+}
 
 extension ConversationArgs: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".ConversationArgs"
@@ -827,124 +870,6 @@ extension FindMessageListCallback: SwiftProtobuf.Message, SwiftProtobuf._Message
   public static func ==(lhs: FindMessageListCallback, rhs: FindMessageListCallback) -> Bool {
     if lhs.totalCount != rhs.totalCount {return false}
     if lhs.findResultItems != rhs.findResultItems {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension SearchLocalMessagesParams: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".SearchLocalMessagesParams"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "conversationID"),
-    2: .same(proto: "keywordList"),
-    3: .same(proto: "keywordListMatchType"),
-    4: .same(proto: "senderUserIDList"),
-    5: .same(proto: "messageTypeList"),
-    6: .same(proto: "searchTimePosition"),
-    7: .same(proto: "searchTimePeriod"),
-    8: .same(proto: "pageIndex"),
-    9: .same(proto: "count"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.conversationID) }()
-      case 2: try { try decoder.decodeRepeatedStringField(value: &self.keywordList) }()
-      case 3: try { try decoder.decodeSingularInt32Field(value: &self.keywordListMatchType) }()
-      case 4: try { try decoder.decodeRepeatedStringField(value: &self.senderUserIdlist) }()
-      case 5: try { try decoder.decodeRepeatedInt32Field(value: &self.messageTypeList) }()
-      case 6: try { try decoder.decodeSingularInt64Field(value: &self.searchTimePosition) }()
-      case 7: try { try decoder.decodeSingularInt64Field(value: &self.searchTimePeriod) }()
-      case 8: try { try decoder.decodeSingularInt32Field(value: &self.pageIndex) }()
-      case 9: try { try decoder.decodeSingularInt32Field(value: &self.count) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.conversationID.isEmpty {
-      try visitor.visitSingularStringField(value: self.conversationID, fieldNumber: 1)
-    }
-    if !self.keywordList.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.keywordList, fieldNumber: 2)
-    }
-    if self.keywordListMatchType != 0 {
-      try visitor.visitSingularInt32Field(value: self.keywordListMatchType, fieldNumber: 3)
-    }
-    if !self.senderUserIdlist.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.senderUserIdlist, fieldNumber: 4)
-    }
-    if !self.messageTypeList.isEmpty {
-      try visitor.visitPackedInt32Field(value: self.messageTypeList, fieldNumber: 5)
-    }
-    if self.searchTimePosition != 0 {
-      try visitor.visitSingularInt64Field(value: self.searchTimePosition, fieldNumber: 6)
-    }
-    if self.searchTimePeriod != 0 {
-      try visitor.visitSingularInt64Field(value: self.searchTimePeriod, fieldNumber: 7)
-    }
-    if self.pageIndex != 0 {
-      try visitor.visitSingularInt32Field(value: self.pageIndex, fieldNumber: 8)
-    }
-    if self.count != 0 {
-      try visitor.visitSingularInt32Field(value: self.count, fieldNumber: 9)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: SearchLocalMessagesParams, rhs: SearchLocalMessagesParams) -> Bool {
-    if lhs.conversationID != rhs.conversationID {return false}
-    if lhs.keywordList != rhs.keywordList {return false}
-    if lhs.keywordListMatchType != rhs.keywordListMatchType {return false}
-    if lhs.senderUserIdlist != rhs.senderUserIdlist {return false}
-    if lhs.messageTypeList != rhs.messageTypeList {return false}
-    if lhs.searchTimePosition != rhs.searchTimePosition {return false}
-    if lhs.searchTimePeriod != rhs.searchTimePeriod {return false}
-    if lhs.pageIndex != rhs.pageIndex {return false}
-    if lhs.count != rhs.count {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension SearchLocalMessagesCallback: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".SearchLocalMessagesCallback"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "totalCount"),
-    2: .same(proto: "searchResultItems"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularInt32Field(value: &self.totalCount) }()
-      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.searchResultItems) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.totalCount != 0 {
-      try visitor.visitSingularInt32Field(value: self.totalCount, fieldNumber: 1)
-    }
-    if !self.searchResultItems.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.searchResultItems, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: SearchLocalMessagesCallback, rhs: SearchLocalMessagesCallback) -> Bool {
-    if lhs.totalCount != rhs.totalCount {return false}
-    if lhs.searchResultItems != rhs.searchResultItems {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1072,8 +997,7 @@ extension GetAllConversationListResp: SwiftProtobuf.Message, SwiftProtobuf._Mess
 extension GetConversationListSplitReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".GetConversationListSplitReq"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "offset"),
-    2: .same(proto: "count"),
+    1: .same(proto: "pagination"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1082,26 +1006,25 @@ extension GetConversationListSplitReq: SwiftProtobuf.Message, SwiftProtobuf._Mes
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularInt32Field(value: &self.offset) }()
-      case 2: try { try decoder.decodeSingularInt32Field(value: &self.count) }()
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._pagination) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.offset != 0 {
-      try visitor.visitSingularInt32Field(value: self.offset, fieldNumber: 1)
-    }
-    if self.count != 0 {
-      try visitor.visitSingularInt32Field(value: self.count, fieldNumber: 2)
-    }
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._pagination {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: GetConversationListSplitReq, rhs: GetConversationListSplitReq) -> Bool {
-    if lhs.offset != rhs.offset {return false}
-    if lhs.count != rhs.count {return false}
+    if lhs._pagination != rhs._pagination {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1254,7 +1177,7 @@ extension GetOneConversationReq: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularInt32Field(value: &self.sessionType) }()
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.sessionType) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.sourceID) }()
       default: break
       }
@@ -1262,8 +1185,8 @@ extension GetOneConversationReq: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.sessionType != 0 {
-      try visitor.visitSingularInt32Field(value: self.sessionType, fieldNumber: 1)
+    if self.sessionType != .sessionType_ {
+      try visitor.visitSingularEnumField(value: self.sessionType, fieldNumber: 1)
     }
     if !self.sourceID.isEmpty {
       try visitor.visitSingularStringField(value: self.sourceID, fieldNumber: 2)
@@ -1484,8 +1407,6 @@ extension SetConversationReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     5: .same(proto: "isPrivateChat"),
     6: .same(proto: "burnDuration"),
     7: .same(proto: "ex"),
-    8: .same(proto: "msgDestructTime"),
-    9: .same(proto: "isMsgDestruct"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1501,8 +1422,6 @@ extension SetConversationReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
       case 5: try { try decoder.decodeSingularBoolField(value: &self._isPrivateChat) }()
       case 6: try { try decoder.decodeSingularInt32Field(value: &self._burnDuration) }()
       case 7: try { try decoder.decodeSingularStringField(value: &self._ex) }()
-      case 8: try { try decoder.decodeSingularInt64Field(value: &self._msgDestructTime) }()
-      case 9: try { try decoder.decodeSingularBoolField(value: &self._isMsgDestruct) }()
       default: break
       }
     }
@@ -1534,12 +1453,6 @@ extension SetConversationReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     try { if let v = self._ex {
       try visitor.visitSingularStringField(value: v, fieldNumber: 7)
     } }()
-    try { if let v = self._msgDestructTime {
-      try visitor.visitSingularInt64Field(value: v, fieldNumber: 8)
-    } }()
-    try { if let v = self._isMsgDestruct {
-      try visitor.visitSingularBoolField(value: v, fieldNumber: 9)
-    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1551,8 +1464,6 @@ extension SetConversationReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     if lhs._isPrivateChat != rhs._isPrivateChat {return false}
     if lhs._burnDuration != rhs._burnDuration {return false}
     if lhs._ex != rhs._ex {return false}
-    if lhs._msgDestructTime != rhs._msgDestructTime {return false}
-    if lhs._isMsgDestruct != rhs._isMsgDestruct {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1642,7 +1553,7 @@ extension GetConversationIDBySessionTypeReq: SwiftProtobuf.Message, SwiftProtobu
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.sourceID) }()
-      case 2: try { try decoder.decodeSingularInt32Field(value: &self.sessionType) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.sessionType) }()
       default: break
       }
     }
@@ -1652,8 +1563,8 @@ extension GetConversationIDBySessionTypeReq: SwiftProtobuf.Message, SwiftProtobu
     if !self.sourceID.isEmpty {
       try visitor.visitSingularStringField(value: self.sourceID, fieldNumber: 1)
     }
-    if self.sessionType != 0 {
-      try visitor.visitSingularInt32Field(value: self.sessionType, fieldNumber: 2)
+    if self.sessionType != .sessionType_ {
+      try visitor.visitSingularEnumField(value: self.sessionType, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -1857,8 +1768,8 @@ extension MarkAllConversationMessageAsReadResp: SwiftProtobuf.Message, SwiftProt
   }
 }
 
-extension DeleteMessageFromLocalStorageReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".DeleteMessageFromLocalStorageReq"
+extension DeleteMessageFromLocalReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DeleteMessageFromLocalReq"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "conversationID"),
     2: .same(proto: "clientMsgID"),
@@ -1887,7 +1798,7 @@ extension DeleteMessageFromLocalStorageReq: SwiftProtobuf.Message, SwiftProtobuf
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: DeleteMessageFromLocalStorageReq, rhs: DeleteMessageFromLocalStorageReq) -> Bool {
+  public static func ==(lhs: DeleteMessageFromLocalReq, rhs: DeleteMessageFromLocalReq) -> Bool {
     if lhs.conversationID != rhs.conversationID {return false}
     if lhs.clientMsgID != rhs.clientMsgID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -1895,8 +1806,8 @@ extension DeleteMessageFromLocalStorageReq: SwiftProtobuf.Message, SwiftProtobuf
   }
 }
 
-extension DeleteMessageFromLocalStorageResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".DeleteMessageFromLocalStorageResp"
+extension DeleteMessageFromLocalResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DeleteMessageFromLocalResp"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1908,7 +1819,7 @@ extension DeleteMessageFromLocalStorageResp: SwiftProtobuf.Message, SwiftProtobu
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: DeleteMessageFromLocalStorageResp, rhs: DeleteMessageFromLocalStorageResp) -> Bool {
+  public static func ==(lhs: DeleteMessageFromLocalResp, rhs: DeleteMessageFromLocalResp) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -2019,7 +1930,14 @@ extension DeleteConversationAndDeleteAllMsgResp: SwiftProtobuf.Message, SwiftPro
 extension SearchLocalMessagesReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".SearchLocalMessagesReq"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "searchParam"),
+    1: .same(proto: "conversationID"),
+    2: .same(proto: "keywords"),
+    3: .same(proto: "keywordMatchType"),
+    4: .same(proto: "senderUserIDs"),
+    5: .same(proto: "messageTypes"),
+    6: .same(proto: "searchTimePosition"),
+    7: .same(proto: "searchTimePeriod"),
+    8: .same(proto: "pagination"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2028,7 +1946,14 @@ extension SearchLocalMessagesReq: SwiftProtobuf.Message, SwiftProtobuf._MessageI
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._searchParam) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.conversationID) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.keywords) }()
+      case 3: try { try decoder.decodeSingularEnumField(value: &self.keywordMatchType) }()
+      case 4: try { try decoder.decodeRepeatedStringField(value: &self.senderUserIds) }()
+      case 5: try { try decoder.decodeRepeatedEnumField(value: &self.messageTypes) }()
+      case 6: try { try decoder.decodeSingularInt64Field(value: &self.searchTimePosition) }()
+      case 7: try { try decoder.decodeSingularInt64Field(value: &self.searchTimePeriod) }()
+      case 8: try { try decoder.decodeSingularMessageField(value: &self._pagination) }()
       default: break
       }
     }
@@ -2039,14 +1964,42 @@ extension SearchLocalMessagesReq: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._searchParam {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    if !self.conversationID.isEmpty {
+      try visitor.visitSingularStringField(value: self.conversationID, fieldNumber: 1)
+    }
+    if !self.keywords.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.keywords, fieldNumber: 2)
+    }
+    if self.keywordMatchType != .keywordMatchOr {
+      try visitor.visitSingularEnumField(value: self.keywordMatchType, fieldNumber: 3)
+    }
+    if !self.senderUserIds.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.senderUserIds, fieldNumber: 4)
+    }
+    if !self.messageTypes.isEmpty {
+      try visitor.visitPackedEnumField(value: self.messageTypes, fieldNumber: 5)
+    }
+    if self.searchTimePosition != 0 {
+      try visitor.visitSingularInt64Field(value: self.searchTimePosition, fieldNumber: 6)
+    }
+    if self.searchTimePeriod != 0 {
+      try visitor.visitSingularInt64Field(value: self.searchTimePeriod, fieldNumber: 7)
+    }
+    try { if let v = self._pagination {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
     } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: SearchLocalMessagesReq, rhs: SearchLocalMessagesReq) -> Bool {
-    if lhs._searchParam != rhs._searchParam {return false}
+    if lhs.conversationID != rhs.conversationID {return false}
+    if lhs.keywords != rhs.keywords {return false}
+    if lhs.keywordMatchType != rhs.keywordMatchType {return false}
+    if lhs.senderUserIds != rhs.senderUserIds {return false}
+    if lhs.messageTypes != rhs.messageTypes {return false}
+    if lhs.searchTimePosition != rhs.searchTimePosition {return false}
+    if lhs.searchTimePeriod != rhs.searchTimePeriod {return false}
+    if lhs._pagination != rhs._pagination {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -2055,7 +2008,8 @@ extension SearchLocalMessagesReq: SwiftProtobuf.Message, SwiftProtobuf._MessageI
 extension SearchLocalMessagesResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".SearchLocalMessagesResp"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "searchResult"),
+    1: .same(proto: "count"),
+    2: .same(proto: "searchResultItems"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2064,25 +2018,26 @@ extension SearchLocalMessagesResp: SwiftProtobuf.Message, SwiftProtobuf._Message
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._searchResult) }()
+      case 1: try { try decoder.decodeSingularInt64Field(value: &self.count) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.searchResultItems) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._searchResult {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    } }()
+    if self.count != 0 {
+      try visitor.visitSingularInt64Field(value: self.count, fieldNumber: 1)
+    }
+    if !self.searchResultItems.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.searchResultItems, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: SearchLocalMessagesResp, rhs: SearchLocalMessagesResp) -> Bool {
-    if lhs._searchResult != rhs._searchResult {return false}
+    if lhs.count != rhs.count {return false}
+    if lhs.searchResultItems != rhs.searchResultItems {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -2376,6 +2331,133 @@ extension UnsubscribeUsersOnlineStatusResp: SwiftProtobuf.Message, SwiftProtobuf
   }
 
   public static func ==(lhs: UnsubscribeUsersOnlineStatusResp, rhs: UnsubscribeUsersOnlineStatusResp) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension ChangeInputStatesReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ChangeInputStatesReq"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "conversationID"),
+    3: .same(proto: "focus"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.conversationID) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.focus) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.conversationID.isEmpty {
+      try visitor.visitSingularStringField(value: self.conversationID, fieldNumber: 1)
+    }
+    if self.focus != false {
+      try visitor.visitSingularBoolField(value: self.focus, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: ChangeInputStatesReq, rhs: ChangeInputStatesReq) -> Bool {
+    if lhs.conversationID != rhs.conversationID {return false}
+    if lhs.focus != rhs.focus {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension ChangeInputStatesResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ChangeInputStatesResp"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    // Load everything into unknown fields
+    while try decoder.nextFieldNumber() != nil {}
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: ChangeInputStatesResp, rhs: ChangeInputStatesResp) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension GetInputStatesReq: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetInputStatesReq"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "conversationID"),
+    2: .same(proto: "userID"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.conversationID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.userID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.conversationID.isEmpty {
+      try visitor.visitSingularStringField(value: self.conversationID, fieldNumber: 1)
+    }
+    if !self.userID.isEmpty {
+      try visitor.visitSingularStringField(value: self.userID, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: GetInputStatesReq, rhs: GetInputStatesReq) -> Bool {
+    if lhs.conversationID != rhs.conversationID {return false}
+    if lhs.userID != rhs.userID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension GetInputStatesResp: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetInputStatesResp"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "platforms"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedEnumField(value: &self.platforms) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.platforms.isEmpty {
+      try visitor.visitPackedEnumField(value: self.platforms, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: GetInputStatesResp, rhs: GetInputStatesResp) -> Bool {
+    if lhs.platforms != rhs.platforms {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

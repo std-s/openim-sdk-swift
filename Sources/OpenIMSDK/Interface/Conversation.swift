@@ -1,11 +1,11 @@
 import Foundation
 
-public struct Conversation {
-    public func addListener(listener: OnConversationListener) {
+public struct Conversation: Interface {
+    public func addListener(_ listener: OnConversationListener) {
         ListenerManager.shared.addListener(listener)
     }
     
-    public func removeListener(listener: OnConnectListener) {
+    public func removeListener(_ listener: OnConnectListener) {
         ListenerManager.shared.removeListener(listener)
     }
     

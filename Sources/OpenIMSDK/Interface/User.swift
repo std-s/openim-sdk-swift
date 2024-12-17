@@ -1,11 +1,11 @@
 import Foundation
 
 public struct User: Interface {
-    public func addListener(listener: OnUserListener) {
+    public func addListener(_ listener: OnUserListener) {
         ListenerManager.shared.addListener(listener)
     }
     
-    public func removeListener(listener: OnUserListener) {
+    public func removeListener(_ listener: OnUserListener) {
         ListenerManager.shared.removeListener(listener)
     }
     
