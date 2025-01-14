@@ -3,7 +3,7 @@ import Foundation
 public typealias VoidCallback = (() -> Void)
 public typealias DataCallBack<T> = ((_ data: T) -> Void)
 
-protocol Listener {
+protocol Listener: AnyObject {
     func handleListenerEvent(eventName: FuncRequestEventName, data: Any?)
 }
 
@@ -65,11 +65,11 @@ public class OnConnectListener: Listener {
 
 public class OnUserListener: Listener {
     let onSelfInfoUpdated: (DataCallBack<IMUser>)?
-    let onUserStatusChanged: (DataCallBack<EventOnUserStatusChangedData>)?
+    let onUserStatusChanged: (DataCallBack<EventOnUserOnlineStatusChangedData>)?
 
     public init(
         onSelfInfoUpdated: (DataCallBack<IMUser>)? = nil,
-        onUserStatusChanged: (DataCallBack<EventOnUserStatusChangedData>)? = nil
+        onUserStatusChanged: (DataCallBack<EventOnUserOnlineStatusChangedData>)? = nil
     ) {
         self.onSelfInfoUpdated = onSelfInfoUpdated
         self.onUserStatusChanged = onUserStatusChanged
@@ -81,8 +81,8 @@ public class OnUserListener: Listener {
             guard let data = data as? EventOnSelfInfoUpdatedData else { return }
             
             onSelfInfoUpdated?(data.user)
-        case .eventOnUserStatusChanged:
-            guard let data = data as? EventOnUserStatusChangedData else { return }
+        case .eventOnUserOnlineStatusChanged:
+            guard let data = data as? EventOnUserOnlineStatusChangedData else { return }
             
             onUserStatusChanged?(data)
         default:
@@ -266,19 +266,19 @@ public class OnFriendshipListener: Listener {
 
         case .eventOnFriendApplicationAccepted:
             guard let data = data as? EventOnFriendApplicationAcceptedData else { return }
-            onFriendApplicationAccepted?(data.request)
+            onFriendApplicationAccepted?(data.application)
 
         case .eventOnFriendApplicationAdded:
             guard let data = data as? EventOnFriendApplicationAddedData else { return }
-            onFriendApplicationAdded?(data.request)
+            onFriendApplicationAdded?(data.application)
 
         case .eventOnFriendApplicationDeleted:
             guard let data = data as? EventOnFriendApplicationDeletedData else { return }
-            onFriendApplicationDeleted?(data.request)
+            onFriendApplicationDeleted?(data.application)
 
         case .eventOnFriendApplicationRejected:
             guard let data = data as? EventOnFriendApplicationRejectedData else { return }
-            onFriendApplicationRejected?(data.request)
+            onFriendApplicationRejected?(data.application)
 
         case .eventOnFriendDeleted:
             guard let data = data as? EventOnFriendDeletedData else { return }
@@ -353,11 +353,11 @@ public class OnGroupListener: Listener {
 
         case .eventOnGroupApplicationAdded:
             guard let data = data as? EventOnGroupApplicationAddedData else { return }
-            onGroupApplicationAdded?(data.request)
+            onGroupApplicationAdded?(data.application)
 
         case .eventOnGroupApplicationDeleted:
             guard let data = data as? EventOnGroupApplicationDeletedData else { return }
-            onGroupApplicationDeleted?(data.request)
+            onGroupApplicationDeleted?(data.application)
 
         case .eventOnGroupInfoChanged:
             guard let data = data as? EventOnGroupInfoChangedData else { return }
@@ -373,11 +373,11 @@ public class OnGroupListener: Listener {
 
         case .eventOnGroupApplicationAccepted:
             guard let data = data as? EventOnGroupApplicationAcceptedData else { return }
-            onGroupApplicationAccepted?(data.request)
+            onGroupApplicationAccepted?(data.application)
 
         case .eventOnGroupApplicationRejected:
             guard let data = data as? EventOnGroupApplicationRejectedData else { return }
-            onGroupApplicationRejected?(data.request)
+            onGroupApplicationRejected?(data.application)
 
         default:
             break

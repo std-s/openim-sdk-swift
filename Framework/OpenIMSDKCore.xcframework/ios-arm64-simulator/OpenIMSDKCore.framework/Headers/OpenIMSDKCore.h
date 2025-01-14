@@ -90,9 +90,9 @@ extern "C" {
 // event: The callback function to be invoked.
 // protocolType : The serialization protocol type (1 for JSON, 2 for Protocol Buffers, 3 for Thrift, 4 for FlatBuffers e.g.,or others)
 //
-extern GoUint64 ffi_init(CallBack event, int protocolType);
+extern GoInt64 ffi_init(CallBack event, int protocolType);
 extern void ffi_request(void* data, int length);
-extern void ffi_drop_handle(GoUint64 handleID);
+extern void ffi_drop_handle(GoInt64 handleID);
 
 #ifdef __cplusplus
 }

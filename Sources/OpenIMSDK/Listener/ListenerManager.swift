@@ -11,70 +11,44 @@ class ListenerManager {
         progressListeners[handleID] = Weak(listener)
     }
     
-    func addListener<T: Listener>(_ listener: T) {
-        if let listener = listener as? OnConnectListener {
-            if !connectListeners.contains(where: { $0.value === listener }) {
-                connectListeners.append(Weak(listener))
-            }
-        } else if let listener = listener as? OnUserListener {
-            if !userListeners.contains(where: { $0.value === listener }) {
-                userListeners.append(Weak(listener))
-            }
-        } else if let listener = listener as? OnConversationListener {
-            if !conversationListeners.contains(where: { $0.value === listener }) {
-                conversationListeners.append(Weak(listener))
-            }
-        } else if let listener = listener as? OnMessageListener {
-            if !messageListeners.contains(where: { $0.value === listener }) {
-                messageListeners.append(Weak(listener))
-            }
-        } else if let listener = listener as? OnFriendshipListener {
-            if !friendshipListeners.contains(where: { $0.value === listener }) {
-                friendshipListeners.append(Weak(listener))
-            }
-        } else if let listener = listener as? OnGroupListener {
-            if !groupListeners.contains(where: { $0.value === listener }) {
-                groupListeners.append(Weak(listener))
-            }
-        }
-        
-        cleanUpReleasedListeners()
-    }
-    
-    func removeListener<T: Listener>(_ listener: T) {
-        if let listener = listener as? OnConnectListener {
-            connectListeners.removeAll { $0.value === listener }
-        } else if let listener = listener as? OnUserListener {
-            userListeners.removeAll { $0.value === listener }
-        } else if let listener = listener as? OnConversationListener {
-            conversationListeners.removeAll { $0.value === listener }
-        } else if let listener = listener as? OnMessageListener {
-            messageListeners.removeAll { $0.value === listener }
-        } else if let listener = listener as? OnFriendshipListener {
-            friendshipListeners.removeAll { $0.value === listener }
-        } else if let listener = listener as? OnGroupListener {
-            groupListeners.removeAll { $0.value === listener }
-        }
-        
-        cleanUpReleasedListeners()
-    }
-    
-    private func cleanUpReleasedListeners() {
-        connectListeners.removeAll { $0.value == nil }
-        userListeners.removeAll { $0.value == nil }
-        conversationListeners.removeAll { $0.value == nil }
-        messageListeners.removeAll { $0.value == nil }
-        friendshipListeners.removeAll { $0.value == nil }
-        groupListeners.removeAll { $0.value == nil }
-    }
-    
-    private var connectListeners: [Weak<OnConnectListener>] = []
-    private var userListeners: [Weak<OnUserListener>] = []
-    private var conversationListeners: [Weak<OnConversationListener>] = []
-    private var messageListeners: [Weak<OnMessageListener>] = []
-    private var friendshipListeners: [Weak<OnFriendshipListener>] = []
-    private var groupListeners: [Weak<OnGroupListener>] = []
     private var progressListeners: [UInt64: Weak<OnProgressListener>] = [:]
+    private var listeners: [String: [Weak<Listener>]] = [:]
+    
+    public func addListener<T: Listener>(_ listener: T) {
+        let key = listenerKey(for: T.self)
+        if listeners[key] == nil {
+            listeners[key] = []
+        }
+        
+        if !listeners[key]!.contains(where: { $0.value === listener }) {
+            listeners[key]!.append(Weak(listener))
+        }
+        
+        cleanUpReleasedListeners(for: key)
+    }
+    
+    public func removeListener<T: Listener>(_ listener: T) {
+        let key = listenerKey(for: T.self)
+        listeners[key]?.removeAll { $0.value === listener }
+        cleanUpReleasedListeners(for: key)
+    }
+    
+    public func emit<T: Listener>(_ execute: ((_ listener: T) -> Void)) {
+        let key = listenerKey(for: T.self)
+        listeners[key]?.forEach { weakListener in
+            if let listener = weakListener.value as? T {
+                execute(listener)
+            }
+        }
+    }
+    
+    private func cleanUpReleasedListeners(for key: String) {
+        listeners[key]?.removeAll { $0.value == nil }
+    }
+    
+    private func listenerKey<T>(for type: T.Type) -> String {
+        return String(describing: type)
+    }
     
     private let connectModelMapper: [FuncRequestEventName: (Data) -> Any?] = [
         .eventOnConnecting: { try? EventOnConnectingData(serializedBytes: $0) },
@@ -280,55 +254,12 @@ class ListenerManager {
             listener.handleListenerEvent(eventName: eventName, data: model)
         }
     }
-    
-    private func emit<T: Listener>(_ execute: ((_ listener: T) -> Void)) {
-        switch T.self {
-        case is OnConnectListener.Type:
-            for weakListener in connectListeners {
-                if let listener = weakListener.value as? T {
-                    execute(listener)
-                }
-            }
-        case is OnUserListener.Type:
-            for weakListener in userListeners {
-                if let listener = weakListener.value as? T {
-                    execute(listener)
-                }
-            }
-        case is OnConversationListener.Type:
-            for weakListener in conversationListeners {
-                if let listener = weakListener.value as? T {
-                    execute(listener)
-                }
-            }
-        case is OnMessageListener.Type:
-            for weakListener in messageListeners {
-                if let listener = weakListener.value as? T {
-                    execute(listener)
-                }
-            }
-        case is OnFriendshipListener.Type:
-            for weakListener in friendshipListeners {
-                if let listener = weakListener.value as? T {
-                    execute(listener)
-                }
-            }
-        case is OnGroupListener.Type:
-            for weakListener in groupListeners {
-                if let listener = weakListener.value as? T {
-                    execute(listener)
-                }
-            }
-        default:
-            break
-        }
-    }
 }
 
-private struct Weak<T: AnyObject> {
+private struct Weak<T: Any> {
     var value: T?
     
-    init(_ value: T) {
+    init(_ value: T?) {
         self.value = value
     }
 }

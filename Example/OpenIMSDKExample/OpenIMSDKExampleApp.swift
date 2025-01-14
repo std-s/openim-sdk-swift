@@ -21,6 +21,7 @@ struct OpenIMSDKExampleApp: App {
     }
     
     func initSDK() {
+        
         Task {
             do {
                 var config = IMConfig()

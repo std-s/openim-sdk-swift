@@ -137,7 +137,7 @@ class ResponseManager {
         
         handleFunctionResponse(result: result)
         
-        OpenIMSDKCore.ffi_drop_handle(result.handleID)
+        OpenIMSDKCore.ffi_drop_handle(GoInt64(result.handleID))
     }
     
     private func handleFunctionResponse(result: FfiResult) {
@@ -145,114 +145,17 @@ class ResponseManager {
         let funcName = result.funcName
         let data = result.data
         
-        switch result.funcName {
-        case .initSdk,
-                .login,
-                .logout,
-                .getLoginStatus,
-                .uploadFile,
-                .updateFcmToken,
-                .uploadLogs,
-                .version:
+        if connectionTypeMap[funcName] != nil {
             handleFunc(ffiResult: result, typeMap: connectionTypeMap)
-            break
-        case .getUsersInfo,
-                .getSelfUserInfo,
-                .setSelfInfo,
-                .subscribeUsersOnlineStatus,
-                .unsubscribeUsersOnlineStatus:
+        } else if userTypeMap[funcName] != nil {
             handleFunc(ffiResult: result, typeMap: userTypeMap)
-            break
-        case .getAllConversationList,
-                .getConversationListSplit,
-                .hideConversation,
-                .getAtAllTag,
-                .getOneConversation,
-                .getMultipleConversation,
-                .hideAllConversations,
-                .setConversationDraft,
-                .setConversation,
-                .getTotalUnreadMsgCount,
-                .getConversationIdbySessionType:
+        } else if conversationTypeMap[funcName] != nil {
             handleFunc(ffiResult: result, typeMap: conversationTypeMap)
-            break
-        case .sendMessage,
-                .findMessageList,
-                .getHistoryMessageList,
-                .revokeMessage,
-                .typingStatusUpdate,
-                .markConversationMessageAsRead,
-                .markAllConversationMessageAsRead,
-                .deleteMessageFromLocal,
-                .deleteMessage,
-                .deleteAllMsgFromLocalAndServer,
-                .deleteAllMessageFromLocal,
-                .clearConversationAndDeleteAllMsg,
-                .deleteConversationAndDeleteAllMsg,
-                .insertSingleMessageToLocal,
-                .insertGroupMessageToLocal,
-                .searchLocalMessages,
-                .setMessageLocalEx,
-                .searchConversation,
-                .createTextMessage,
-                .createAdvancedTextMessage,
-                .createTextAtMessage,
-                .createLocationMessage,
-                .createCustomMessage,
-                .createQuoteMessage,
-                .createAdvancedQuoteMessage,
-                .createCardMessage,
-                .createImageMessage,
-                .createSoundMessage,
-                .createVideoMessage,
-                .createFileMessage,
-                .createMergerMessage,
-                .createFaceMessage,
-                .createForwardMessage:
-            handleFunc(ffiResult: result, typeMap: messageTypeMap)
-            break
-        case .getSpecifiedFriends,
-                .addFriend,
-                .getFriendApplication,
-                .handleFriendApplication,
-                .checkFriend,
-                .deleteFriend,
-                .getFriends,
-                .getFriendsPage,
-                .searchFriends,
-                .addBlack,
-                .deleteBlack,
-                .getBlacks,
-                .updateFriend:
-            handleFunc(ffiResult: result,  typeMap: friendshipTypeMap)
-            break
-        case .createGroup,
-                .joinGroup,
-                .quitGroup,
-                .dismissGroup,
-                .changeGroupMute,
-                .changeGroupMemberMute,
-                .transferGroupOwner,
-                .kickGroupMember,
-                .setGroupInfo,
-                .setGroupMemberInfo,
-                .getJoinedGroups,
-                .getJoinedGroupsPage,
-                .getSpecifiedGroupsInfo,
-                .searchGroups,
-                .getGroupMemberOwnerAndAdmin,
-                .getGroupMembersByJoinTimeFilter,
-                .getSpecifiedGroupMembersInfo,
-                .getGroupMembers,
-                .getGroupApplication,
-                .searchGroupMembers,
-                .isJoinGroup,
-                .getUsersInGroup,
-                .inviteUserToGroup,
-                .handleGroupApplication:
+        } else if groupTypeMap[funcName] != nil {
             handleFunc(ffiResult: result, typeMap: groupTypeMap)
-            break
-        default:
+        } else if friendshipTypeMap[funcName] != nil {
+            handleFunc(ffiResult: result, typeMap: friendshipTypeMap)
+        } else {
             ListenerManager.shared.handleEvent(result: result)
         }
     }

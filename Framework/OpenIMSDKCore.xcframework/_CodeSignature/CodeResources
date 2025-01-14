@@ -4,13 +4,9 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>ios-arm64-simulator/OpenIMSDKCore.framework/Headers/._OpenIMSDKCore.h</key>
-		<data>
-		00irB9C0+AOlQZeokYR0un8szbg=
-		</data>
 		<key>ios-arm64-simulator/OpenIMSDKCore.framework/Headers/OpenIMSDKCore.h</key>
 		<data>
-		6u4Po9i0K1IuFi4SRZ4q4a/4kWY=
+		WPqFI6nnGnTVWEdqZH2q67ZKOe8=
 		</data>
 		<key>ios-arm64-simulator/OpenIMSDKCore.framework/Info.plist</key>
 		<data>
@@ -22,15 +18,11 @@
 		</data>
 		<key>ios-arm64-simulator/OpenIMSDKCore.framework/OpenIMSDKCore</key>
 		<data>
-		icbIKYiqalw+qzmRkTVs7MUJu1Q=
-		</data>
-		<key>ios-arm64/OpenIMSDKCore.framework/Headers/._OpenIMSDKCore.h</key>
-		<data>
-		SJ5McRaBqVwhP2H5itnev4yXzzM=
+		Ahrw5kaNus7mLSP09+09kbT7OJM=
 		</data>
 		<key>ios-arm64/OpenIMSDKCore.framework/Headers/OpenIMSDKCore.h</key>
 		<data>
-		6u4Po9i0K1IuFi4SRZ4q4a/4kWY=
+		WPqFI6nnGnTVWEdqZH2q67ZKOe8=
 		</data>
 		<key>ios-arm64/OpenIMSDKCore.framework/Info.plist</key>
 		<data>
@@ -42,31 +34,20 @@
 		</data>
 		<key>ios-arm64/OpenIMSDKCore.framework/OpenIMSDKCore</key>
 		<data>
-		e902s6jxNbMUeCZluHlmVKdHm5M=
+		cvLKWTDv8ZaTweIFd6RaU/M9Wnk=
 		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>ios-arm64-simulator/OpenIMSDKCore.framework/Headers/._OpenIMSDKCore.h</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			00irB9C0+AOlQZeokYR0un8szbg=
-			</data>
-			<key>hash2</key>
-			<data>
-			YrlRINhabgmIDCVgH6t4YmEE438o/6AOI/x2H8kzAoc=
-			</data>
-		</dict>
 		<key>ios-arm64-simulator/OpenIMSDKCore.framework/Headers/OpenIMSDKCore.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			6u4Po9i0K1IuFi4SRZ4q4a/4kWY=
+			WPqFI6nnGnTVWEdqZH2q67ZKOe8=
 			</data>
 			<key>hash2</key>
 			<data>
-			q3D5XK8LYpOZ5Zn1QnhHqZw7fC0pPlGypTaUdY0nY5k=
+			qcFqKmSXblTSBTmybdNgnhBd8a9d0+pGPj150u8Q7HY=
 			</data>
 		</dict>
 		<key>ios-arm64-simulator/OpenIMSDKCore.framework/Info.plist</key>
@@ -95,33 +76,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			icbIKYiqalw+qzmRkTVs7MUJu1Q=
+			Ahrw5kaNus7mLSP09+09kbT7OJM=
 			</data>
 			<key>hash2</key>
 			<data>
-			26xDZA83y1nYMXdRWNW81ib1+/eOwdyjzYTFBph4xYU=
-			</data>
-		</dict>
-		<key>ios-arm64/OpenIMSDKCore.framework/Headers/._OpenIMSDKCore.h</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			SJ5McRaBqVwhP2H5itnev4yXzzM=
-			</data>
-			<key>hash2</key>
-			<data>
-			yqpdLKxqlzpB+rkTKqIAi69OeHl1x6MRYxiPfv5PEwM=
+			L/jkazjxthl8xmdfVYa7bLTj9nUsoae3+YxgbwlBQjw=
 			</data>
 		</dict>
 		<key>ios-arm64/OpenIMSDKCore.framework/Headers/OpenIMSDKCore.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			6u4Po9i0K1IuFi4SRZ4q4a/4kWY=
+			WPqFI6nnGnTVWEdqZH2q67ZKOe8=
 			</data>
 			<key>hash2</key>
 			<data>
-			q3D5XK8LYpOZ5Zn1QnhHqZw7fC0pPlGypTaUdY0nY5k=
+			qcFqKmSXblTSBTmybdNgnhBd8a9d0+pGPj150u8Q7HY=
 			</data>
 		</dict>
 		<key>ios-arm64/OpenIMSDKCore.framework/Info.plist</key>
@@ -150,11 +120,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			e902s6jxNbMUeCZluHlmVKdHm5M=
+			cvLKWTDv8ZaTweIFd6RaU/M9Wnk=
 			</data>
 			<key>hash2</key>
 			<data>
-			MPrfIax1Qe46bLd2OdRRWH1bWx0IXbAa57Wsm23YuKU=
+			CpBSzaiHRYAGaOonM3V3k2JwTq1kAX7q6zrGUpbfvm8=
 			</data>
 		</dict>
 	</dict>
