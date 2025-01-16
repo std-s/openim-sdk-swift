@@ -141,9 +141,7 @@ class ResponseManager {
     }
     
     private func handleFunctionResponse(result: FfiResult) {
-        let handleID = result.handleID
         let funcName = result.funcName
-        let data = result.data
         
         if connectionTypeMap[funcName] != nil {
             handleFunc(ffiResult: result, typeMap: connectionTypeMap)

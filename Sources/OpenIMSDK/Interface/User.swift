@@ -27,22 +27,22 @@ public struct User: Interface {
 
     /// Set self information
     public func setSelfInfo(_ req: SetSelfInfoReq) async throws {
-        try await Utils.callCoreAPI(funcName: .setSelfInfo, req: req) as SetSelfInfoResp
+        _ = try await Utils.callCoreAPI(funcName: .setSelfInfo, req: req) as SetSelfInfoResp
     }
 
     /// Process add user command
     public func processUserCommandAdd(_ req: ProcessUserCommandAddReq) async throws {
-        try await Utils.callCoreAPI(funcName: .processUserCommandAdd, req: req) as ProcessUserCommandAddResp
+        _ = try await Utils.callCoreAPI(funcName: .processUserCommandAdd, req: req) as ProcessUserCommandAddResp
     }
 
     /// Process delete user command
     public func processUserCommandDelete(_ req: ProcessUserCommandDeleteReq) async throws {
-        try await Utils.callCoreAPI(funcName: .processUserCommandDelete, req: req) as ProcessUserCommandDeleteResp
+        _ = try await Utils.callCoreAPI(funcName: .processUserCommandDelete, req: req) as ProcessUserCommandDeleteResp
     }
 
     /// Process update user command
     public func processUserCommandUpdate(_ req: ProcessUserCommandUpdateReq) async throws {
-        try await Utils.callCoreAPI(funcName: .processUserCommandUpdate, req: req) as ProcessUserCommandUpdateResp
+        _ = try await Utils.callCoreAPI(funcName: .processUserCommandUpdate, req: req) as ProcessUserCommandUpdateResp
     }
 
     /// Get users' information
@@ -61,7 +61,7 @@ public struct User: Interface {
 
     /// Unsubscribe from users' online status
     public func unsubscribeUsersOnlineStatus(_ req: UnsubscribeUsersOnlineStatusReq) async throws {
-        try await Utils.callCoreAPI(funcName: .unsubscribeUsersOnlineStatus, req: req) as UnsubscribeUsersOnlineStatusResp
+        _ = try await Utils.callCoreAPI(funcName: .unsubscribeUsersOnlineStatus, req: req) as UnsubscribeUsersOnlineStatusResp
     }
 }
 

@@ -32,25 +32,25 @@ public struct Connection {
 
     /// User login
     public func login(_ req: LoginReq) async throws {
-        try await Utils.callCoreAPI(funcName: .login, req: req) as LoginResp
+        _ = try await Utils.callCoreAPI(funcName: .login, req: req) as LoginResp
     }
 
     /// User logout
     public func logout() async throws {
         let req = LogoutReq()
-        try await Utils.callCoreAPI(funcName: .logout, req: req) as LogoutResp
+        _ = try await Utils.callCoreAPI(funcName: .logout, req: req) as LogoutResp
     }
 
     /// Set app background status
     public func setAppBackgroundStatus() async throws {
         let req = SetAppBackgroundStatusReq()
-        try await Utils.callCoreAPI(funcName: .setAppBackgroundStatus, req: req) as SetAppBackgroundStatusResp
+        _ = try await Utils.callCoreAPI(funcName: .setAppBackgroundStatus, req: req) as SetAppBackgroundStatusResp
     }
 
     /// Network status changed
     public func networkStatusChanged() async throws {
         let req = NetworkStatusChangedReq()
-        try await Utils.callCoreAPI(funcName: .networkStatusChanged, req: req) as NetworkStatusChangedResp
+        _ = try await Utils.callCoreAPI(funcName: .networkStatusChanged, req: req) as NetworkStatusChangedResp
     }
 
     /// Get login status
@@ -64,7 +64,7 @@ public struct Connection {
     /// Get SDK version
     public func version() async throws -> String {
         let req = VersionReq()
-        let result: VersionResp = try await Utils.callCoreAPI(funcName: .version, req: req)
+        let result = try await Utils.callCoreAPI(funcName: .version, req: req) as VersionResp
         
         return result.version
     }
@@ -72,8 +72,8 @@ public struct Connection {
     /// Upload logs
     public func uploadLogs(_ req: UploadSDKDataReq,
                            onProgress: OnProgressListener? = nil) async throws {
-        try await AsyncTaskManager.shared.add {
-            let handleID = Utils.callFunc(funcName: .uploadLogs,
+        _ = try await AsyncTaskManager.shared.add {
+            let handleID = try Utils.callFunc(funcName: .uploadLogs,
                                           dataBuffer: try req.serializedData())
             
             if let onProgress {
@@ -89,7 +89,7 @@ public struct Connection {
     public func uploadFile(_ req: UploadFileReq, 
                            onProgress: OnProgressListener? = nil) async throws -> String {
         let result = try await AsyncTaskManager.shared.add {
-            let handleID = Utils.callFunc(funcName: .uploadFile,
+            let handleID = try Utils.callFunc(funcName: .uploadFile,
                                           dataBuffer: try req.serializedData())
             
             if let onProgress {
@@ -105,16 +105,16 @@ public struct Connection {
 
     /// Log message
     public func log(_ req: LogReq) async throws {
-        try await Utils.callCoreAPI(funcName: .log, req: req) as LogResp
+        _ = try await Utils.callCoreAPI(funcName: .log, req: req) as LogResp
     }
 
     /// Update FCM token
     public func updateFcmToken(_ req: UpdateFcmTokenReq) async throws {
-        try await Utils.callCoreAPI(funcName: .updateFcmToken, req: req) as UpdateFcmTokenResp
+        _ = try await Utils.callCoreAPI(funcName: .updateFcmToken, req: req) as UpdateFcmTokenResp
     }
 
     /// Set app badge
     public func setAppBadge(_ req: SetAppBadgeReq) async throws {
-        try await Utils.callCoreAPI(funcName: .setAppBadge, req: req) as SetAppBadgeResp
+        _ = try await Utils.callCoreAPI(funcName: .setAppBadge, req: req) as SetAppBadgeResp
     }
 }

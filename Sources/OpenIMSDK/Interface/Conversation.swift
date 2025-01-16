@@ -25,7 +25,7 @@ public struct Conversation: Interface {
 
     /// Hide conversation
     public func hideConversation(_ req: HideConversationReq) async throws {
-        try await Utils.callCoreAPI(funcName: .hideConversation, req: req) as HideConversationResp
+        _ = try await Utils.callCoreAPI(funcName: .hideConversation, req: req) as HideConversationResp
     }
 
     /// Get "at all" tag
@@ -51,17 +51,17 @@ public struct Conversation: Interface {
 
     /// Hide all conversations
     public func hideAllConversations(_ req: HideAllConversationsReq) async throws {
-        try await Utils.callCoreAPI(funcName: .hideAllConversations, req: req) as HideAllConversationsResp
+        _ = try await Utils.callCoreAPI(funcName: .hideAllConversations, req: req) as HideAllConversationsResp
     }
 
     /// Set conversation draft
     public func setConversationDraft(_ req: SetConversationDraftReq) async throws {
-        try await Utils.callCoreAPI(funcName: .setConversationDraft, req: req) as SetConversationDraftResp
+        _ = try await Utils.callCoreAPI(funcName: .setConversationDraft, req: req) as SetConversationDraftResp
     }
 
     /// Set conversation settings
     public func setConversation(_ req: SetConversationReq) async throws {
-        try await Utils.callCoreAPI(funcName: .setConversation, req: req) as SetConversationResp
+        _ = try await Utils.callCoreAPI(funcName: .setConversation, req: req) as SetConversationResp
     }
 
     /// Get total unread message count

@@ -15,7 +15,7 @@ public struct AdvanceMessage: Interface {
     public func sendMessage(_ req: SendMessageReq,
                             onProgress: OnProgressListener? = nil) async throws -> IMMessage {
         let result = try await AsyncTaskManager.shared.add {
-            let handleID = Utils.callFunc(funcName: .sendMessage,
+            let handleID = try Utils.callFunc(funcName: .sendMessage,
                                           dataBuffer: try req.serializedData())
             
             if let onProgress {
@@ -43,56 +43,56 @@ public struct AdvanceMessage: Interface {
 
     /// Revoke a message
     public func revokeMessage(_ req: RevokeMessageReq) async throws {
-        try await Utils.callCoreAPI(funcName: .revokeMessage, req: req) as RevokeMessageResp
+        _ = try await Utils.callCoreAPI(funcName: .revokeMessage, req: req) as RevokeMessageResp
     }
 
     /// Update typing status
     public func typingStatusUpdate(_ req: TypingStatusUpdateReq) async throws {
-        try await Utils.callCoreAPI(funcName: .typingStatusUpdate, req: req) as TypingStatusUpdateResp
+        _ = try await Utils.callCoreAPI(funcName: .typingStatusUpdate, req: req) as TypingStatusUpdateResp
     }
 
     /// Mark a conversation message as read
     public func markConversationMessageAsRead(_ req: MarkConversationMessageAsReadReq) async throws {
-        try await Utils.callCoreAPI(funcName: .markConversationMessageAsRead, req: req) as MarkConversationMessageAsReadResp
+        _ = try await Utils.callCoreAPI(funcName: .markConversationMessageAsRead, req: req) as MarkConversationMessageAsReadResp
     }
 
     /// Mark all conversation messages as read
     public func markAllConversationMessageAsRead(_ req: MarkAllConversationMessageAsReadReq) async throws {
-        try await Utils.callCoreAPI(funcName: .markAllConversationMessageAsRead, req: req) as MarkAllConversationMessageAsReadResp
+        _ = try await Utils.callCoreAPI(funcName: .markAllConversationMessageAsRead, req: req) as MarkAllConversationMessageAsReadResp
     }
 
     /// Delete a message from local storage
     public func deleteMessageFromLocalStorage(_ req: DeleteMessageFromLocalReq) async throws {
-        try await Utils.callCoreAPI(funcName: .deleteMessageFromLocal, req: req) as DeleteMessageFromLocalResp
+        _ = try await Utils.callCoreAPI(funcName: .deleteMessageFromLocal, req: req) as DeleteMessageFromLocalResp
     }
 
     /// Delete a message
     public func deleteMessage(_ req: DeleteMessageReq) async throws {
-        try await Utils.callCoreAPI(funcName: .deleteMessage, req: req) as DeleteMessageResp
+        _ = try await Utils.callCoreAPI(funcName: .deleteMessage, req: req) as DeleteMessageResp
     }
 
     /// Delete all messages from local storage and server
     public func deleteAllMsgFromLocalAndServer() async throws {
         let req = DeleteAllMsgFromLocalAndServerReq()
         
-        try await Utils.callCoreAPI(funcName: .deleteAllMsgFromLocalAndServer, req: req) as DeleteAllMsgFromLocalAndServerResp
+        _ = try await Utils.callCoreAPI(funcName: .deleteAllMsgFromLocalAndServer, req: req) as DeleteAllMsgFromLocalAndServerResp
     }
 
     /// Delete all messages from local storage
     public func deleteAllMessageFromLocal() async throws {
         let req = DeleteAllMessageFromLocalReq()
         
-        try await Utils.callCoreAPI(funcName: .deleteAllMessageFromLocal, req: req) as DeleteAllMessageFromLocalResp
+        _ = try await Utils.callCoreAPI(funcName: .deleteAllMessageFromLocal, req: req) as DeleteAllMessageFromLocalResp
     }
 
     /// Clear conversation and delete all messages
     public func clearConversationAndDeleteAllMsg(_ req: ClearConversationAndDeleteAllMsgReq) async throws {
-        try await Utils.callCoreAPI(funcName: .clearConversationAndDeleteAllMsg, req: req) as ClearConversationAndDeleteAllMsgResp
+        _ = try await Utils.callCoreAPI(funcName: .clearConversationAndDeleteAllMsg, req: req) as ClearConversationAndDeleteAllMsgResp
     }
 
     /// Delete conversation and delete all messages
     public func deleteConversationAndDeleteAllMsg(_ req: DeleteConversationAndDeleteAllMsgReq) async throws {
-        try await Utils.callCoreAPI(funcName: .deleteConversationAndDeleteAllMsg, req: req) as DeleteConversationAndDeleteAllMsgResp
+        _ = try await Utils.callCoreAPI(funcName: .deleteConversationAndDeleteAllMsg, req: req) as DeleteConversationAndDeleteAllMsgResp
     }
 
     /// Insert a single message to local storage
@@ -231,51 +231,46 @@ public struct AdvanceMessage: Interface {
 
 extension IMMessage {
     /// Create a message
-    /// - Parameter req: CreateTextMessageReq / CreateAdvancedTextMessageReq and so on
-    /// example:
-    /// do {
-    ///     let req = CreateTextMessageReq()
-    ///     let msg = try IMMessage.create(req: req)
-    /// } catch {
-    ///     print(error)
-    /// }
+    /// - Parameter req: The request object of type `SwiftProtobuf.Message`.
+    /// - Returns: The created `IMMessage`.
+    /// - Throws: An error if the operation fails.
     public static func create<T: SwiftProtobuf.Message>(req: T) async throws -> IMMessage? {
-        
         var message: IMMessage? = nil
         
-        if T.self is CreateTextMessageReq {
+        if let req = req as? CreateTextMessageReq {
             message = (try await Utils.callCoreAPI(funcName: .createTextMessage, req: req) as CreateTextMessageResp).message
-        } else if T.self is CreateAdvancedTextMessageReq {
+        } else if let req = req as? CreateAdvancedTextMessageReq {
             message = (try await Utils.callCoreAPI(funcName: .createAdvancedTextMessage, req: req) as CreateAdvancedTextMessageResp).message
-        } else if T.self is CreateTextAtMessageReq {
+        } else if let req = req as? CreateTextAtMessageReq {
             message = (try await Utils.callCoreAPI(funcName: .createTextAtMessage, req: req) as CreateTextAtMessageResp).message
-        } else if T.self is CreateLocationMessageReq {
+        } else if let req = req as? CreateLocationMessageReq {
             message = (try await Utils.callCoreAPI(funcName: .createLocationMessage, req: req) as CreateLocationMessageResp).message
-        } else if T.self is CreateCustomMessageReq {
+        } else if let req = req as? CreateCustomMessageReq {
             message = (try await Utils.callCoreAPI(funcName: .createCustomMessage, req: req) as CreateCustomMessageResp).message
-        } else if T.self is CreateQuoteMessageReq {
+        } else if let req = req as? CreateQuoteMessageReq {
             message = (try await Utils.callCoreAPI(funcName: .createQuoteMessage, req: req) as CreateQuoteMessageResp).message
-        } else if T.self is CreateAdvancedQuoteMessageReq {
+        } else if let req = req as? CreateAdvancedQuoteMessageReq {
             message = (try await Utils.callCoreAPI(funcName: .createAdvancedQuoteMessage, req: req) as CreateAdvancedQuoteMessageResp).message
-        } else if T.self is CreateCardMessageReq {
+        } else if let req = req as? CreateCardMessageReq {
             message = (try await Utils.callCoreAPI(funcName: .createCardMessage, req: req) as CreateCardMessageResp).message
-        } else if T.self is CreateImageMessageReq {
+        } else if let req = req as? CreateImageMessageReq {
             message = (try await Utils.callCoreAPI(funcName: .createImageMessage, req: req) as CreateImageMessageResp).message
-        } else if T.self is CreateSoundMessageReq {
+        } else if let req = req as? CreateSoundMessageReq {
             message = (try await Utils.callCoreAPI(funcName: .createSoundMessage, req: req) as CreateSoundMessageResp).message
-        } else if T.self is CreateVideoMessageReq {
+        } else if let req = req as? CreateVideoMessageReq {
             message = (try await Utils.callCoreAPI(funcName: .createVideoMessage, req: req) as CreateVideoMessageResp).message
-        } else if T.self is CreateFileMessageReq {
+        } else if let req = req as? CreateFileMessageReq {
             message = (try await Utils.callCoreAPI(funcName: .createFileMessage, req: req) as CreateFileMessageResp).message
-        } else if T.self is CreateMergerMessageReq {
+        } else if let req = req as? CreateMergerMessageReq {
             message = (try await Utils.callCoreAPI(funcName: .createMergerMessage, req: req) as CreateMergerMessageResp).message
-        } else if T.self is CreateFaceMessageReq {
+        } else if let req = req as? CreateFaceMessageReq {
             message = (try await Utils.callCoreAPI(funcName: .createFaceMessage, req: req) as CreateFaceMessageResp).message
-        } else if T.self is CreateForwardMessageReq {
+        } else if let req = req as? CreateForwardMessageReq {
             message = (try await Utils.callCoreAPI(funcName: .createForwardMessage, req: req) as CreateForwardMessageResp).message
         }
         
         return message
     }
 }
+
 

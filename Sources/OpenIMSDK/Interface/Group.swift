@@ -18,47 +18,47 @@ public struct Group: Interface {
     
     /// Join a group
     public func joinGroup(_ req: JoinGroupReq) async throws {
-        try await Utils.callCoreAPI(funcName: .joinGroup, req: req) as JoinGroupResp
+        _ = try await Utils.callCoreAPI(funcName: .joinGroup, req: req) as JoinGroupResp
     }
     
     /// Quit a group
     public func quitGroup(_ req: QuitGroupReq) async throws {
-        try await Utils.callCoreAPI(funcName: .quitGroup, req: req) as QuitGroupResp
+        _ = try await Utils.callCoreAPI(funcName: .quitGroup, req: req) as QuitGroupResp
     }
     
     /// Dismiss a group
     public func dismissGroup(_ req: DismissGroupReq) async throws {
-        try await Utils.callCoreAPI(funcName: .dismissGroup, req: req) as DismissGroupResp
+        _ = try await Utils.callCoreAPI(funcName: .dismissGroup, req: req) as DismissGroupResp
     }
     
     /// Change group mute settings
     public func changeGroupMute(_ req: ChangeGroupMuteReq) async throws {
-        try await Utils.callCoreAPI(funcName: .changeGroupMute, req: req) as ChangeGroupMuteResp
+        _ = try await Utils.callCoreAPI(funcName: .changeGroupMute, req: req) as ChangeGroupMuteResp
     }
     
     /// Change group member mute settings
     public func changeGroupMemberMute(_ req: ChangeGroupMemberMuteReq) async throws {
-        try await Utils.callCoreAPI(funcName: .changeGroupMemberMute, req: req) as ChangeGroupMemberMuteResp
+        _ = try await Utils.callCoreAPI(funcName: .changeGroupMemberMute, req: req) as ChangeGroupMemberMuteResp
     }
     
     /// Transfer group ownership
     public func transferGroupOwner(_ req: TransferGroupOwnerReq) async throws {
-        try await Utils.callCoreAPI(funcName: .transferGroupOwner, req: req) as TransferGroupOwnerResp
+        _ = try await Utils.callCoreAPI(funcName: .transferGroupOwner, req: req) as TransferGroupOwnerResp
     }
     
     /// Kick a group member
     public func kickGroupMember(_ req: KickGroupMemberReq) async throws {
-        try await Utils.callCoreAPI(funcName: .kickGroupMember, req: req) as KickGroupMemberResp
+        _ = try await Utils.callCoreAPI(funcName: .kickGroupMember, req: req) as KickGroupMemberResp
     }
     
     /// Set group information
     public func setGroupInfo(_ req: SetGroupInfoReq) async throws {
-        try await Utils.callCoreAPI(funcName: .setGroupInfo, req: req) as SetGroupInfoResp
+        _ = try await Utils.callCoreAPI(funcName: .setGroupInfo, req: req) as SetGroupInfoResp
     }
     
     /// Set group member information
     public func setGroupMemberInfo(_ req: SetGroupMemberInfoReq) async throws {
-        try await Utils.callCoreAPI(funcName: .setGroupMemberInfo, req: req) as SetGroupMemberInfoResp
+        _ = try await Utils.callCoreAPI(funcName: .setGroupMemberInfo, req: req) as SetGroupMemberInfoResp
     }
     
     /// Get joined groups
@@ -147,11 +147,11 @@ public struct Group: Interface {
     
     /// Invite user to group
     public func inviteUserToGroup(_ req: InviteUserToGroupReq) async throws {
-        try await Utils.callCoreAPI(funcName: .inviteUserToGroup, req: req) as InviteUserToGroupResp
+        _ = try await Utils.callCoreAPI(funcName: .inviteUserToGroup, req: req) as InviteUserToGroupResp
     }
     
     /// Handle group request
     public func handleGroupApplication(_ req: HandleGroupApplicationReq) async throws {
-        try await Utils.callCoreAPI(funcName: .handleGroupApplication, req: req) as HandleGroupApplicationResp
+        _ = try await Utils.callCoreAPI(funcName: .handleGroupApplication, req: req) as HandleGroupApplicationResp
     }
 }

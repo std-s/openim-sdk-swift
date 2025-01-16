@@ -34,7 +34,7 @@ public class OnConnectListener: Listener {
     func handleListenerEvent(eventName: FuncRequestEventName, data: Any? = nil) {
         switch eventName {
         case .eventOnConnectSuccess:
-            guard let data = data as? EventOnConnectSuccessData else { return }
+            guard data is EventOnConnectSuccessData else { return }
             
             onConnectSuccess?()
         case .eventOnConnectFailed:
@@ -42,15 +42,15 @@ public class OnConnectListener: Listener {
             
             onConnectFailed(data.errCode, data.errMsg)
         case .eventOnConnecting:
-            guard let data = data as? EventOnConnectingData else { return }
+            guard data is EventOnConnectingData else { return }
             
             onConnecting?()
         case .eventOnKickedOffline:
-            guard let data = data as? EventOnKickedOfflineData else { return }
+            guard data is EventOnKickedOfflineData else { return }
             
             onKickedOffline()
         case .eventOnUserTokenExpired:
-            guard let data = data as? EventOnUserTokenExpiredData else { return }
+            guard data is EventOnUserTokenExpiredData else { return }
             
             onUserTokenExpired()
         case .eventOnUserTokenInvalid:

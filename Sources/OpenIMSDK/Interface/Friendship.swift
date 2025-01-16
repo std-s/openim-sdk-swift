@@ -18,7 +18,7 @@ public struct Friendship: Interface {
 
     /// Add a friend
     public func addFriend(_ req: AddFriendReq) async throws {
-        try await Utils.callCoreAPI(funcName: .addFriend, req: req) as AddFriendResp
+        _ = try await Utils.callCoreAPI(funcName: .addFriend, req: req) as AddFriendResp
     }
 
     /// Get friend requests
@@ -30,7 +30,7 @@ public struct Friendship: Interface {
 
     /// Handle friend request
     public func handleFriendApplication(_ req: HandleFriendApplicationReq) async throws {
-        try await Utils.callCoreAPI(funcName: .handleFriendApplication, req: req) as HandleFriendApplicationResp
+        _ = try await Utils.callCoreAPI(funcName: .handleFriendApplication, req: req) as HandleFriendApplicationResp
     }
 
     /// Check friendship status
@@ -42,7 +42,7 @@ public struct Friendship: Interface {
 
     /// Delete a friend
     public func deleteFriend(_ req: DeleteFriendReq) async throws {
-        try await Utils.callCoreAPI(funcName: .deleteFriend, req: req) as DeleteFriendResp
+        _ = try await Utils.callCoreAPI(funcName: .deleteFriend, req: req) as DeleteFriendResp
     }
 
     /// Get list of friends
@@ -68,12 +68,12 @@ public struct Friendship: Interface {
 
     /// Add to blacklist
     public func addBlack(_ req: AddBlackReq) async throws {
-        try await Utils.callCoreAPI(funcName: .addBlack, req: req) as AddBlackResp
+        _ = try await Utils.callCoreAPI(funcName: .addBlack, req: req) as AddBlackResp
     }
 
     /// Remove from blacklist
     public func deleteBlack(_ req: DeleteBlackReq) async throws {
-        try await Utils.callCoreAPI(funcName: .deleteBlack, req: req) as DeleteBlackResp
+        _ = try await Utils.callCoreAPI(funcName: .deleteBlack, req: req) as DeleteBlackResp
     }
 
     /// Get blacklist
@@ -85,6 +85,6 @@ public struct Friendship: Interface {
 
     /// Update friend information
     public func updateFriends(_ req: UpdateFriendReq) async throws {
-        try await Utils.callCoreAPI(funcName: .updateFriend, req: req) as UpdateFriendResp
+        _ = try await Utils.callCoreAPI(funcName: .updateFriend, req: req) as UpdateFriendResp
     }
 }
